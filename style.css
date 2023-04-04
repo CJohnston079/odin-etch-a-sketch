@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    padding: 2rem;
+    font-family: 'Geostar Fill', cursive;
+    font-size: 4rem;
+}
