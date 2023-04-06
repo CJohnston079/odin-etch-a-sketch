@@ -1,6 +1,6 @@
 const canvas = document.querySelector('#canvas');
-let gridArea = 0;
 let pixels = document.querySelectorAll('.pixel');
+let gridArea = 0;
 
 generateGrid(8)
 
@@ -9,7 +9,7 @@ function generateGrid(gridSize) {
     resetGrid()
     let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
-        generatePixel()
+        generatePixels()
     }
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
     return gridArea;
@@ -21,8 +21,10 @@ function resetGrid() {
       });
 }
 
-function generatePixel() {
+function generatePixels() {
     let div = document.createElement('div');
     div.classList.add('pixel');
     canvas.appendChild(div);
+    pixels = document.querySelectorAll('.pixel');
+    return pixels
 }
