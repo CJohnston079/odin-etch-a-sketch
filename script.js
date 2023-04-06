@@ -1,24 +1,21 @@
 const canvas = document.querySelector('#canvas');
-let currentGridSize = 0;
+let gridArea = 0;
+let pixels = document.querySelectorAll('.pixel');
 
 generateGrid(8)
 
 function generateGrid(gridSize) {
-    if (gridSize < 4 || gridSize > 64) {
-        return
-    }
-    let gridArea = gridSize*gridSize
+    if (gridSize < 4 || gridSize > 64) return
     resetGrid()
+    let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
         generatePixel()
     }
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
-    currentGridSize = gridArea;
-    return currentGridSize
+    return gridArea;
 }
 
 function resetGrid() {
-    let pixels = document.querySelectorAll('.pixel');
     pixels.forEach(pixel => {
         pixel.remove();
       });
