@@ -21,12 +21,11 @@ h1 {
     height: 40rem;
     background-color: #e5e5e5;
     display: grid;
-    grid-template: ;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    padding: 0.5px;
+    /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }
 
 .pixel {
     background-color: white;
-    border: solid #e5e5e5 0.1rem;
+    border: solid #e5e5e5 0.5px;
 }
