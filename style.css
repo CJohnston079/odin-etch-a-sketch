@@ -4,8 +4,29 @@
     text-align: center;
 }
 
+body {
+    background-color: #F2F2F2;
+}
+
 h1 {
     padding: 2rem;
     font-family: 'Geostar Fill', cursive;
     font-size: 4rem;
+    color: #333333;
+}
+
+#canvas {
+    margin: 0 auto;
+    width: 40rem;
+    height: 40rem;
+    background-color: #e5e5e5;
+    display: grid;
+    grid-template: ;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.pixel {
+    background-color: white;
+    border: solid #e5e5e5 0.1rem;
 }
