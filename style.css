@@ -22,10 +22,18 @@ h1 {
     background-color: #e5e5e5;
     display: grid;
     padding: 0.5px;
+    box-shadow: 0px 0px 4rem #E5E5E5;
+    /* cursor: none; */
     /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }
 
 .pixel {
     background-color: white;
     border: solid #e5e5e5 0.5px;
+    animation: zoom-in 500ms;
+}
+
+@keyframes zoom-in {
+    0% {transform: scale(0)}
+    100% {transform: scale(1)}
 }
