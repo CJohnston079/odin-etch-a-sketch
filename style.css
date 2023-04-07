@@ -2,10 +2,15 @@
     margin: 0;
     padding: 0;
     text-align: center;
+    font-family: sans-serif;
 }
 
 body {
     background-color: #F2F2F2;
+}
+
+:root {
+    --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
 }
 
 h1 {
@@ -17,7 +22,6 @@ h1 {
 
 #pixel-painter {
     display: flex;
-    justify-content: flex-end;   
 }
 
 .segment {
@@ -25,35 +29,37 @@ h1 {
     display: flex;
     justify-content: flex-end;}
 
-#tools {
-    height: 100%;
-    background-color: white;
-    box-shadow: 0px 0px 1rem #E5E5E5;
+#toolbar {
+    height: 50%;
     display: flex;
     flex-direction: column;
-    padding: 0 1rem;
+    justify-content: space-evenly;
+    background-color: white;
+    box-shadow: 0px 0px 8px #E5E5E5;
+    border-radius: 1.4rem;
 }
 
 .brush {
     width: 2rem;
     height: 2rem;
-    border: solid #E5E5E5 2px;
-    border-radius: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 4px;
-    transition: border 500ms;
-}
-
-.brush:hover {
-    border: solid black 2px;
+    border: solid #E5E5E5 1px;
+    border-radius: 2rem;
     cursor: pointer;
 }
 
-.brush-active-colour {
-    height: 80%;
-    width: 80%;
+.brush:hover {
+    border-color: darkgray;
+    background-color: white;
+}
+
+.brush-icon {
+    height: 70%;
+    width: 70%;
+    background: var(--swatch-highlight);
     border-radius: 1rem;
 }
 
@@ -65,7 +71,7 @@ h1 {
     display: grid;
     flex-shrink: 0;
     padding: 0.5px;
-    box-shadow: 0px 0px 1rem #E5E5E5;
+    box-shadow: 0px 0px 8px #E5E5E5;
     /* cursor: none; */
     /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }

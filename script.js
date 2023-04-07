@@ -58,6 +58,15 @@ function paintPixel(pixel) {
 
 // brushes
 
+const brushOneElement = document.querySelector('#brush-one')
+const brushTwoElement = document.querySelector('#brush-two')
+const brushThreeElement = document.querySelector('#brush-three')
+const brushFourElement = document.querySelector('#brush-four')
+const brushFiveElement = document.querySelector('#brush-five')
+const brushSixElement = document.querySelector('#brush-six')
+
+const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement]
+
 let brushOne = 'black'
 let brushTwo = 'white'
 let brushThree = 'red'
@@ -66,6 +75,29 @@ let brushFive = 'green'
 let brushSix = 'yellow'
 
 let activeBrush = brushOne
+
+brushElements.forEach(brush => {
+    brush.addEventListener('mousedown', () => {
+        selectActiveBrush(brush)
+    })
+});
+
+function selectActiveBrush(brush) {
+    if (brush === brushOneElement) {
+        activeBrush = brushOne;
+    } else if (brush === brushTwoElement) {
+        activeBrush = brushTwo;
+    } else if (brush === brushThreeElement) {
+        activeBrush = brushThree;
+    } else if (brush === brushFourElement) {
+        activeBrush = brushFour;
+    } else if (brush === brushFiveElement) {
+        activeBrush = brushFive;
+    } else if (brush === brushSixElement) {
+        activeBrush = brushSix;
+    } 
+    return activeBrush
+}
 
 // toggle border off
 
