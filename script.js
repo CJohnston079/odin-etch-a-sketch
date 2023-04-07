@@ -58,14 +58,14 @@ function paintPixel(pixel) {
 
 // brushes
 
-let activeBrush = brushOne
-
 let brushOne = 'black'
 let brushTwo = 'white'
 let brushThree = 'red'
 let brushFour = 'blue'
 let brushFive = 'green'
 let brushSix = 'yellow'
+
+let activeBrush = brushOne
 
 // toggle border off
 
