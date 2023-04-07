@@ -34,12 +34,12 @@ function generatePixels(i) {
 // paint functions
 
 canvas.addEventListener('mousedown', enablePainting)
-canvas.addEventListener('mouseup', disablePainting)
+canvas.addEventListener('mouseup', () => {paintingEnabled = false})
 
-let mousedown = false
+let paintingEnabled = false
 
 function enablePainting() {
-    mousedown = true
+    paintingEnabled = true
     pixels.forEach(pixel => {
         pixel.addEventListener('mousemove', () => {
             paintPixel(pixel)
@@ -51,12 +51,26 @@ function enablePainting() {
 }
 
 function paintPixel(pixel) {
-    if (mousedown === true) {
-        pixel.style.backgroundColor = 'black';
+    if (paintingEnabled === true) {
+        pixel.style.backgroundColor = activeBrush;
     }
 }
 
-function disablePainting() {
-    mousedown = false
-    return mousedown
+// brushes
+
+let activeBrush = brushOne
+
+let brushOne = 'black'
+let brushTwo = 'white'
+let brushThree = 'red'
+let brushFour = 'blue'
+let brushFive = 'green'
+let brushSix = 'yellow'
+
+// toggle border off
+
+function toggleGrid() {
+    pixels.forEach(pixel => {
+        pixel.style.border = 'none'
+    })
 }
