@@ -1,5 +1,5 @@
 const canvas = document.querySelector('#canvas');
-let pixels = document.querySelectorAll('.pixel');
+let cells = document.querySelectorAll('.cell');
 let gridArea = 0;
 
 const gridSlider = document.querySelector('#canvas-size-slider')
@@ -16,25 +16,25 @@ function generateGrid(gridSize) {
     resetGrid()
     let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
-        generatePixels(i)
+        generateCells(i)
     }
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
     return gridArea;
 }
 
 function resetGrid() {
-    pixels.forEach(pixel => {
-        pixel.remove();
+    cells.forEach(cell => {
+        cell.remove();
       });
 }
 
-function generatePixels(i) {
+function generateCells(i) {
     setTimeout(() => {
         let div = document.createElement('div');
-        div.classList.add('pixel');
+        div.classList.add('cell');
         canvas.appendChild(div);
-        pixels = document.querySelectorAll('.pixel');
-        return pixels
+        cells = document.querySelectorAll('.cell');
+        return cells
     }, 1 * i)
 }
 
@@ -47,19 +47,19 @@ let paintingEnabled = false
 
 function enablePainting() {
     paintingEnabled = true
-    pixels.forEach(pixel => {
-        pixel.addEventListener('mousemove', () => {
-            paintPixel(pixel)
+    cells.forEach(cell => {
+        cell.addEventListener('mousemove', () => {
+            paintCell(cell)
         })
-        pixel.addEventListener('mouseup', () => {
-            paintPixel(pixel)
+        cell.addEventListener('mouseup', () => {
+            paintCell(cell)
         })
     });
 }
 
-function paintPixel(pixel) {
+function paintCell(cell) {
     if (paintingEnabled === true) {
-        pixel.style.backgroundColor = activeBrush;
+        cell.style.backgroundColor = activeBrush;
     }
 }
 
@@ -109,7 +109,7 @@ function selectActiveBrush(brush) {
 // toggle border off
 
 function toggleGrid() {
-    pixels.forEach(pixel => {
-        pixel.style.border = 'none'
+    cells.forEach(cell => {
+        cell.style.border = 'none'
     })
 }
