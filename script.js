@@ -2,7 +2,14 @@ const canvas = document.querySelector('#canvas');
 let pixels = document.querySelectorAll('.pixel');
 let gridArea = 0;
 
-generateGrid(8)
+const gridSlider = document.querySelector('#canvas-size-slider')
+
+generateGrid(gridSlider.value)
+
+gridSlider.addEventListener('input', () => {
+    generateGrid(gridSlider.value)
+    console.log(gridSlider.value)
+})
 
 function generateGrid(gridSize) {
     if (gridSize < 4 || gridSize > 32) return

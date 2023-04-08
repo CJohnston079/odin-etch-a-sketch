@@ -10,6 +10,11 @@ body {
 }
 
 :root {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
     --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
 }
 
@@ -18,6 +23,18 @@ body {
     font-family: 'Geostar Fill', cursive;
     font-size: 4rem;
     color: #333333;
+}
+
+.canvas-size-slider-container {
+    display: flex;
+    justify-content: center;
+}
+
+#canvas-size-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1rem;
+    background-color: #d3d3d3;
 }
 
 .pixel-painter-container {
@@ -74,11 +91,6 @@ body {
     background-color: white;
     border: solid #e5e5e5 0.5px;
     animation: zoom-in 500ms;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
 }
 
 @keyframes zoom-in {
