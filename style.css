@@ -50,15 +50,15 @@ body {
 #canvas-size-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 0.2rem;
+    width: 0.1rem;
     height: 1.5rem;
-    background: gray;
+    background-color: black;
     cursor: e-resize;
     transition: 100ms;
 }
 
 #canvas-size-slider::-webkit-slider-thumb:hover {
-    height: 2rem;
+    height: 2.5rem;
 }
 
 .pixel-painter-container {
@@ -120,7 +120,8 @@ body {
 
 .cell {
     background-color: white;
-    border: solid #E5E5E5 1px;
+    border: solid #E5E5E5 0.5px;
+    /* transition: background-color 500ms; */
     animation: zoom-in 500ms;
 }
 

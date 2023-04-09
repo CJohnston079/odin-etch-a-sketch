@@ -6,18 +6,22 @@ const gridSlider = document.querySelector('#canvas-size-slider')
 
 generateGrid(gridSlider.value)
 
-gridSlider.addEventListener('input', () => {
+gridSlider.addEventListener('change', () => {
     generateGrid(gridSlider.value)
-    console.log(gridSlider.value)
 })
 
+function logGridSize(gridArea, gridSize) {
+    console.log(`Grid area: ${gridArea} \nGrid size: ${gridSize}x${gridSize}`)
+}
+
 function generateGrid(gridSize) {
-    if (gridSize < 4 || gridSize > 32) return
+    if (gridSize < 4 || gridSize > 64) return
     resetGrid()
     let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
-        generateCells(i)
+        setTimeout(generateCells, Math.floor(500/gridSize)*(i%gridSize))
     }
+    logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
     return gridArea;
 }
@@ -28,14 +32,12 @@ function resetGrid() {
       });
 }
 
-function generateCells(i) {
-    setTimeout(() => {
+function generateCells() {
         let div = document.createElement('div');
         div.classList.add('cell');
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
         return cells
-    }, 1 * i)
 }
 
 // paint functions
