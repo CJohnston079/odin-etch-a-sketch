@@ -122,7 +122,7 @@ body {
     background-color: white;
     border: solid #E5E5E5 0.5px;
     /* transition: background-color 500ms; */
-    animation: zoom-in 500ms;
+    animation: zoom-in 500ms ease-out;
 }
 
 @keyframes zoom-in {

@@ -19,7 +19,7 @@ function generateGrid(gridSize) {
     resetGrid()
     let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
-        setTimeout(generateCells, Math.floor(500/gridSize)*(i%gridSize))
+        setTimeout(generateCells, Math.floor(250/gridSize)*(i%gridSize))
     }
     logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
