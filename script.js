@@ -1,6 +1,8 @@
 const canvas = document.querySelector('#canvas');
 let cells = document.querySelectorAll('.cell');
 let gridArea = 0;
+let gridEnabled = true;
+let gridMode = 'light';
 
 const gridSlider = document.querySelector('#canvas-size-slider')
 
@@ -35,6 +37,10 @@ function resetGrid() {
 function generateCells() {
         let div = document.createElement('div');
         div.classList.add('cell');
+        if (gridEnabled === true) {
+            gridMode === 'light' ? div.classList.add('grid-light') :
+            div.classList.add('grid-dark')
+        }
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
         return cells
@@ -112,6 +118,33 @@ function selectActiveBrush(brush) {
 
 function toggleGrid() {
     cells.forEach(cell => {
-        cell.style.border = 'none'
+        if (gridMode === 'light') {
+            cell.classList.toggle('grid-light');
+        } else if (gridMode === 'dark') {
+            cell.classList.toggle('grid-dark');
+        }
     })
+    if (gridEnabled === true & gridMode === 'dark') {
+        canvas.style.backgroundColor = '#e5e5e5'
+    } else if (gridEnabled === false & gridMode === 'dark') {
+        canvas.style.backgroundColor = '#1a1a1a'
+    }
+    gridEnabled === true ? gridEnabled = false :
+    gridEnabled = true;
+    return gridEnabled;
+}
+
+function toggleGridMode() {
+    cells.forEach(cell => {
+        if (cell.classList.contains('grid-light')) {
+            cell.classList.replace('grid-light', 'grid-dark');
+            gridMode = 'dark';
+        } else if (cell.classList.contains('grid-dark')) {
+            cell.classList.replace('grid-dark', 'grid-light');
+            gridMode = 'light'
+        }
+    })
+    gridMode === 'light' ? canvas.style.backgroundColor = '#e5e5e5' :
+    canvas.style.backgroundColor = '#1a1a1a';
+    return gridMode;
 }
