@@ -15,6 +15,8 @@ body {
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+    --light-grey: #e5e5e5;
+    --dark-grey: #262626;
     --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
 }
 
@@ -124,11 +126,11 @@ body {
 }
 
 .grid-light {
-    border: solid #e5e5e5 0.5px;
+    border: solid var(--light-grey) 0.5px;
 }
 
 .grid-dark {
-    border: solid #1a1a1a 0.5px;
+    border: solid var(--dark-grey) 0.5px;
 }
 
 @keyframes zoom-in {

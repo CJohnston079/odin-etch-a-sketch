@@ -13,7 +13,7 @@ gridSlider.addEventListener('change', () => {
 })
 
 function logGridSize(gridArea, gridSize) {
-    console.log(`Grid area: ${gridArea} \nGrid size: ${gridSize}x${gridSize}`)
+    console.log(`Grid size: ${gridSize}x${gridSize}\nGrid area: ${gridArea} `)
 }
 
 function generateGrid(gridSize) {
@@ -98,20 +98,25 @@ brushElements.forEach(brush => {
 });
 
 function selectActiveBrush(brush) {
-    if (brush === brushOneElement) {
-        activeBrush = brushOne;
-    } else if (brush === brushTwoElement) {
-        activeBrush = brushTwo;
-    } else if (brush === brushThreeElement) {
-        activeBrush = brushThree;
-    } else if (brush === brushFourElement) {
-        activeBrush = brushFour;
-    } else if (brush === brushFiveElement) {
-        activeBrush = brushFive;
-    } else if (brush === brushSixElement) {
-        activeBrush = brushSix;
-    } 
-    return activeBrush
+    switch(brush) {
+        case brushOneElement:
+            activeBrush = brushOne;
+            break;
+        case brushTwoElement:
+            activeBrush = brushTwo;
+            break;
+        case brushThreeElement:
+            activeBrush = brushThree;
+            break;
+        case brushFourElement:
+            activeBrush = brushFour;
+            break;
+        case brushFiveElement:
+            activeBrush = brushFive;
+            break;
+        case brushSixElement:
+            activeBrush = brushSix;
+    }
 }
 
 // toggle border off
@@ -125,9 +130,9 @@ function toggleGrid() {
         }
     })
     if (gridEnabled === true & gridMode === 'dark') {
-        canvas.style.backgroundColor = '#e5e5e5'
+        canvas.style.backgroundColor = 'var(--light-grey)'
     } else if (gridEnabled === false & gridMode === 'dark') {
-        canvas.style.backgroundColor = '#1a1a1a'
+        canvas.style.backgroundColor = 'var(--dark-grey)'
     }
     gridEnabled === true ? gridEnabled = false :
     gridEnabled = true;
@@ -145,6 +150,6 @@ function toggleGridMode() {
         }
     })
     gridMode === 'light' ? canvas.style.backgroundColor = '#e5e5e5' :
-    canvas.style.backgroundColor = '#1a1a1a';
+    canvas.style.backgroundColor = 'var(--dark-grey)';
     return gridMode;
 }
