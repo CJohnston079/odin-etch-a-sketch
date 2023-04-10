@@ -90,6 +90,7 @@ let brushFive = 'green'
 let brushSix = 'yellow'
 
 let activeBrush = brushOne
+let activeBrushElement = brushOneElement
 
 brushElements.forEach(brush => {
     brush.addEventListener('mousedown', () => {
@@ -98,25 +99,33 @@ brushElements.forEach(brush => {
 });
 
 function selectActiveBrush(brush) {
+    activeBrushElement.classList.toggle('primary-brush');
     switch(brush) {
         case brushOneElement:
             activeBrush = brushOne;
+            activeBrushElement = brushOneElement
             break;
         case brushTwoElement:
             activeBrush = brushTwo;
+            activeBrushElement = brushTwoElement
             break;
         case brushThreeElement:
             activeBrush = brushThree;
+            activeBrushElement = brushThreeElement
             break;
         case brushFourElement:
             activeBrush = brushFour;
+            activeBrushElement = brushFourElement
             break;
         case brushFiveElement:
             activeBrush = brushFive;
+            activeBrushElement = brushFiveElement
             break;
         case brushSixElement:
             activeBrush = brushSix;
+            activeBrushElement = brushSixElement
     }
+    activeBrushElement.classList.toggle('primary-brush');
 }
 
 // toggle border off

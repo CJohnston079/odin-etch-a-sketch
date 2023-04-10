@@ -95,7 +95,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 4px;
-    border: solid #E5E5E5 1px;
+    border: solid var(--light-grey) 1px;
     border-radius: 2rem;
     cursor: pointer;
 }
@@ -105,6 +105,10 @@ body {
     width: 70%;
     background: var(--swatch-highlight);
     border-radius: 1rem;
+}
+
+.primary-brush {
+    border: solid var(--dark-grey) 1px;
 }
 
 #canvas {
