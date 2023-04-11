@@ -3,6 +3,7 @@ let cells = document.querySelectorAll('.cell');
 let gridArea = 0;
 let gridEnabled = true;
 let gridMode = 'light'; 
+let canvasColour = 'white';
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 
@@ -79,7 +80,9 @@ function previewCell(cell) {
 // paint functions
 
 canvas.addEventListener('mousedown', enablePainting);
-canvas.addEventListener('mouseup', () => {isPainting = false});
+canvas.addEventListener('mouseup', () => {
+    isPainting = false;
+});
 
 let isPainting = false;
 
