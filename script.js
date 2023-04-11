@@ -59,6 +59,9 @@ function previewCellColour() {
                 cell.style.backgroundColor = activeBrush;
             }
         });
+        cell.addEventListener('mouseup', () => {
+            currentCellColour = activeBrush;
+        })
         cell.addEventListener('mouseout', () => {
             if (paintingEnabled === false) {
                 cell.style.backgroundColor = currentCellColour;
