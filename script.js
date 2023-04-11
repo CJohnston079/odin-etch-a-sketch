@@ -54,7 +54,7 @@ function previewCellColour() {
     cells.forEach(cell => {
         let currentCellColour = cell.style.backgroundColor;
         cell.addEventListener('mouseenter', () => {
-            if (paintingEnabled === false) {
+            if (isPainting === false) {
                 currentCellColour = cell.style.backgroundColor;
                 cell.style.backgroundColor = activeBrush;
             }
@@ -63,7 +63,7 @@ function previewCellColour() {
             currentCellColour = activeBrush;
         })
         cell.addEventListener('mouseout', () => {
-            if (paintingEnabled === false) {
+            if (isPainting === false) {
                 cell.style.backgroundColor = currentCellColour;
             }
         });
@@ -71,7 +71,7 @@ function previewCellColour() {
 }
 
 function previewCell(cell) {
-    if (paintingEnabled === false) {
+    if (isPainting === false) {
         cell.style.backgroundColor = activeBrush;
     }
 }
@@ -79,12 +79,12 @@ function previewCell(cell) {
 // paint functions
 
 canvas.addEventListener('mousedown', enablePainting);
-canvas.addEventListener('mouseup', () => {paintingEnabled = false});
+canvas.addEventListener('mouseup', () => {isPainting = false});
 
-let paintingEnabled = false;
+let isPainting = false;
 
 function enablePainting() {
-    paintingEnabled = true;
+    isPainting = true;
     cells.forEach(cell => {
         cell.addEventListener('mousemove', () => {
             paintCell(cell);
@@ -96,7 +96,7 @@ function enablePainting() {
 }
 
 function paintCell(cell) {
-    if (paintingEnabled === true) {
+    if (isPainting === true) {
         cell.style.backgroundColor = activeBrush;
     }
 }
