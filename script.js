@@ -2,7 +2,7 @@ const canvas = document.querySelector('#canvas');
 let cells = document.querySelectorAll('.cell');
 let gridArea = 0;
 let gridEnabled = true;
-let gridMode = 'light';
+let gridMode = 'light'; 
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 
