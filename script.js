@@ -4,27 +4,29 @@ let gridArea = 0;
 let gridEnabled = true;
 let gridMode = 'light';
 
-const gridSlider = document.querySelector('#canvas-size-slider')
+const gridSlider = document.querySelector('#canvas-size-slider');
 
-generateGrid(gridSlider.value)
+generateGrid(gridSlider.value);
 
 gridSlider.addEventListener('change', () => {
     generateGrid(gridSlider.value)
 })
 
 function logGridSize(gridArea, gridSize) {
+    console.clear()
     console.log(`Grid size: ${gridSize}x${gridSize}\nGrid area: ${gridArea} `)
 }
 
 function generateGrid(gridSize) {
     if (gridSize < 4 || gridSize > 64) return
-    resetGrid()
+    resetGrid();
     let gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
-        setTimeout(generateCells, Math.floor(250/gridSize)*(i%gridSize))
+        setTimeout(generateCells, Math.floor(250/gridSize)*(i%gridSize));
     }
     logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
+    setTimeout(previewCellColour, 200)
     return gridArea;
 }
 
@@ -39,28 +41,53 @@ function generateCells() {
         div.classList.add('cell');
         if (gridEnabled === true) {
             gridMode === 'light' ? div.classList.add('grid-light') :
-            div.classList.add('grid-dark')
+            div.classList.add('grid-dark');
         }
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
-        return cells
+        return cells;
+}
+
+// hover preview
+
+function previewCellColour() {
+    cells.forEach(cell => {
+        let currentCellColour = cell.style.backgroundColor;
+        cell.addEventListener('mouseenter', () => {
+            if (paintingEnabled === false) {
+                currentCellColour = cell.style.backgroundColor;
+                cell.style.backgroundColor = activeBrush;
+            }
+        });
+        cell.addEventListener('mouseout', () => {
+            if (paintingEnabled === false) {
+                cell.style.backgroundColor = currentCellColour;
+            }
+        });
+    });
+}
+
+function previewCell(cell) {
+    if (paintingEnabled === false) {
+        cell.style.backgroundColor = activeBrush;
+    }
 }
 
 // paint functions
 
-canvas.addEventListener('mousedown', enablePainting)
-canvas.addEventListener('mouseup', () => {paintingEnabled = false})
+canvas.addEventListener('mousedown', enablePainting);
+canvas.addEventListener('mouseup', () => {paintingEnabled = false});
 
-let paintingEnabled = false
+let paintingEnabled = false;
 
 function enablePainting() {
-    paintingEnabled = true
+    paintingEnabled = true;
     cells.forEach(cell => {
         cell.addEventListener('mousemove', () => {
-            paintCell(cell)
+            paintCell(cell);
         })
         cell.addEventListener('mouseup', () => {
-            paintCell(cell)
+            paintCell(cell);
         })
     });
 }
@@ -73,28 +100,28 @@ function paintCell(cell) {
 
 // brushes
 
-const brushOneElement = document.querySelector('#brush-one')
-const brushTwoElement = document.querySelector('#brush-two')
-const brushThreeElement = document.querySelector('#brush-three')
-const brushFourElement = document.querySelector('#brush-four')
-const brushFiveElement = document.querySelector('#brush-five')
-const brushSixElement = document.querySelector('#brush-six')
+const brushOneElement = document.querySelector('#brush-one');
+const brushTwoElement = document.querySelector('#brush-two');
+const brushThreeElement = document.querySelector('#brush-three');
+const brushFourElement = document.querySelector('#brush-four');
+const brushFiveElement = document.querySelector('#brush-five');
+const brushSixElement = document.querySelector('#brush-six');
 
-const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement]
+const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement];
 
-let brushOne = 'black'
-let brushTwo = 'white'
-let brushThree = 'red'
-let brushFour = 'blue'
-let brushFive = 'green'
-let brushSix = 'yellow'
+let brushOne = 'black';
+let brushTwo = 'white';
+let brushThree = 'red';
+let brushFour = 'blue';
+let brushFive = 'green';
+let brushSix = 'yellow';
 
-let activeBrush = brushOne
-let activeBrushElement = brushOneElement
+let activeBrush = brushOne;
+let activeBrushElement = brushOneElement;
 
 brushElements.forEach(brush => {
     brush.addEventListener('mousedown', () => {
-        selectActiveBrush(brush)
+        selectActiveBrush(brush);
     })
 });
 
@@ -115,7 +142,7 @@ function selectActiveBrush(brush) {
             break;
         case brushFiveElement:
             activeBrush = brushFive;
-            break;
+            break;''
         case brushSixElement:
             activeBrush = brushSix;
     }
@@ -134,9 +161,9 @@ function toggleGrid() {
         }
     })
     if (gridEnabled === true & gridMode === 'dark') {
-        canvas.style.backgroundColor = 'var(--light-grey)'
+        canvas.style.backgroundColor = 'var(--light-grey)';
     } else if (gridEnabled === false & gridMode === 'dark') {
-        canvas.style.backgroundColor = 'var(--dark-grey)'
+        canvas.style.backgroundColor = 'var(--dark-grey)';
     }
     gridEnabled === true ? gridEnabled = false :
     gridEnabled = true;
@@ -150,7 +177,7 @@ function toggleGridMode() {
             gridMode = 'dark';
         } else if (cell.classList.contains('grid-dark')) {
             cell.classList.replace('grid-dark', 'grid-light');
-            gridMode = 'light'
+            gridMode = 'light';
         }
     })
     gridMode === 'light' ? canvas.style.backgroundColor = '#e5e5e5' :
