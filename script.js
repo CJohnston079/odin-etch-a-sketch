@@ -6,6 +6,21 @@ let gridMode = 'light';
 let canvasColour = 'white';
 
 const gridSlider = document.querySelector('#canvas-size-slider');
+const decreaseGridSizeElement = document.querySelectorAll('.slider-operator')[0];
+const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1];
+
+decreaseGridSizeElement.addEventListener('click', decreaseGridSize)
+increaseGridSizeElement.addEventListener('click', increaseGridSize)
+
+function decreaseGridSize(operator) {
+        gridSlider.stepDown()
+        generateGrid(gridSlider.value)
+}
+
+function increaseGridSize(operator) {
+    gridSlider.stepUp()
+    generateGrid(gridSlider.value)
+}
 
 generateGrid(gridSlider.value);
 
@@ -112,17 +127,23 @@ const brushThreeElement = document.querySelector('#brush-three');
 const brushFourElement = document.querySelector('#brush-four');
 const brushFiveElement = document.querySelector('#brush-five');
 const brushSixElement = document.querySelector('#brush-six');
+const brushElement7 = document.querySelector('#brush-seven');
+const brushElement8 = document.querySelector('#brush-eight');
+const brushElement9 = document.querySelector('#brush-nine');
 
-const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement];
+const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement, brushElement7, brushElement8, brushElement9];
 
-let brushOne = 'black';
-let brushTwo = 'white';
-let brushThree = 'red';
-let brushFour = 'blue';
-let brushFive = 'green';
-let brushSix = 'yellow';
+let brush1 = 'black';
+let brush2 = 'red';
+let brush3 = 'orange';
+let brush4 = 'yellow';
+let brush5 = 'green';
+let brush6 = 'cyan';
+let brush7 = 'blue';
+let brush8 = 'hotpink';
+let brush9 = 'white';
 
-let activeBrush = brushOne;
+let activeBrush = brush1;
 let activeBrushElement = brushOneElement;
 
 brushElements.forEach(brush => {
@@ -135,22 +156,31 @@ function selectActiveBrush(brush) {
     activeBrushElement.classList.toggle('primary-brush');
     switch(brush) {
         case brushOneElement:
-            activeBrush = brushOne;
+            activeBrush = brush1;
             break;
         case brushTwoElement:
-            activeBrush = brushTwo;
+            activeBrush = brush2;
             break;
         case brushThreeElement:
-            activeBrush = brushThree;
+            activeBrush = brush3;
             break;
         case brushFourElement:
-            activeBrush = brushFour;
+            activeBrush = brush4;
             break;
         case brushFiveElement:
-            activeBrush = brushFive;
+            activeBrush = brush5;
             break;''
         case brushSixElement:
-            activeBrush = brushSix;
+            activeBrush = brush6;
+            break;''
+            case brushElement7:
+            activeBrush = brush7;
+            break;''
+        case brushElement8:
+            activeBrush = brush8;
+            break;''
+        case brushElement9:
+            activeBrush = brush9;
     }
     activeBrushElement = brush;
     activeBrushElement.classList.toggle('primary-brush');
