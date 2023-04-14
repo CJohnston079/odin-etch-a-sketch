@@ -21,7 +21,7 @@ body {
 }
 
 #site-title {
-    margin-top: 2rem;
+    margin: 2rem;
     font-family: 'Geostar Fill', cursive;
     font-size: 4rem;
     color: #333333;
@@ -42,14 +42,6 @@ body {
     border: solid #E5E5E5 1px;
     box-shadow: 0px 0px 4px #E5E5E5;
     cursor: pointer;
-}
-
-.slider-operator:first-of-type {
-    border-radius: 1rem 0 0 1rem;
-}
-
-.slider-operator:last-of-type {
-    border-radius: 0 1rem 1rem 0;
 }
 
 #canvas-size-slider {
@@ -100,28 +92,23 @@ body {
     padding: 6px;
 }
 
-.brush {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 4px;
-    border: solid var(--light-grey) 1px;
-    border-radius: 2rem;
+.tool {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.5rem;
+    outline: solid var(--light-grey) 1px;
+    border: solid white 4px;
+    border-radius: 100%;
     cursor: pointer;
-    transition: border 200ms;
+    transition: outline 200ms;
 }
 
-.brush-icon {
-    height: 70%;
-    width: 70%;
+.brush {
     background: var(--swatch-highlight);
-    border-radius: 1rem;
 }
 
 .primary-brush {
-    border: solid var(--dark-grey) 1px;
+    outline: solid var(--dark-grey) 1px;
 }
 
 #canvas {

@@ -13,88 +13,46 @@
     </head>
     <body>
         <h1 id="site-title">Pixel Painter</h1>
-        <div class="canvas-size-slider-container">
-            <p class="slider-operator">-</p>
-            <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
-            <p class="slider-operator">+</p>
-        </div>
         <div class="pixel-painter-container">
             <div class="toolbar-container">
-                <div id="grid-settings" class="toolbar">
-                    <div class="brush">
-                        <div class="brush-icon"></div>
-                    </div>
-                    <div class="brush">
-                        <div class="brush-icon"></div>
-                    </div>
-                    <div class="brush">
-                        <div class="brush-icon"></div>
-                    </div>
-                    <div class="brush">
-                        <div class="brush-icon"></div>
-                    </div>
+                <div id="canvas-options" class="toolbar">
+                    <div class="tool"></div>
+                    <div class="tool"></div>
+                    <div class="tool"></div>
+                    <div class="tool"></div>
+                    <div class="tool"></div>
+                    <div class="tool"></div>
                 </div>
                 <div id="tools" class="toolbar">
-                    <div id="brush" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-one" class="brush primary-brush">
-                        <div class="brush-icon" style="background-color: black;"></div>
-                    </div>
-                    <div id="brush-size" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-two" class="brush">
-                        <div class="brush-icon" style="background-color: red;"></div>
-                    </div>
-                    <div id="brush-shape" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-three" class="brush">
-                        <div class="brush-icon" style="background-color: orange;"></div>
-                    </div>
-                    <div id="flood-fill" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-four" class="brush">
-                        <div class="brush-icon" style="background-color: yellow;"></div>
-                    </div>
-                    <div id="colour-picker" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-five" class="brush">
-                        <div class="brush-icon" style="background-color: green;"></div>
-                    </div>
-                    <div id="lighten" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-six" class="brush">
-                        <div class="brush-icon" style="background-color: cyan;"></div>
-                    </div>
-                    <div id="darken" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-seven" class="brush">
-                        <div class="brush-icon" style="background-color: blue;"></div>
-                    </div>
-                    <div id="eraser" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-eight" class="brush">
-                        <div class="brush-icon" style="background-color: hotpink;"></div>
-                    </div>
-                    <div id="download" class="brush">
-                        <div class="brush-icon" style="background-color: gray;"></div>
-                    </div>
-                    <div id="brush-nine" class="brush">
-                        <div class="brush-icon" style="background-color: white;"></div>
-                    </div>
+                    <div id="brush" class="tool"></div>
+                    <div id="brush-one" class="tool brush primary-brush" style="background-color: black;""></div>
+                    <div id="brush-size" class="tool"></div>
+                    <div id="brush-two" class="tool brush" style="background-color: red;"></div>
+                    <div id="brush-shape" class="tool"></div>
+                    <div id="brush-three" class="tool brush" style="background-color: orange;"></div>
+                    <div id="flood-fill" class="tool"></div>
+                    <div id="brush-four" class="tool brush" style="background-color: yellow;"></div>
+                    <div id="colour-picker" class="tool"></div>
+                    <div id="brush-five" class="tool brush" style="background-color: green;"></div>
+                    <div id="lighten" class="tool"></div>
+                    <div id="brush-six" class="tool brush" style="background-color: cyan;"></div>
+                    <div id="darken" class="tool"></div>
+                    <div id="brush-seven" class="tool brush" style="background-color: blue;"></div>
+                    <div id="eraser" class="tool"></div>
+                    <div id="brush-eight" class="tool brush" style="background-color: hotpink;"></div>
+                    <div id="download" class="tool"></div>
+                    <div id="brush-nine" class="tool brush" style="background-color: white;"></div>
                 </div>
             </div>
             <div id="canvas">
             </div>
             <div class="help">
             </div>
+        </div>
+        <div class="canvas-size-slider-container">
+            <p class="slider-operator">-</p>
+            <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
+            <p class="slider-operator">+</p>
         </div>
     </body>
 </html>
