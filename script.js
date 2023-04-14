@@ -42,7 +42,7 @@ function generateGrid(gridSize) {
     }
     logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
-    setTimeout(previewCellColour, 200)
+    setTimeout(previewCellColour, 500)
     return gridArea;
 }
 
