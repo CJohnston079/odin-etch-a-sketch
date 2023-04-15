@@ -188,7 +188,21 @@ function selectActiveBrush(brush) {
 
 // toggle border off
 
+const gridToggleButton = document.querySelectorAll('.tool')[1]
+const gridModeButton = document.querySelectorAll('.tool')[2]
+const resetCanvasButton = document.querySelectorAll('.tool')[3]
+const setCanvasColour = document.querySelectorAll('.tool')[4]
+
+gridToggleButton.addEventListener('mousedown', toggleGrid)
+gridModeButton.addEventListener('mousedown', () => {
+    toggleGridMode(),
+    toggleGridModeButton()
+    }
+)
+
 function toggleGrid() {
+    gridEnabled === true ? gridEnabled = false :
+    gridEnabled = true;
     cells.forEach(cell => {
         if (gridMode === 'light') {
             cell.classList.toggle('grid-light');
@@ -196,27 +210,39 @@ function toggleGrid() {
             cell.classList.toggle('grid-dark');
         }
     })
-    if (gridEnabled === true & gridMode === 'dark') {
-        canvas.style.backgroundColor = 'var(--light-grey)';
-    } else if (gridEnabled === false & gridMode === 'dark') {
-        canvas.style.backgroundColor = 'var(--dark-grey)';
-    }
-    gridEnabled === true ? gridEnabled = false :
-    gridEnabled = true;
+    gridMode === 'dark' ? toggleCanvasBackground() : {}
+    toggleGridButton()
     return gridEnabled;
 }
 
+function toggleGridButton() {
+    gridEnabled === true ? gridToggleButton.src = 'icons/icon-grid-on.svg' :
+    gridToggleButton.src = 'icons/icon-grid-off.svg';
+}
+
 function toggleGridMode() {
+    gridMode === 'light' ? gridMode = 'dark' :
+    gridMode = 'light';
     cells.forEach(cell => {
-        if (cell.classList.contains('grid-light')) {
+        if (gridMode === 'dark') {
             cell.classList.replace('grid-light', 'grid-dark');
-            gridMode = 'dark';
-        } else if (cell.classList.contains('grid-dark')) {
+        } else {
             cell.classList.replace('grid-dark', 'grid-light');
-            gridMode = 'light';
         }
     })
-    gridMode === 'light' ? canvas.style.backgroundColor = '#e5e5e5' :
-    canvas.style.backgroundColor = 'var(--dark-grey)';
+    toggleGridModeButton()
+    gridEnabled === true ? toggleCanvasBackground() : {}
     return gridMode;
 }
+
+function toggleCanvasBackground() {
+        canvas.style.backgroundColor === 'var(--dark-grey)' ? canvas.style.backgroundColor = 'var(--light-grey)' :
+        canvas.style.backgroundColor = 'var(--dark-grey)';
+}
+
+function toggleGridModeButton() {
+    gridMode === 'light' ? gridModeButton.src = 'icons/icon-grid-light.svg' :
+    gridModeButton.src = 'icons/icon-grid-dark.svg';
+}
+
+// resetCanvasButton.style.animation = 'rotate-360 500ms'
