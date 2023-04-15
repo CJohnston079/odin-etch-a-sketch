@@ -90,7 +90,7 @@ body {
     background: var(--swatch-highlight);
 }
 
-.primary-brush {
+.active-tool {
     outline: solid var(--dark-grey) 1px;
 }
 

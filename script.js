@@ -154,7 +154,7 @@ brushElements.forEach(brush => {
 });
 
 function selectActiveBrush(brush) {
-    activeBrushElement.classList.toggle('primary-brush');
+    activeBrushElement.classList.toggle('active-tool');
     switch(brush) {
         case brushOneElement:
             activeBrush = brush1;
@@ -184,7 +184,7 @@ function selectActiveBrush(brush) {
             activeBrush = brush9;
     }
     activeBrushElement = brush;
-    activeBrushElement.classList.toggle('primary-brush');
+    activeBrushElement.classList.toggle('active-tool');
 }
 
 // canvas options
