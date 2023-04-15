@@ -54,6 +54,7 @@ body {
     margin: 0.5rem auto;
     font-size: 1.4rem;
 }
+
 .toolbar {
     display: grid;
     grid-template-columns: auto auto;
@@ -61,7 +62,7 @@ body {
     box-shadow: 0px 0px 8px #E5E5E5;
     border-radius: 1.75rem;
     border: solid var(--light-grey) 1px;
-    padding: 6px;
+    padding: 0.25rem;
 }
 
 .tool {

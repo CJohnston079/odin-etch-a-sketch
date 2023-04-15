@@ -9,6 +9,8 @@ const gridSlider = document.querySelector('#canvas-size-slider');
 const decreaseGridSizeElement = document.querySelectorAll('.slider-operator')[0];
 const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1];
 
+generateGrid(gridSlider.value);
+
 decreaseGridSizeElement.addEventListener('click', decreaseGridSize)
 increaseGridSizeElement.addEventListener('click', increaseGridSize)
 
@@ -22,7 +24,6 @@ function increaseGridSize(operator) {
     generateGrid(gridSlider.value)
 }
 
-generateGrid(gridSlider.value);
 
 gridSlider.addEventListener('change', () => {
     generateGrid(gridSlider.value)
@@ -186,7 +187,7 @@ function selectActiveBrush(brush) {
     activeBrushElement.classList.toggle('primary-brush');
 }
 
-// toggle border off
+// canvas options
 
 const gridToggleButton = document.querySelectorAll('.tool')[1]
 const gridModeButton = document.querySelectorAll('.tool')[2]
@@ -194,11 +195,8 @@ const resetCanvasButton = document.querySelectorAll('.tool')[3]
 const setCanvasColour = document.querySelectorAll('.tool')[4]
 
 gridToggleButton.addEventListener('mousedown', toggleGrid)
-gridModeButton.addEventListener('mousedown', () => {
-    toggleGridMode(),
-    toggleGridModeButton()
-    }
-)
+gridModeButton.addEventListener('mousedown', toggleGridMode)
+resetCanvasButton.addEventListener('mousedown', resetCanvas)
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
@@ -212,6 +210,7 @@ function toggleGrid() {
     })
     gridMode === 'dark' ? toggleCanvasBackground() : {}
     toggleGridButton()
+    toggleGridModeButton()
     return gridEnabled;
 }
 
@@ -243,6 +242,16 @@ function toggleCanvasBackground() {
 function toggleGridModeButton() {
     gridMode === 'light' ? gridModeButton.src = 'icons/icon-grid-light.svg' :
     gridModeButton.src = 'icons/icon-grid-dark.svg';
+}
+
+function resetCanvas() {
+    generateGrid(gridSlider.value)
+    resetCanvasButton.style.animation = 'rotate-360 500ms'
+    resetCanvasButton.removeEventListener('mousedown', resetCanvas);
+    setTimeout(() => {
+        resetCanvasButton.addEventListener('mousedown', resetCanvas),
+        resetCanvasButton.style.animation = ''
+    }, 500)
 }
 
 // resetCanvasButton.style.animation = 'rotate-360 500ms'
