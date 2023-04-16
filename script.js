@@ -96,9 +96,13 @@ function previewCell(cell) {
 // paint functions
 
 canvas.addEventListener('mousedown', enablePainting);
-canvas.addEventListener('mouseup', () => {
+canvas.addEventListener('mouseup', disablePainting);
+canvas.addEventListener('mouseleave', disablePainting);
+
+function disablePainting() {
     isPainting = false;
-});
+    return isPainting
+}
 
 let isPainting = false;
 
