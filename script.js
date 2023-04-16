@@ -61,8 +61,8 @@ function generateCells() {
         if (gridEnabled === true) {
             gridMode === 'light' ? div.classList.add('grid-light') :
             div.classList.add('grid-dark');
-            div.style.backgroundColor = canvasColour
         }
+        div.style.backgroundColor = canvasColour
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
         return cells;
