@@ -117,6 +117,7 @@ function enablePainting() {
 function paintCell(cell) {
     if (isPainting === true) {
         cell.style.backgroundColor = activeBrush;
+        cell.classList.add('painted');
     }
 }
 
@@ -265,6 +266,7 @@ function animateResetCanvasButton () {
 function clearCells(cell) {
     cell.style.backgroundColor = canvasColour;
     cell.style.transition = 'background-colour, 1s';
+    cell.classList.remove('painted');
     setTimeout(() => {
         cell.style.transition = ''; 
     }, 1000)
@@ -279,6 +281,7 @@ function setCanvasColour() {
 }
 
 function setDefaultCellColour(cell) {
+    if (cell.classList.contains('painted')) return
     previewBrush = false
     currentCellColour = canvasColour;
     cell.style.backgroundColor = canvasColour;
