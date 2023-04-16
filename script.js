@@ -4,6 +4,8 @@ let gridArea = 0;
 let gridEnabled = true;
 let gridMode = 'light'; 
 let canvasColour = 'white';
+let previewBrush = true;
+let currentCellColour = canvasColour;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const decreaseGridSizeElement = document.querySelectorAll('.slider-operator')[0];
@@ -66,32 +68,25 @@ function generateCells() {
         return cells;
 }
 
-// hover preview
+// preview on hover
 
 function previewCellColour() {
     cells.forEach(cell => {
-        let currentCellColour = cell.style.backgroundColor;
+        currentCellColour = cell.style.backgroundColor;
         cell.addEventListener('mouseenter', () => {
-            if (isPainting === false) {
+            if (previewBrush === false || isPainting === true) return
                 currentCellColour = cell.style.backgroundColor;
                 cell.style.backgroundColor = activeBrush;
-            }
         });
         cell.addEventListener('mouseup', () => {
+            if (previewBrush === false) return
             currentCellColour = activeBrush;
         })
         cell.addEventListener('mouseout', () => {
-            if (isPainting === false) {
+            if (previewBrush === false || isPainting === true) return
                 cell.style.backgroundColor = currentCellColour;
-            }
         });
     });
-}
-
-function previewCell(cell) {
-    if (isPainting === false) {
-        cell.style.backgroundColor = activeBrush;
-    }
 }
 
 // paint functions
@@ -284,10 +279,14 @@ function setCanvasColour() {
 }
 
 function setDefaultCellColour(cell) {
-    if (cell.classList)
+    previewBrush = false
+    currentCellColour = canvasColour;
     cell.style.backgroundColor = canvasColour;
     cell.style.transition = 'background-colour, 1s';
     setTimeout(() => {
-        cell.style.transition = ''; 
+        cell.style.transition = '';
     }, 1000)
+    setTimeout(() => {
+        previewBrush = true;
+    }, 1500)
 }
