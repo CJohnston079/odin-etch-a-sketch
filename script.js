@@ -37,7 +37,7 @@ function logGridSize(gridArea, gridSize) {
 function generateGrid(gridSize) {
     if (gridSize < 4 || gridSize > 64) return
     resetGrid();
-    let gridArea = gridSize*gridSize
+    gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
         setTimeout(generateCells, Math.floor(250/gridSize)*(i%gridSize));
     }
@@ -245,7 +245,10 @@ function toggleGridModeButton() {
 }
 
 function resetCanvas() {
-    generateGrid(gridSlider.value)
+    let gridSize = Math.sqrt(gridArea);
+    for (let i = 0; i < gridArea; i++) {
+        setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
+    }
     resetCanvasButton.style.animation = 'rotate-360 500ms'
     resetCanvasButton.removeEventListener('mousedown', resetCanvas);
     setTimeout(() => {
@@ -254,4 +257,6 @@ function resetCanvas() {
     }, 500)
 }
 
-// resetCanvasButton.style.animation = 'rotate-360 500ms'
+function clearCells(cell) {
+    cell.style.backgroundColor = 'white';
+}
