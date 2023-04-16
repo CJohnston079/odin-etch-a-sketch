@@ -259,4 +259,8 @@ function resetCanvas() {
 
 function clearCells(cell) {
     cell.style.backgroundColor = 'white';
+    cell.style.transition = 'background-colour, 500ms';
+    setTimeout(() => {
+        cell.style.transition = ''; 
+    }, 500)
 }
