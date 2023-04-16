@@ -108,7 +108,6 @@ body {
 }
 
 .cell {
-    background-color: white;
     animation: zoom-in 500ms ease-out;
 }
 

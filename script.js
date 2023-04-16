@@ -59,6 +59,7 @@ function generateCells() {
         if (gridEnabled === true) {
             gridMode === 'light' ? div.classList.add('grid-light') :
             div.classList.add('grid-dark');
+            div.style.backgroundColor = canvasColour
         }
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
@@ -196,11 +197,12 @@ function selectActiveBrush(brush) {
 const gridToggleButton = document.querySelectorAll('.tool')[1]
 const gridModeButton = document.querySelectorAll('.tool')[2]
 const resetCanvasButton = document.querySelectorAll('.tool')[3]
-const setCanvasColour = document.querySelectorAll('.tool')[4]
+const setCanvasColourButton = document.querySelectorAll('.tool')[4]
 
 gridToggleButton.addEventListener('mousedown', toggleGrid)
 gridModeButton.addEventListener('mousedown', toggleGridMode)
 resetCanvasButton.addEventListener('mousedown', resetCanvas)
+setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
@@ -253,6 +255,10 @@ function resetCanvas() {
     for (let i = 0; i < gridArea; i++) {
         setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
     }
+    animateResetCanvasButton()
+}
+
+function animateResetCanvasButton () {
     resetCanvasButton.style.animation = 'rotate-360 500ms'
     resetCanvasButton.removeEventListener('mousedown', resetCanvas);
     setTimeout(() => {
@@ -262,9 +268,26 @@ function resetCanvas() {
 }
 
 function clearCells(cell) {
-    cell.style.backgroundColor = 'white';
-    cell.style.transition = 'background-colour, 500ms';
+    cell.style.backgroundColor = canvasColour;
+    cell.style.transition = 'background-colour, 1s';
     setTimeout(() => {
         cell.style.transition = ''; 
-    }, 500)
+    }, 1000)
+}
+
+function setCanvasColour() {
+    let gridSize = Math.sqrt(gridArea);
+    canvasColour = activeBrush;
+    for (let i = 0; i < gridArea; i++) {
+        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
+    }
+}
+
+function setDefaultCellColour(cell) {
+    if (cell.classList)
+    cell.style.backgroundColor = canvasColour;
+    cell.style.transition = 'background-colour, 1s';
+    setTimeout(() => {
+        cell.style.transition = ''; 
+    }, 1000)
 }
