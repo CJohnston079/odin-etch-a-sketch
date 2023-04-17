@@ -89,38 +89,6 @@ function previewCellColour() {
     });
 }
 
-// paint functions
-
-canvas.addEventListener('mousedown', enablePainting);
-canvas.addEventListener('mouseup', disablePainting);
-canvas.addEventListener('mouseleave', disablePainting);
-
-function disablePainting() {
-    isPainting = false;
-    return isPainting
-}
-
-let isPainting = false;
-
-function enablePainting() {
-    isPainting = true;
-    cells.forEach(cell => {
-        cell.addEventListener('mousemove', () => {
-            paintCell(cell);
-        })
-        cell.addEventListener('mouseup', () => {
-            paintCell(cell);
-        })
-    });
-}
-
-function paintCell(cell) {
-    if (isPainting === true) {
-        cell.style.backgroundColor = activeBrush;
-        cell.classList.add('painted');
-    }
-}
-
 // brushes
 
 const brushOneElement = document.querySelector('#brush-one');
@@ -274,6 +242,7 @@ function clearCells(cell) {
 
 function setCanvasColour() {
     let gridSize = Math.sqrt(gridArea);
+    activeBrush = activeBrushElement.style.backgroundColor
     canvasColour = activeBrush;
     for (let i = 0; i < gridArea; i++) {
         setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
@@ -292,4 +261,86 @@ function setDefaultCellColour(cell) {
     setTimeout(() => {
         previewBrush = true;
     }, 1500)
+}
+
+// tools
+
+const paintbrushToolElement = document.querySelectorAll('.tool')[5]
+const paintbrushSizeToolElement = document.querySelectorAll('.tool')[7]
+const paintbrushShapeToolElement = document.querySelectorAll('.tool')[9]
+const floodFillToolElement = document.querySelectorAll('.tool')[11]
+const colourPickerToolElement = document.querySelectorAll('.tool')[13]
+const brightenToolElement = document.querySelectorAll('.tool')[15]
+const darkenToolElement = document.querySelectorAll('.tool')[17]
+const eraserToolElement = document.querySelectorAll('.tool')[19]
+const downloadToolElement = document.querySelectorAll('.tool')[21]
+
+const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, brightenToolElement, darkenToolElement, eraserToolElement, downloadToolElement];
+
+let activeToolElement = paintbrushToolElement;
+
+toolElements.forEach(tool => {
+    tool.addEventListener('mousedown', () => {
+        selectActiveTool(tool);
+    })
+});
+
+function selectActiveTool(tool) {
+    activeToolElement.classList.toggle('active-tool');
+    activeToolElement = tool;
+    activeToolElement.classList.toggle('active-tool');
+}
+
+paintbrushToolElement.addEventListener('mousedown', disableEraser)
+eraserToolElement.addEventListener('mousedown', enableEraser)
+
+function enableEraser() {
+    if (activeToolElement !== eraserToolElement) return
+    activeBrush = canvasColour
+    eraserOn = true
+    return eraserOn
+}
+
+function disableEraser() {
+    activeBrush = activeBrushElement.style.backgroundColor
+    eraserOn = false
+    return eraserOn
+}
+
+// paint functions
+
+canvas.addEventListener('mousedown', enablePainting);
+canvas.addEventListener('mouseup', disablePainting);
+canvas.addEventListener('mouseleave', disablePainting);
+
+function disablePainting() {
+    isPainting = false;
+    return isPainting
+}
+
+let isPainting = false;
+let colourPickerOn = false;
+let eraserOn = false;
+
+function enablePainting() {
+    isPainting = true;
+    cells.forEach(cell => {
+        cell.addEventListener('mousemove', () => {
+            paintCell(cell);
+        })
+        cell.addEventListener('mouseup', () => {
+            paintCell(cell);
+        })
+    });
+}
+
+function paintCell(cell) {
+    if (isPainting === true) {
+        cell.style.backgroundColor = activeBrush;
+        if (eraserOn === false) {
+            cell.classList.add('painted');
+        } else if (eraserOn === true) {
+            cell.classList.remove('painted'); 
+        }
+    }
 }

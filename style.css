@@ -66,6 +66,7 @@ body {
 }
 
 .tool {
+    position: relative;
     box-sizing: border-box;
     width: 1.8rem;
     height: 1.8rem;
@@ -75,7 +76,7 @@ body {
     border-radius: 100%;
     overflow: visible;
     cursor: pointer;
-    transition: outline 200ms, border 200ms;
+    transition: outline 500ms, border 200ms;
 }
 
 .tool:hover {
@@ -109,6 +110,7 @@ body {
 
 .cell {
     animation: zoom-in 500ms ease-out;
+    background-color: white;
 }
 
 .grid-light {
