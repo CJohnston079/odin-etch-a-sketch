@@ -91,6 +91,21 @@ body {
     background: var(--swatch-highlight);
 }
 
+.tool:hover .dropdown-content {display: grid;}
+
+.dropdown-content {
+    display: none;
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    position: absolute;
+    box-shadow: 0px 0px 8px #E5E5E5;
+    outline: solid var(--light-grey) 1px;
+    border: solid white 4px;
+    border-radius: 1.75rem;
+    background-color: white;
+    transform: translate(-16px, -16px);
+    z-index: 1;
+  }
+
 .active-tool {
     outline: solid var(--dark-grey) 1px;
 }
