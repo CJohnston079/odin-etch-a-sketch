@@ -93,7 +93,7 @@ body {
 
 #custom-colour-menu {
     position: absolute;
-    grid-template: repeat(4, 1fr) / repeat(5, 1fr);
+    grid-template: repeat(5, 1fr) / repeat(8, 1fr);
     margin-top: -0.9rem;
     margin-left: 1rem;
     border: solid white 4px;

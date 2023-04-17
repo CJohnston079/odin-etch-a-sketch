@@ -91,17 +91,19 @@ function previewCellColour() {
 
 // brushes
 
-const brushOneElement = document.querySelector('#brush-one');
-const brushTwoElement = document.querySelector('#brush-two');
-const brushThreeElement = document.querySelector('#brush-three');
-const brushFourElement = document.querySelector('#brush-four');
-const brushFiveElement = document.querySelector('#brush-five');
-const brushSixElement = document.querySelector('#brush-six');
+const brushElement1 = document.querySelector('#brush-one');
+const brushElement2 = document.querySelector('#brush-two');
+const brushElement3 = document.querySelector('#brush-three');
+const brushElement4 = document.querySelector('#brush-four');
+const brushElement5 = document.querySelector('#brush-five');
+const brushElement6 = document.querySelector('#brush-six');
 const brushElement7 = document.querySelector('#brush-seven');
 const brushElement8 = document.querySelector('#brush-eight');
 const brushElement9 = document.querySelector('#brush-nine');
 
-const brushElements = [brushOneElement, brushTwoElement, brushThreeElement, brushFourElement, brushFiveElement, brushSixElement, brushElement7, brushElement8, brushElement9];
+const brushElements = [brushElement1, brushElement2, brushElement3, brushElement4, brushElement5, brushElement6, brushElement7, brushElement8, brushElement9];
+
+const palette = document.querySelector('#custom-colour-menu')
 
 let brush1 = 'black';
 let brush2 = 'red';
@@ -114,7 +116,7 @@ let brush8 = 'hotpink';
 let brush9 = 'white';
 
 let activeBrush = brush1;
-let activeBrushElement = brushOneElement;
+let activeBrushElement = brushElement1;
 
 brushElements.forEach(brush => {
     brush.addEventListener('mousedown', () => {
@@ -125,22 +127,22 @@ brushElements.forEach(brush => {
 function selectActiveBrush(brush) {
     activeBrushElement.classList.toggle('active-tool');
     switch(brush) {
-        case brushOneElement:
+        case brushElement1:
             activeBrush = brush1;
             break;
-        case brushTwoElement:
+        case brushElement2:
             activeBrush = brush2;
             break;
-        case brushThreeElement:
+        case brushElement3:
             activeBrush = brush3;
             break;
-        case brushFourElement:
+        case brushElement4:
             activeBrush = brush4;
             break;
-        case brushFiveElement:
+        case brushElement5:
             activeBrush = brush5;
             break;''
-        case brushSixElement:
+        case brushElement6:
             activeBrush = brush6;
             break;''
             case brushElement7:
