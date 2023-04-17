@@ -57,15 +57,16 @@ body {
 
 .toolbar {
     display: grid;
+    padding: 0.25rem;
     grid-template-columns: auto auto;
+    border: solid var(--light-grey) 1px;
+    border-radius: 1.75rem;
     background-color: white;
     box-shadow: 0px 0px 8px #E5E5E5;
-    border-radius: 1.75rem;
-    border: solid var(--light-grey) 1px;
-    padding: 0.25rem;
 }
 
 .tool {
+    position: relative;
     box-sizing: border-box;
     width: 1.8rem;
     height: 1.8rem;
@@ -90,21 +91,16 @@ body {
     background: var(--swatch-highlight);
 }
 
-#tools {
-    position: relative;
-}
-
 #custom-colour-menu {
-    display: grid;
-    grid-template: repeat(4, 1fr) / repeat(5, 1fr);
-    margin-left: 6.4rem;
     position: absolute;
+    grid-template: repeat(4, 1fr) / repeat(5, 1fr);
+    margin-top: -0.9rem;
+    margin-left: 1rem;
     border: solid white 4px;
-    border-radius: 1.75rem;
-    background-color: white;
-    transition: 500ms transform, 500ms opacity;
-    transform: translate(0.6rem);
-    z-index: -1;
+    outline: solid var(--light-grey) 1px;
+    /* transition: 500ms translate, 5000ms opacity; */
+    translate: 2rem;
+    z-index: 1;
     opacity: 1;
 }
 
@@ -126,7 +122,6 @@ body {
     padding: 0.5px;
     box-shadow: 0px 0px 8px #e5e5e5;
     cursor: cell;
-    z-index: -2; /* inactive while true */
     /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }
 
