@@ -76,7 +76,7 @@ body {
     border-radius: 100%;
     overflow: visible;
     cursor: pointer;
-    transition: outline 500ms, border 200ms;
+    transition: outline 200ms, border 200ms;
 }
 
 .tool:hover {
@@ -92,16 +92,15 @@ body {
 }
 
 #custom-colour-menu {
+    display: none;
     position: absolute;
     grid-template: repeat(5, 1fr) / repeat(8, 1fr);
-    margin-top: -0.9rem;
-    margin-left: 1rem;
+    margin-left: 3rem;
     border: solid white 4px;
     outline: solid var(--light-grey) 1px;
-    /* transition: 500ms translate, 5000ms opacity; */
-    translate: 2rem;
+    cursor: auto;
     z-index: 1;
-    opacity: 1;
+    /* margin-top: -5.4rem;*/
 }
 
 #custom-colour-menu > .tool {
@@ -145,4 +144,19 @@ body {
 
 @keyframes rotate-360 {
     100% {transform: rotate(360deg)}
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+        translate: -1rem;
+    }
+    75% {
+        opacity: 0;
+        translate: -1rem;
+    }
+    100% {
+        opacity: 1;
+        translate: 0;
+    }
 }

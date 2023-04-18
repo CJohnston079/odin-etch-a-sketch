@@ -158,6 +158,60 @@ function selectActiveBrush(brush) {
     activeBrushElement.classList.toggle('active-tool');
 }
 
+// palette
+
+
+brushElements.forEach(brushElement => {
+    brushElement.addEventListener('mouseenter', () => {
+        appendPalette(brushElement),
+        positionPalette(brushElement),
+        revealPalette();
+    })
+});
+
+palette.addEventListener('mouseenter', showPalette)
+palette.addEventListener('mouseleave', hidePalette)
+
+function appendPalette(brushElement) {
+    brushElement.appendChild(palette);
+}
+
+function revealPalette() {
+    palette.style.display = 'grid';
+    palette.style.animation = 'slide-in 500ms ease-in';
+}
+
+function positionPalette(brushElement) {
+    switch(brushElement) {
+        case brushElement1:
+            palette.style.marginTop = '-0.9rem';
+            break;
+        case brushElement2:
+            palette.style.marginTop = '-3.7rem';
+            break;
+        case brushElement8:
+            palette.style.marginTop = '-6.9rem';
+            break;
+        case brushElement9:
+            palette.style.marginTop = '-9.7rem';
+            break;
+        default:
+            palette.style.marginTop = '-5.4rem';
+    }
+}
+
+function showPalette() {
+    palette.style.display = 'grid';
+    palette.style.animation = '';
+}
+
+function hidePalette() {
+    palette.style.animation = 'slide-in 500ms ease-in reverse';
+    setTimeout(() => {
+        palette.style.display = 'none';
+    }, 500)
+}
+
 // canvas options
 
 const gridToggleButton = document.querySelectorAll('.tool')[1]
