@@ -92,7 +92,7 @@ body {
 }
 
 #palette {
-    display: grid;
+    display: none;
     position: absolute;
     grid-template: repeat(5, 1fr) / repeat(8, 1fr);
     margin-left: 1.6rem;
@@ -104,9 +104,9 @@ body {
 
 #palette-wrapper {
     position: absolute;
-    margin-top: -0.25rem;
+    margin-top: -0.8rem;
     margin-left: 1.3rem;
-    height: 1.8rem;
+    height: 2.9rem;
     width: 2rem;
     cursor: auto;
 }

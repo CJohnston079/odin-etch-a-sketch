@@ -188,19 +188,19 @@ function revealPalette(brushElement) {
 function positionPalette(brushElement) {
     switch(brushElement) {
         case brushElement1:
-            palette.style.marginTop = '-0.9rem';
+            palette.style.marginTop = '-0.1rem';
             break;
         case brushElement2:
-            palette.style.marginTop = '-3.7rem';
+            palette.style.marginTop = '-2.9rem';
             break;
         case brushElement8:
-            palette.style.marginTop = '-6.9rem';
+            palette.style.marginTop = '-6.0rem';
             break;
         case brushElement9:
-            palette.style.marginTop = '-9.7rem';
+            palette.style.marginTop = '-8.9rem';
             break;
         default:
-            palette.style.marginTop = '-5.4rem';
+            palette.style.marginTop = '-4.7rem';
     }
 }
 
@@ -321,15 +321,15 @@ function setDefaultCellColour(cell) {
 
 // tools
 
-const paintbrushToolElement = document.querySelectorAll('.tool')[5]
-const paintbrushSizeToolElement = document.querySelectorAll('.tool')[7]
-const paintbrushShapeToolElement = document.querySelectorAll('.tool')[9]
-const floodFillToolElement = document.querySelectorAll('.tool')[11]
-const colourPickerToolElement = document.querySelectorAll('.tool')[13]
-const brightenToolElement = document.querySelectorAll('.tool')[15]
-const darkenToolElement = document.querySelectorAll('.tool')[17]
-const eraserToolElement = document.querySelectorAll('.tool')[19]
-const downloadToolElement = document.querySelectorAll('.tool')[21]
+const paintbrushToolElement = document.querySelector('#paintbrush');
+const paintbrushSizeToolElement = document.querySelector('#brush-size');
+const paintbrushShapeToolElement = document.querySelector('#brush-shape');
+const floodFillToolElement = document.querySelector('#flood-fill');
+const colourPickerToolElement = document.querySelector('#colour-picker');
+const brightenToolElement = document.querySelector('#lighten');
+const darkenToolElement = document.querySelector('#darken');
+const eraserToolElement = document.querySelector('#eraser');
+const downloadToolElement = document.querySelector('#download');
 
 const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, brightenToolElement, darkenToolElement, eraserToolElement, downloadToolElement];
 
