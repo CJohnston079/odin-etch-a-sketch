@@ -106,15 +106,27 @@ const brushElements = [brushElement1, brushElement2, brushElement3, brushElement
 const palette = document.querySelector('#palette')
 const paletteWrapper = document.querySelector('#palette-wrapper')
 
-let brush1 = 'black';
-let brush2 = 'red';
-let brush3 = 'orange';
-let brush4 = 'yellow';
-let brush5 = 'green';
-let brush6 = 'cyan';
-let brush7 = 'blue';
-let brush8 = 'hotpink';
-let brush9 = 'white';
+let brush1 = brushElement1.style.backgroundColor;
+let brush2 = brushElement2.style.backgroundColor;
+let brush3 = brushElement3.style.backgroundColor;
+let brush4 = brushElement4.style.backgroundColor;
+let brush5 = brushElement5.style.backgroundColor;
+let brush6 = brushElement6.style.backgroundColor;
+let brush7 = brushElement7.style.backgroundColor;
+let brush8 = brushElement8.style.backgroundColor;
+let brush9 = brushElement9.style.backgroundColor;
+
+function updateBrushColours() {
+    brush1 = brushElement1.style.backgroundColor;
+    brush2 = brushElement2.style.backgroundColor;
+    brush3 = brushElement3.style.backgroundColor;
+    brush4 = brushElement4.style.backgroundColor;
+    brush5 = brushElement5.style.backgroundColor;
+    brush6 = brushElement6.style.backgroundColor;
+    brush7 = brushElement7.style.backgroundColor;
+    brush8 = brushElement8.style.backgroundColor;
+    brush9 = brushElement9.style.backgroundColor;
+}
 
 let activeBrush = brush1;
 let activeBrushElement = brushElement1;
@@ -210,6 +222,20 @@ function hidePalette() {
     setTimeout(() => {
         palette.style.display = 'none';
     }, 190)
+}
+
+const paletteSwatches = document.querySelectorAll('.palette-swatch')
+
+paletteSwatches.forEach(swatch => {
+    swatch.addEventListener('mousedown', () => {
+        updateParentSwatch(swatch)
+    })
+})
+
+function updateParentSwatch(swatch) {
+    activeBrushElement.style.backgroundColor = swatch.style.backgroundColor;
+    updateBrushColours()
+    return activeBrush
 }
 
 // canvas options
