@@ -103,7 +103,7 @@ const brushElement9 = document.querySelector('#brush-nine');
 
 const brushElements = [brushElement1, brushElement2, brushElement3, brushElement4, brushElement5, brushElement6, brushElement7, brushElement8, brushElement9];
 
-const palette = document.querySelector('#custom-colour-menu')
+const palette = document.querySelector('#palette')
 const paletteWrapper = document.querySelector('#palette-wrapper')
 
 let brush1 = 'black';

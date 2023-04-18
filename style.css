@@ -91,8 +91,8 @@ body {
     background: var(--swatch-highlight);
 }
 
-#custom-colour-menu {
-    display: none;
+#palette {
+    display: grid;
     position: absolute;
     grid-template: repeat(5, 1fr) / repeat(8, 1fr);
     margin-left: 1.6rem;
@@ -111,8 +111,12 @@ body {
     cursor: auto;
 }
 
-#custom-colour-menu > .tool {
+#palette > .tool {
     margin: 0.2rem;
+}
+
+.palette-swatch-custom {
+    background: linear-gradient(135deg, lightskyblue, gold, purple);
 }
 
 .active-tool {
