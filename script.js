@@ -104,6 +104,7 @@ const brushElement9 = document.querySelector('#brush-nine');
 const brushElements = [brushElement1, brushElement2, brushElement3, brushElement4, brushElement5, brushElement6, brushElement7, brushElement8, brushElement9];
 
 const palette = document.querySelector('#custom-colour-menu')
+const paletteWrapper = document.querySelector('#palette-wrapper')
 
 let brush1 = 'black';
 let brush2 = 'red';
@@ -160,25 +161,28 @@ function selectActiveBrush(brush) {
 
 // palette
 
-
 brushElements.forEach(brushElement => {
-    brushElement.addEventListener('mouseenter', () => {
+    brushElement.addEventListener('contextmenu', () => {
         appendPalette(brushElement),
         positionPalette(brushElement),
-        revealPalette();
+        revealPalette(brushElement);
     })
+    brushElement.addEventListener('mouseleave', hidePalette)
 });
 
-palette.addEventListener('mouseenter', showPalette)
-palette.addEventListener('mouseleave', hidePalette)
+paletteWrapper.addEventListener('mouseleave', hidePalette)
 
 function appendPalette(brushElement) {
-    brushElement.appendChild(palette);
+    brushElement.appendChild(paletteWrapper);
 }
 
-function revealPalette() {
+function revealPalette(brushElement) {
     palette.style.display = 'grid';
-    palette.style.animation = 'slide-in 500ms ease-in';
+    palette.style.animation = 'slide-in 200ms ease-in';
+    paletteVisible = true;
+    setTimeout(() => {
+        palette.style.animation = '';
+    }, 200)
 }
 
 function positionPalette(brushElement) {
@@ -200,16 +204,12 @@ function positionPalette(brushElement) {
     }
 }
 
-function showPalette() {
-    palette.style.display = 'grid';
-    palette.style.animation = '';
-}
-
 function hidePalette() {
-    palette.style.animation = 'slide-in 500ms ease-in reverse';
+    palette.style.animation = '';
+    palette.style.animation = 'slide-in 200ms ease-in reverse';
     setTimeout(() => {
         palette.style.display = 'none';
-    }, 500)
+    }, 190)
 }
 
 // canvas options
