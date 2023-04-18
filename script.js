@@ -177,7 +177,7 @@ brushElements.forEach(brushElement => {
     brushElement.addEventListener('contextmenu', () => {
         appendPalette(brushElement),
         positionPalette(brushElement),
-        revealPalette(brushElement);
+        showPalette(brushElement);
     })
     brushElement.addEventListener('mouseleave', hidePalette)
 });
@@ -186,15 +186,6 @@ paletteWrapper.addEventListener('mouseleave', hidePalette)
 
 function appendPalette(brushElement) {
     brushElement.appendChild(paletteWrapper);
-}
-
-function revealPalette(brushElement) {
-    palette.style.display = 'grid';
-    palette.style.animation = 'slide-in 200ms ease-in';
-    paletteVisible = true;
-    setTimeout(() => {
-        palette.style.animation = '';
-    }, 200)
 }
 
 function positionPalette(brushElement) {
@@ -216,6 +207,15 @@ function positionPalette(brushElement) {
     }
 }
 
+function showPalette(brushElement) {
+    palette.style.display = 'grid';
+    palette.style.animation = 'slide-in 200ms ease-in';
+    paletteVisible = true;
+    setTimeout(() => {
+        palette.style.animation = '';
+    }, 200)
+}
+
 function hidePalette() {
     palette.style.animation = '';
     palette.style.animation = 'slide-in 200ms ease-in reverse';
@@ -225,6 +225,7 @@ function hidePalette() {
 }
 
 const paletteSwatches = document.querySelectorAll('.palette-swatch')
+const customColourInput = document.querySelector('#custom-colour-input');
 
 paletteSwatches.forEach(swatch => {
     swatch.addEventListener('mousedown', () => {
@@ -235,7 +236,18 @@ paletteSwatches.forEach(swatch => {
 function updateParentSwatch(swatch) {
     activeBrushElement.style.backgroundColor = swatch.style.backgroundColor;
     updateBrushColours()
-    return activeBrush
+    alert('sucess');
+}
+
+customColourInput.addEventListener('input', () => {
+    setCustomColour(activeBrushElement)
+})
+palette.addEventListener('input', updateBrushColours)
+
+function setCustomColour(brush) {
+    activeBrushElement.style.backgroundColor = customColourInput.value
+    selectActiveBrush(brush)
+    updateBrushColours()
 }
 
 // canvas options
