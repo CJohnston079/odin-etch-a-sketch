@@ -399,6 +399,7 @@ function enableColourPicker() {
 }
 
 function pickColour(cell, brush) {
+    if (activeBrushElement.style.backgroundColor === cell.style.backgroundColor) return
     activeBrushElement.style.backgroundColor = cell.style.backgroundColor;
     activeBrushElement.style.animation = 'swatch-swell 250ms';
     activeBrushElement.style.transition = '250ms';
