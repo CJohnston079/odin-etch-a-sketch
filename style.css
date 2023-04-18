@@ -171,3 +171,9 @@ body {
         translate: 0;
     }
 }
+
+@keyframes swatch-swell {
+    0% {border: solid white 4px;}
+    50% {border: solid white 3px;}
+    0% {border: solid white 4px;}
+}

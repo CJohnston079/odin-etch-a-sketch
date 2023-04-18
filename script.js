@@ -400,7 +400,12 @@ function enableColourPicker() {
 
 function pickColour(cell, brush) {
     activeBrushElement.style.backgroundColor = cell.style.backgroundColor;
-    activeBrushElement.style.animation = cell.style.backgroundColor;
+    activeBrushElement.style.animation = 'swatch-swell 250ms';
+    activeBrushElement.style.transition = '250ms';
+    setTimeout(() => {
+        activeBrushElement.style.animation = ''; 
+        activeBrushElement.style.transition = ''; 
+    }, 250)
     selectActiveBrush(brush)
     updateBrushColours()
 }
