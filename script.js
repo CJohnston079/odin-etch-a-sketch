@@ -229,23 +229,21 @@ const customColourInput = document.querySelector('#custom-colour-input');
 
 paletteSwatches.forEach(swatch => {
     swatch.addEventListener('mousedown', () => {
-        updateParentSwatch(swatch)
+        updateParentSwatch(swatch);
     })
 })
 
 function updateParentSwatch(swatch) {
     activeBrushElement.style.backgroundColor = swatch.style.backgroundColor;
     updateBrushColours()
-    alert('sucess');
 }
 
 customColourInput.addEventListener('input', () => {
-    setCustomColour(activeBrushElement)
+    setCustomColour(activeBrushElement);
 })
-palette.addEventListener('input', updateBrushColours)
 
 function setCustomColour(brush) {
-    activeBrushElement.style.backgroundColor = customColourInput.value
+    activeBrushElement.style.backgroundColor = customColourInput.value;
     selectActiveBrush(brush)
     updateBrushColours()
 }
@@ -383,10 +381,29 @@ function selectActiveTool(tool) {
     activeToolElement.classList.toggle('active-tool');
     activeToolElement = tool;
     activeToolElement.classList.toggle('active-tool');
+    updateCanvasCursor(activeToolElement);
+    togglePreviewBrush(activeToolElement);
 }
 
-paintbrushToolElement.addEventListener('mousedown', disableEraser)
+paintbrushToolElement.addEventListener('mousedown', enablePaintbrush)
+colourPickerToolElement.addEventListener('mousedown', enableColourPicker)
 eraserToolElement.addEventListener('mousedown', enableEraser)
+
+function enableColourPicker() {
+    cells.forEach(cell => {
+        cell.addEventListener('mousedown', () => {
+            if (activeToolElement !== colourPickerToolElement) return
+            pickColour(cell, activeBrushElement);
+        })
+    });
+}
+
+function pickColour(cell, brush) {
+    activeBrushElement.style.backgroundColor = cell.style.backgroundColor;
+    activeBrushElement.style.animation = cell.style.backgroundColor;
+    selectActiveBrush(brush)
+    updateBrushColours()
+}
 
 function enableEraser() {
     if (activeToolElement !== eraserToolElement) return
@@ -395,10 +412,30 @@ function enableEraser() {
     return eraserOn
 }
 
-function disableEraser() {
-    activeBrush = activeBrushElement.style.backgroundColor
+function enablePaintbrush() {
+    activeBrush = activeBrushElement.style.backgroundColor;
     eraserOn = false
     return eraserOn
+}
+
+function updateCanvasCursor(activeToolElement) {
+    switch(activeToolElement) {
+        case colourPickerToolElement:
+            canvas.style.cursor = 'crosshair';
+            break;
+        default:
+            canvas.style.cursor = 'cell';
+    }
+}
+
+function togglePreviewBrush(activeToolElement) {
+    switch(activeToolElement) {
+        case colourPickerToolElement:
+            previewBrush = false;
+            break;
+        default:
+            previewBrush = true;
+    }
 }
 
 // paint functions
@@ -413,7 +450,6 @@ function disablePainting() {
 }
 
 let isPainting = false;
-let colourPickerOn = false;
 let eraserOn = false;
 
 function enablePainting() {
@@ -429,6 +465,9 @@ function enablePainting() {
 }
 
 function paintCell(cell) {
+    if (activeToolElement === colourPickerToolElement ||
+        activeToolElement === floodFillToolElement)
+        return
     if (isPainting === true) {
         cell.style.backgroundColor = activeBrush;
         if (eraserOn === false) {
