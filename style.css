@@ -117,6 +117,9 @@ body {
 
 .palette-swatch-custom {
     background: linear-gradient(135deg, lightskyblue, gold, purple);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .active-tool {
