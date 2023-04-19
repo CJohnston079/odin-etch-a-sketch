@@ -47,9 +47,9 @@ function timeoutChangeGridSize() {
 }
 
 
+gridSlider.addEventListener('input', updateGridSizeDisplay)
 gridSlider.addEventListener('change', () => {
-    generateGrid(gridSlider.value),
-    updateGridSizeDisplay()
+    generateGrid(gridSlider.value);
 })
 
 function logGridSize(gridArea, gridSize) {
@@ -271,15 +271,44 @@ function setCustomColour(brush) {
 
 // canvas options
 
+const canvasSizeButton = document.querySelector('#canvas-size-tool')
+const gridSliderContainer = document.querySelector('.canvas-size-slider-container')
 const gridToggleButton = document.querySelectorAll('.tool')[1]
 const gridModeButton = document.querySelectorAll('.tool')[2]
 const resetCanvasButton = document.querySelectorAll('.tool')[3]
 const setCanvasColourButton = document.querySelectorAll('.tool')[4]
 
+canvasSizeButton.addEventListener('mouseenter', showGridSlider)
 gridToggleButton.addEventListener('mousedown', toggleGrid)
 gridModeButton.addEventListener('mousedown', toggleGridMode)
 resetCanvasButton.addEventListener('mousedown', resetCanvas)
 setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
+
+function showGridSlider() {
+    gridSliderContainer.style.display = 'flex';
+    gridSliderContainer.style.animation = 'grow-from-left 800ms';
+    gridSlider.style.display = 'block';
+    gridSlider.style.animation = 'fade 400ms 400ms';
+    setTimeout(() => {
+        canvasSizeButton.removeEventListener('mouseenter', showGridSlider)
+        canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
+        gridSliderContainer.style.animation = '';
+        gridSlider.style.opacity = 1;
+        gridSlider.style.animation = '';
+    }, 800)
+}
+
+function hideGridSlider() {
+    gridSliderContainer.style.animation = 'shrink-to-left 300ms';
+    gridSlider.style.display = 'none';
+    gridSlider.style.opacity = 0;
+    setTimeout(() => {
+        canvasSizeButton.removeEventListener('mouseleave', hideGridSlider)
+        canvasSizeButton.addEventListener('mouseenter', showGridSlider)
+        gridSliderContainer.style.animation = '';
+        gridSliderContainer.style.display = 'none';
+    }, 290)
+}
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
