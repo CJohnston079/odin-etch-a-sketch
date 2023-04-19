@@ -68,14 +68,16 @@ body {
 
 #canvas-size-display {
     display: inline-block;
+    padding: 0 0.1rem;
     min-width: 2rem;
-    padding: 0.2rem;
     font-size: 2rem;
     z-index: 1;
+    translate: 0 -0.1rem;
 }
 
 .slider-operator {
     z-index: 1;
+    width: 0.8rem;
 }
 
 .canvas-size-slider-container {
