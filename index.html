@@ -16,8 +16,13 @@
         <div class="pixel-painter-container">
             <div class="toolbar-container">
                 <div id="canvas-options" class="toolbar">
-                    <div id="canvas-size" class="tool">
-                        <h2>8</h2>
+                    <div id="canvas-size-tool" class="tool">
+                        <div class="canvas-size-slider-container">
+                            <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
+                        </div>
+                        <h2 class="slider-operator">-</h2>
+                        <p id="canvas-size-display">8</p>
+                        <h2 class="slider-operator">+</h2>
                     </div>
                     <img class="tool" src="icons/icon-grid-on.svg" title="Toggle grid">
                     <img class="tool" src="icons/icon-grid-light.svg" title="Grid mode light/dark">
@@ -143,11 +148,6 @@
             </div>
             <div class="help">
             </div>
-        </div>
-        <div class="canvas-size-slider-container" style="display: flex; justify-content: center;">
-            <h2 class="slider-operator">-</h2>
-            <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
-            <h2 class="slider-operator">+</h2>
         </div>
     </body>
 </html>

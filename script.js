@@ -8,27 +8,48 @@ let previewBrush = true;
 let currentCellColour = canvasColour;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
+const gridSizeDisplay = document.querySelector('#canvas-size-display');
 const decreaseGridSizeElement = document.querySelectorAll('.slider-operator')[0];
 const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1];
 
 generateGrid(gridSlider.value);
 
-decreaseGridSizeElement.addEventListener('click', decreaseGridSize)
-increaseGridSizeElement.addEventListener('click', increaseGridSize)
+decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
+increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
 
-function decreaseGridSize(operator) {
-        gridSlider.stepDown()
-        generateGrid(gridSlider.value)
+function updateGridSizeDisplay() {
+    gridSizeDisplay.textContent = gridSlider.value;
 }
 
-function increaseGridSize(operator) {
-    gridSlider.stepUp()
+function decreaseGridSize() {
+    if (gridSlider.value === '4') return
+    gridSlider.stepDown()
+    timeoutChangeGridSize()
+    updateGridSizeDisplay()
     generateGrid(gridSlider.value)
+}
+
+function increaseGridSize() {
+    if (gridSlider.value === '32') return
+    gridSlider.stepUp()
+    timeoutChangeGridSize()
+    updateGridSizeDisplay()
+    generateGrid(gridSlider.value)
+}
+
+function timeoutChangeGridSize() {
+    decreaseGridSizeElement.removeEventListener('mousedown', decreaseGridSize)
+    increaseGridSizeElement.removeEventListener('mousedown', increaseGridSize)
+    setTimeout(() => {
+        decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
+        increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
+    }, 1000)
 }
 
 
 gridSlider.addEventListener('change', () => {
-    generateGrid(gridSlider.value)
+    generateGrid(gridSlider.value),
+    updateGridSizeDisplay()
 })
 
 function logGridSize(gridArea, gridSize) {
@@ -241,10 +262,6 @@ function updateParentSwatch(swatch) {
 customColourInput.addEventListener('input', () => {
     setCustomColour(activeBrushElement);
 })
-
-// customColourInput.addEventListener('change', () => {
-//     setCustomColour(activeBrushElement);
-// })
 
 function setCustomColour(brush) {
     activeBrushElement.style.backgroundColor = customColourInput.value;
