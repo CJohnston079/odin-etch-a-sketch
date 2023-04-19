@@ -242,10 +242,14 @@ customColourInput.addEventListener('input', () => {
     setCustomColour(activeBrushElement);
 })
 
+// customColourInput.addEventListener('change', () => {
+//     setCustomColour(activeBrushElement);
+// })
+
 function setCustomColour(brush) {
     activeBrushElement.style.backgroundColor = customColourInput.value;
-    selectActiveBrush(brush)
     updateBrushColours()
+    selectActiveBrush(brush)
 }
 
 // canvas options
@@ -401,14 +405,18 @@ function enableColourPicker() {
 function pickColour(cell, brush) {
     if (activeBrushElement.style.backgroundColor === cell.style.backgroundColor) return
     activeBrushElement.style.backgroundColor = cell.style.backgroundColor;
+    animatePaletteSwatch()
+    selectActiveBrush(brush)
+    updateBrushColours()
+}
+
+function animatePaletteSwatch() {
     activeBrushElement.style.animation = 'swatch-swell 250ms';
     activeBrushElement.style.transition = '250ms';
     setTimeout(() => {
         activeBrushElement.style.animation = ''; 
         activeBrushElement.style.transition = ''; 
     }, 250)
-    selectActiveBrush(brush)
-    updateBrushColours()
 }
 
 function enableEraser() {
