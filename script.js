@@ -16,6 +16,7 @@ const newCanvasSound = document.querySelector('#audio-new-canvas');
 const gridSliderSound = document.querySelector('#audio-grid-slider');
 const canvasResetSound = document.querySelector('#audio-clear-canvas');
 const colourPickerSound = document.querySelector('#audio-colour-picker');
+const floodFillSound = document.querySelector('#audio-flood-fill');
 
 const playGridSliderSound = () => {
     gridSliderSound.currentTime = 0;
@@ -35,6 +36,11 @@ const playCanvasResetSound = () => {
 const playColourPickerSound = () => {
     colourPickerSound.currentTime = 0;
     colourPickerSound.play(); 
+}
+
+const playFloodFillSound = () => {
+    floodFillSound.currentTime = 0;
+    floodFillSound.play(); 
 }
 
 generateGrid(gridSlider.value);
@@ -115,25 +121,142 @@ function generateCells() {
         return cells;
 }
 
-// preview on hover
+// canvas tools
 
-function previewCellColour() {
+const canvasSizeButton = document.querySelector('#canvas-size-tool')
+const gridSliderContainer = document.querySelector('.canvas-size-slider-container')
+const gridToggleButton = document.querySelectorAll('.tool')[1]
+const gridModeButton = document.querySelectorAll('.tool')[2]
+const resetCanvasButton = document.querySelectorAll('.tool')[3]
+const setCanvasColourButton = document.querySelectorAll('.tool')[4]
+
+canvasSizeButton.addEventListener('mouseenter', showGridSlider)
+gridToggleButton.addEventListener('mousedown', toggleGrid)
+gridModeButton.addEventListener('mousedown', toggleGridMode)
+resetCanvasButton.addEventListener('mousedown', resetCanvas)
+setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
+
+function showGridSlider() {
+    gridSliderContainer.style.display = 'flex';
+    gridSliderContainer.style.animation = 'grow-from-left 800ms';
+    gridSlider.style.display = 'block';
+    gridSlider.style.animation = 'fade 400ms 400ms';
+    setTimeout(() => {
+        canvasSizeButton.removeEventListener('mouseenter', showGridSlider)
+        canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
+        gridSliderContainer.style.animation = '';
+        gridSlider.style.opacity = 1;
+        gridSlider.style.animation = '';
+    }, 800)
+}
+
+function hideGridSlider() {
+    gridSliderContainer.style.animation = 'shrink-to-left 300ms';
+    gridSlider.style.display = 'none';
+    gridSlider.style.opacity = 0;
+    setTimeout(() => {
+        canvasSizeButton.removeEventListener('mouseleave', hideGridSlider)
+        canvasSizeButton.addEventListener('mouseenter', showGridSlider)
+        gridSliderContainer.style.animation = '';
+        gridSliderContainer.style.display = 'none';
+    }, 250)
+}
+
+function toggleGrid() {
+    gridEnabled === true ? gridEnabled = false :
+    gridEnabled = true;
     cells.forEach(cell => {
-        currentCellColour = cell.style.backgroundColor;
-        cell.addEventListener('mouseenter', () => {
-            if (previewBrush === false || isPainting === true) return
-                currentCellColour = cell.style.backgroundColor;
-                cell.style.backgroundColor = activeBrush;
-        });
-        cell.addEventListener('mouseup', () => {
-            if (previewBrush === false) return
-            currentCellColour = activeBrush;
-        })
-        cell.addEventListener('mouseout', () => {
-            if (previewBrush === false || isPainting === true) return
-                cell.style.backgroundColor = currentCellColour;
-        });
-    });
+        if (gridMode === 'light') {
+            cell.classList.toggle('grid-light');
+        } else if (gridMode === 'dark') {
+            cell.classList.toggle('grid-dark');
+        }
+    })
+    gridMode === 'dark' ? toggleCanvasBackground() : {}
+    toggleGridButton()
+    toggleGridModeButton()
+    return gridEnabled;
+}
+
+function toggleGridButton() {
+    gridEnabled === true ? gridToggleButton.src = 'icons/icon-grid-on.svg' :
+    gridToggleButton.src = 'icons/icon-grid-off.svg';
+}
+
+function toggleGridMode() {
+    gridMode === 'light' ? gridMode = 'dark' :
+    gridMode = 'light';
+    cells.forEach(cell => {
+        if (gridMode === 'dark') {
+            cell.classList.replace('grid-light', 'grid-dark');
+        } else {
+            cell.classList.replace('grid-dark', 'grid-light');
+        }
+    })
+    toggleGridModeButton()
+    gridEnabled === true ? toggleCanvasBackground() : {}
+    return gridMode;
+}
+
+function toggleCanvasBackground() {
+        canvas.style.backgroundColor === 'var(--dark-grey)' ? canvas.style.backgroundColor = 'var(--light-grey)' :
+        canvas.style.backgroundColor = 'var(--dark-grey)';
+}
+
+function toggleGridModeButton() {
+    gridMode === 'light' ? gridModeButton.src = 'icons/icon-grid-light.svg' :
+    gridModeButton.src = 'icons/icon-grid-dark.svg';
+}
+
+function resetCanvas() {
+    let gridSize = Math.sqrt(gridArea);
+    for (let i = 0; i < gridArea; i++) {
+        setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
+    }
+    animateResetCanvasButton()
+    playCanvasResetSound()
+    console.log('Canvas was cleared')
+}
+
+function animateResetCanvasButton () {
+    resetCanvasButton.style.animation = 'rotate-360 500ms'
+    resetCanvasButton.removeEventListener('mousedown', resetCanvas);
+    setTimeout(() => {
+        resetCanvasButton.addEventListener('mousedown', resetCanvas),
+        resetCanvasButton.style.animation = ''
+    }, 500)
+}
+
+function clearCells(cell) {
+    cell.style.backgroundColor = canvasColour;
+    cell.style.transition = 'background-colour, 1s';
+    cell.classList.remove('painted');
+    setTimeout(() => {
+        cell.style.transition = ''; 
+    }, 1000)
+}
+
+function setCanvasColour() {
+    let gridSize = Math.sqrt(gridArea);
+    activeBrush = activeBrushElement.style.backgroundColor
+    canvasColour = activeBrush;
+    for (let i = 0; i < gridArea; i++) {
+        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
+    }
+}
+
+function setDefaultCellColour(cell) {
+    if (cell.classList.contains('painted')) return
+    previewBrush = false
+    currentCellColour = canvasColour;
+    cell.style.backgroundColor = canvasColour;
+    cell.style.transition = 'background-colour, 1s';
+    setTimeout(() => {
+        cell.style.transition = '';
+    }, 1000)
+    setTimeout(() => {
+        previewBrush = true;
+    }, 1500)
 }
 
 // brushes
@@ -295,144 +418,6 @@ function setCustomColour(brush) {
     selectActiveBrush(brush)
 }
 
-// canvas options
-
-const canvasSizeButton = document.querySelector('#canvas-size-tool')
-const gridSliderContainer = document.querySelector('.canvas-size-slider-container')
-const gridToggleButton = document.querySelectorAll('.tool')[1]
-const gridModeButton = document.querySelectorAll('.tool')[2]
-const resetCanvasButton = document.querySelectorAll('.tool')[3]
-const setCanvasColourButton = document.querySelectorAll('.tool')[4]
-
-canvasSizeButton.addEventListener('mouseenter', showGridSlider)
-gridToggleButton.addEventListener('mousedown', toggleGrid)
-gridModeButton.addEventListener('mousedown', toggleGridMode)
-resetCanvasButton.addEventListener('mousedown', resetCanvas)
-setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
-
-function showGridSlider() {
-    gridSliderContainer.style.display = 'flex';
-    gridSliderContainer.style.animation = 'grow-from-left 800ms';
-    gridSlider.style.display = 'block';
-    gridSlider.style.animation = 'fade 400ms 400ms';
-    setTimeout(() => {
-        canvasSizeButton.removeEventListener('mouseenter', showGridSlider)
-        canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
-        gridSliderContainer.style.animation = '';
-        gridSlider.style.opacity = 1;
-        gridSlider.style.animation = '';
-    }, 800)
-}
-
-function hideGridSlider() {
-    gridSliderContainer.style.animation = 'shrink-to-left 300ms';
-    gridSlider.style.display = 'none';
-    gridSlider.style.opacity = 0;
-    setTimeout(() => {
-        canvasSizeButton.removeEventListener('mouseleave', hideGridSlider)
-        canvasSizeButton.addEventListener('mouseenter', showGridSlider)
-        gridSliderContainer.style.animation = '';
-        gridSliderContainer.style.display = 'none';
-    }, 250)
-}
-
-function toggleGrid() {
-    gridEnabled === true ? gridEnabled = false :
-    gridEnabled = true;
-    cells.forEach(cell => {
-        if (gridMode === 'light') {
-            cell.classList.toggle('grid-light');
-        } else if (gridMode === 'dark') {
-            cell.classList.toggle('grid-dark');
-        }
-    })
-    gridMode === 'dark' ? toggleCanvasBackground() : {}
-    toggleGridButton()
-    toggleGridModeButton()
-    return gridEnabled;
-}
-
-function toggleGridButton() {
-    gridEnabled === true ? gridToggleButton.src = 'icons/icon-grid-on.svg' :
-    gridToggleButton.src = 'icons/icon-grid-off.svg';
-}
-
-function toggleGridMode() {
-    gridMode === 'light' ? gridMode = 'dark' :
-    gridMode = 'light';
-    cells.forEach(cell => {
-        if (gridMode === 'dark') {
-            cell.classList.replace('grid-light', 'grid-dark');
-        } else {
-            cell.classList.replace('grid-dark', 'grid-light');
-        }
-    })
-    toggleGridModeButton()
-    gridEnabled === true ? toggleCanvasBackground() : {}
-    return gridMode;
-}
-
-function toggleCanvasBackground() {
-        canvas.style.backgroundColor === 'var(--dark-grey)' ? canvas.style.backgroundColor = 'var(--light-grey)' :
-        canvas.style.backgroundColor = 'var(--dark-grey)';
-}
-
-function toggleGridModeButton() {
-    gridMode === 'light' ? gridModeButton.src = 'icons/icon-grid-light.svg' :
-    gridModeButton.src = 'icons/icon-grid-dark.svg';
-}
-
-function resetCanvas() {
-    let gridSize = Math.sqrt(gridArea);
-    for (let i = 0; i < gridArea; i++) {
-        setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
-    }
-    animateResetCanvasButton()
-    playCanvasResetSound()
-    console.log('Canvas was cleared')
-}
-
-function animateResetCanvasButton () {
-    resetCanvasButton.style.animation = 'rotate-360 500ms'
-    resetCanvasButton.removeEventListener('mousedown', resetCanvas);
-    setTimeout(() => {
-        resetCanvasButton.addEventListener('mousedown', resetCanvas),
-        resetCanvasButton.style.animation = ''
-    }, 500)
-}
-
-function clearCells(cell) {
-    cell.style.backgroundColor = canvasColour;
-    cell.style.transition = 'background-colour, 1s';
-    cell.classList.remove('painted');
-    setTimeout(() => {
-        cell.style.transition = ''; 
-    }, 1000)
-}
-
-function setCanvasColour() {
-    let gridSize = Math.sqrt(gridArea);
-    activeBrush = activeBrushElement.style.backgroundColor
-    canvasColour = activeBrush;
-    for (let i = 0; i < gridArea; i++) {
-        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
-    }
-}
-
-function setDefaultCellColour(cell) {
-    if (cell.classList.contains('painted')) return
-    previewBrush = false
-    currentCellColour = canvasColour;
-    cell.style.backgroundColor = canvasColour;
-    cell.style.transition = 'background-colour, 1s';
-    setTimeout(() => {
-        cell.style.transition = '';
-    }, 1000)
-    setTimeout(() => {
-        previewBrush = true;
-    }, 1500)
-}
-
 // tools
 
 const paintbrushToolElement = document.querySelector('#paintbrush');
@@ -464,8 +449,30 @@ function selectActiveTool(tool) {
 }
 
 paintbrushToolElement.addEventListener('mousedown', enablePaintbrush)
+floodFillToolElement.addEventListener('mousedown', enableFloodFill)
 colourPickerToolElement.addEventListener('mousedown', enableColourPicker)
 eraserToolElement.addEventListener('mousedown', enableEraser)
+
+function enableFloodFill() {
+    cells.forEach(cell => {
+        cell.addEventListener('mousedown', () => {
+            if (activeToolElement !== floodFillToolElement) return
+            floodFill(cell, activeBrushElement);
+        })
+    });
+}
+
+function floodFill(cell, activeBrushElement) {
+    let primaryCell = cell;
+    let primaryCellColour = primaryCell.style.backgroundColor;
+    cells.forEach(cell => {
+        if (cell.style.backgroundColor !== primaryCellColour) return
+        cell.style.backgroundColor = activeBrushElement.style.backgroundColor;
+        cell.classList.add('painted');
+    })
+    primaryCell.style.backgroundColor = activeBrushElement.style.backgroundColor;
+    playFloodFillSound()
+}
 
 function enableColourPicker() {
     cells.forEach(cell => {
@@ -522,12 +529,36 @@ function togglePreviewBrush(activeToolElement) {
         case colourPickerToolElement:
             previewBrush = false;
             break;
+        case floodFillToolElement:
+            previewBrush = false
+            break;
         default:
             previewBrush = true;
     }
 }
 
-// paint functions
+// paint - preview on hover
+
+function previewCellColour() {
+    cells.forEach(cell => {
+        currentCellColour = cell.style.backgroundColor;
+        cell.addEventListener('mouseenter', () => {
+            if (previewBrush === false || isPainting === true) return
+                currentCellColour = cell.style.backgroundColor;
+                cell.style.backgroundColor = activeBrush;
+        });
+        cell.addEventListener('mouseup', () => {
+            if (previewBrush === false) return
+            currentCellColour = activeBrush;
+        })
+        cell.addEventListener('mouseout', () => {
+            if (previewBrush === false || isPainting === true) return
+                cell.style.backgroundColor = currentCellColour;
+        });
+    });
+}
+
+// painting
 
 canvas.addEventListener('mousedown', enablePainting);
 canvas.addEventListener('mouseup', disablePainting);
