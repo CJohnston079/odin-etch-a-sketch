@@ -12,6 +12,31 @@ const gridSizeDisplay = document.querySelector('#canvas-size-display');
 const decreaseGridSizeElement = document.querySelectorAll('.slider-operator')[0];
 const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1];
 
+const newCanvasSound = document.querySelector('#audio-new-canvas');
+const gridSliderSound = document.querySelector('#audio-grid-slider');
+const canvasResetSound = document.querySelector('#audio-clear-canvas');
+const colourPickerSound = document.querySelector('#audio-colour-picker');
+
+const playGridSliderSound = () => {
+    gridSliderSound.currentTime = 0;
+    gridSliderSound.play();
+}
+
+const playNewCanvasSound = () => {
+    newCanvasSound.currentTime = 0;
+    newCanvasSound.play();
+}
+
+const playCanvasResetSound = () => {
+    canvasResetSound.currentTime = 0;
+    canvasResetSound.play(); 
+}
+
+const playColourPickerSound = () => {
+    colourPickerSound.currentTime = 0;
+    colourPickerSound.play(); 
+}
+
 generateGrid(gridSlider.value);
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -19,6 +44,7 @@ increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
 
 function updateGridSizeDisplay() {
     gridSizeDisplay.textContent = gridSlider.value;
+    playGridSliderSound()
 }
 
 function decreaseGridSize() {
@@ -46,7 +72,6 @@ function timeoutChangeGridSize() {
     }, 1000)
 }
 
-
 gridSlider.addEventListener('input', updateGridSizeDisplay)
 gridSlider.addEventListener('change', () => {
     generateGrid(gridSlider.value);
@@ -66,6 +91,7 @@ function generateGrid(gridSize) {
     }
     logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
+    playNewCanvasSound()
     setTimeout(previewCellColour, 500)
     return gridArea;
 }
@@ -307,7 +333,7 @@ function hideGridSlider() {
         canvasSizeButton.addEventListener('mouseenter', showGridSlider)
         gridSliderContainer.style.animation = '';
         gridSliderContainer.style.display = 'none';
-    }, 290)
+    }, 250)
 }
 
 function toggleGrid() {
@@ -362,6 +388,8 @@ function resetCanvas() {
         setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
     }
     animateResetCanvasButton()
+    playCanvasResetSound()
+    console.log('Canvas was cleared')
 }
 
 function animateResetCanvasButton () {
@@ -452,6 +480,7 @@ function pickColour(cell, brush) {
     if (activeBrushElement.style.backgroundColor === cell.style.backgroundColor) return
     activeBrushElement.style.backgroundColor = cell.style.backgroundColor;
     animatePaletteSwatch()
+    playColourPickerSound()
     selectActiveBrush(brush)
     updateBrushColours()
 }

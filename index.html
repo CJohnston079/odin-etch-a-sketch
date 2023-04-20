@@ -16,7 +16,7 @@
         <div class="pixel-painter-container">
             <div class="toolbar-container">
                 <div id="canvas-options" class="toolbar">
-                    <div id="canvas-size-tool" class="tool">
+                    <div id="canvas-size-tool" class="tool" title="Change canvas size">
                         <div class="canvas-size-slider-container">
                             <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
                         </div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="tool brush palette-swatch" style="background-color: hsl(39, 100%, 10%);" title="Walnut">
                                 </div>
-                                <div class="tool brush palette-swatch" style="background-color: hsl(60, 100%, 10%);" title="Taupe">
+                                <div class="tool brush palette-swatch" style="background-color: hsl(60, 100%, 10%);" title="Onion">
                                 </div>
                                 <div class="tool brush palette-swatch" style="background-color: hsl(120, 50%, 10%);" title="Kombu">
                                 </div>
@@ -149,5 +149,10 @@
             <div class="help">
             </div>
         </div>
+        <audio id="audio-grid-slider" src="./audio/slider-change.mp3"></audio>
+        <audio id="audio-new-canvas" src="./audio/shuffle.mp3"></audio>
+        <audio id="audio-clear-canvas" src="./audio/scribble.mp3"></audio>
+        <audio id="audio-colour-picker" src="./audio/colour-picker.mp3"></audio>
+
     </body>
 </html>
