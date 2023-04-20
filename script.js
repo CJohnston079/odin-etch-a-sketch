@@ -218,15 +218,6 @@ function resetCanvas() {
     console.log('Canvas was cleared')
 }
 
-function animateResetCanvasButton () {
-    resetCanvasButton.style.animation = 'rotate-360 500ms'
-    resetCanvasButton.removeEventListener('mousedown', resetCanvas);
-    setTimeout(() => {
-        resetCanvasButton.addEventListener('mousedown', resetCanvas),
-        resetCanvasButton.style.animation = ''
-    }, 500)
-}
-
 function clearCells(cell) {
     cell.style.backgroundColor = canvasColour;
     cell.style.transition = 'background-colour, 1s';
@@ -234,6 +225,15 @@ function clearCells(cell) {
     setTimeout(() => {
         cell.style.transition = ''; 
     }, 1000)
+}
+
+function animateResetCanvasButton () {
+    resetCanvasButton.style.animation = 'rotate-360 500ms'
+    resetCanvasButton.removeEventListener('mousedown', resetCanvas);
+    setTimeout(() => {
+        resetCanvasButton.addEventListener('mousedown', resetCanvas),
+        resetCanvasButton.style.animation = ''
+    }, 500)
 }
 
 function setCanvasColour() {
@@ -457,20 +457,19 @@ function enableFloodFill() {
     cells.forEach(cell => {
         cell.addEventListener('mousedown', () => {
             if (activeToolElement !== floodFillToolElement) return
-            floodFill(cell, activeBrushElement);
+            floodFill(cell);
         })
     });
 }
 
-function floodFill(cell, activeBrushElement) {
+function floodFill(cell) {
     let primaryCell = cell;
     let primaryCellColour = primaryCell.style.backgroundColor;
-    cells.forEach(cell => {
-        if (cell.style.backgroundColor !== primaryCellColour) return
-        cell.style.backgroundColor = activeBrushElement.style.backgroundColor;
-        cell.classList.add('painted');
-    })
-    primaryCell.style.backgroundColor = activeBrushElement.style.backgroundColor;
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].style.backgroundColor !== primaryCellColour) continue
+        cells[i].style.backgroundColor = activeBrush;
+        cells[i].classList.add('painted');
+    }
     playFloodFillSound()
 }
 
