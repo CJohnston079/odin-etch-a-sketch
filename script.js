@@ -1,6 +1,7 @@
 const canvas = document.querySelector('#canvas');
 let cells = document.querySelectorAll('.cell');
 let gridArea = 0;
+let cellsMatrix = [];
 let gridEnabled = true;
 let gridMode = 'light'; 
 let canvasColour = 'white';
@@ -85,7 +86,7 @@ gridSlider.addEventListener('change', () => {
 
 function logGridSize(gridArea, gridSize) {
     console.clear()
-    console.log(`Grid size: ${gridSize}x${gridSize}\nGrid area: ${gridArea} `)
+    console.log(`Grid size: ${gridSize}x${gridSize}\nGrid area: ${gridArea}`)
 }
 
 function generateGrid(gridSize) {
@@ -121,6 +122,15 @@ function generateCells() {
         return cells;
 }
 
+function createMatrix(array) {
+    let gridSize = Math.sqrt(gridArea);
+    let cellsArray = Array.from(array);
+    for (let i = 0; i < cellsArray.length; i++) {
+        cellsMatrix.push(cellsArray.splice(0,gridSize))
+    }
+    return cellsMatrix
+}
+
 // canvas tools
 
 const canvasSizeButton = document.querySelector('#canvas-size-tool')
@@ -144,6 +154,7 @@ function showGridSlider() {
     setTimeout(() => {
         canvasSizeButton.removeEventListener('mouseenter', showGridSlider)
         canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
+        canvas.addEventListener('mousemove', hideGridSlider)
         gridSliderContainer.style.animation = '';
         gridSlider.style.opacity = 1;
         gridSlider.style.animation = '';
@@ -156,6 +167,7 @@ function hideGridSlider() {
     gridSlider.style.opacity = 0;
     setTimeout(() => {
         canvasSizeButton.removeEventListener('mouseleave', hideGridSlider)
+        canvas.removeEventListener('mousemove', hideGridSlider)
         canvasSizeButton.addEventListener('mouseenter', showGridSlider)
         gridSliderContainer.style.animation = '';
         gridSliderContainer.style.display = 'none';
@@ -462,15 +474,28 @@ function enableFloodFill() {
     });
 }
 
-function floodFill(cell) {
-    let primaryCell = cell;
-    let primaryCellColour = primaryCell.style.backgroundColor;
-    for (let i = 0; i < cells.length; i++) {
-        if (cells[i].style.backgroundColor !== primaryCellColour) continue
-        cells[i].style.backgroundColor = activeBrush;
-        cells[i].classList.add('painted');
+function getCellCoordinates(matrix, cell) {
+    for (let rowNum = 0; rowNum < matrix.length; rowNum++) {
+      let columnNum = matrix[rowNum].indexOf(cell);
+      if (columnNum > -1) {
+        return [rowNum, columnNum];
+      }
     }
+  }
+
+function floodFill(cell) {
+    createMatrix(cells)
+    let primaryCell = cell;
+    let primaryCellCoordinates = getCellCoordinates(cellsMatrix, cell);
+    let primaryCellColour = primaryCell.style.backgroundColor;
+    console.log(primaryCellCoordinates)
     playFloodFillSound()
+    // check the values above, below, left and right of the current location
+    // for (let i = primaryCellIndex; i < cells.length; i++) {
+    //     if (cells[i].style.backgroundColor !== primaryCellColour) break
+    //     cells[i].style.backgroundColor = activeBrush;
+    //     cells[i].classList.add('painted');
+    // }
 }
 
 function enableColourPicker() {
