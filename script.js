@@ -123,6 +123,7 @@ function generateCells() {
 }
 
 function createMatrix(array) {
+    cellsMatrix = [];
     let gridSize = Math.sqrt(gridArea);
     let cellsArray = Array.from(array);
     for (let i = 0; i < cellsArray.length; i++) {
@@ -479,23 +480,29 @@ function getCellCoordinates(matrix, cell) {
       let columnNum = matrix[rowNum].indexOf(cell);
       if (columnNum > -1) {
         return [rowNum, columnNum];
-      }
+        }
     }
-  }
+}
+
+function fill(matrix, x, y, prevC, newC) {
+    if (x < 0 || x >= matrix.length || y < 0 || y >= matrix.length) return;
+    if (matrix[x][y].style.backgroundColor !== prevC) return;
+    matrix[x][y].style.backgroundColor = newC;
+    fill(matrix, x + 1, y, prevC, newC);
+    fill(matrix, x - 1, y, prevC, newC);
+    fill(matrix, x, y + 1, prevC, newC);
+    fill(matrix, x, y - 1, prevC, newC);
+}
 
 function floodFill(cell) {
-    createMatrix(cells)
-    let primaryCell = cell;
-    let primaryCellCoordinates = getCellCoordinates(cellsMatrix, cell);
-    let primaryCellColour = primaryCell.style.backgroundColor;
-    console.log(primaryCellCoordinates)
+    // createMatrix(cells)
+    let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
+    let cellRow = cellCoordinates[0];
+    let cellCol = cellCoordinates[1];
+    console.log(`Flood fill from row ${cellRow} and column ${cellCol}.`)
+    let cellColour = cell.style.backgroundColor;
+    fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
     playFloodFillSound()
-    // check the values above, below, left and right of the current location
-    // for (let i = primaryCellIndex; i < cells.length; i++) {
-    //     if (cells[i].style.backgroundColor !== primaryCellColour) break
-    //     cells[i].style.backgroundColor = activeBrush;
-    //     cells[i].classList.add('painted');
-    // }
 }
 
 function enableColourPicker() {
