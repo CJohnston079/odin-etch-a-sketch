@@ -484,23 +484,31 @@ function getCellCoordinates(matrix, cell) {
     }
 }
 
-function fill(matrix, x, y, prevC, newC) {
-    if (x < 0 || x >= matrix.length || y < 0 || y >= matrix.length) return;
-    if (matrix[x][y].style.backgroundColor !== prevC) return;
-    matrix[x][y].style.backgroundColor = newC;
-    fill(matrix, x + 1, y, prevC, newC);
-    fill(matrix, x - 1, y, prevC, newC);
-    fill(matrix, x, y + 1, prevC, newC);
-    fill(matrix, x, y - 1, prevC, newC);
+function fill(matrix, x, y, oldColour, newColour) {
+    if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[x].length) return;
+    if (matrix[x][y].style.backgroundColor !== oldColour) return;
+    matrix[x][y].style.backgroundColor = newColour;
+    matrix[x][y].classList.add('painted');
+    matrix[x][y].style.transition = 'background-colour, 500ms';
+    setTimeout(() => {
+        matrix[x][y].style.transition = '';
+    }, 500)
+    setTimeout(() => {
+        fill(matrix, x + 1, y, oldColour, newColour);
+        fill(matrix, x - 1, y, oldColour, newColour);
+        fill(matrix, x, y + 1, oldColour, newColour);
+        fill(matrix, x, y - 1, oldColour, newColour);
+    }, 10)
 }
 
 function floodFill(cell) {
-    // createMatrix(cells)
+    createMatrix(cells)
+    let cellColour = cell.style.backgroundColor;
+    if (cellColour === activeBrush) return
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let cellRow = cellCoordinates[0];
     let cellCol = cellCoordinates[1];
-    console.log(`Flood fill from row ${cellRow} and column ${cellCol}.`)
-    let cellColour = cell.style.backgroundColor;
+    console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
     fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
     playFloodFillSound()
 }
