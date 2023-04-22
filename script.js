@@ -255,6 +255,7 @@ function setCanvasColour() {
     let gridSize = Math.sqrt(gridArea);
     activeBrush = activeBrushElement.style.backgroundColor
     canvasColour = activeBrush;
+    timeoutCanvasFunctions(1000);
     for (let i = 0; i < gridArea; i++) {
         setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
     }
@@ -272,6 +273,23 @@ function setDefaultCellColour(cell) {
     setTimeout(() => {
         previewBrush = true;
     }, 1500)
+}
+
+function timeoutCanvasFunctions(timeout) {
+    resetCanvasButton.removeEventListener('mousedown', resetCanvas)
+    resetCanvasButton.src = "icons/icon-canvas-reset-disabled.svg"
+    resetCanvasButton.style.cursor = 'not-allowed';
+    setCanvasColourButton.removeEventListener('mousedown', setCanvasColour)
+    setCanvasColourButton.src = "icons/icon-canvas-colour-disabled.svg"
+    setCanvasColourButton.style.cursor = 'not-allowed';
+    setTimeout(() => {
+        resetCanvasButton.addEventListener('mousedown', resetCanvas)
+        resetCanvasButton.src = "icons/icon-canvas-reset.svg"
+        resetCanvasButton.style.cursor = '';
+        setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
+        setCanvasColourButton.src = "icons/icon-canvas-colour.svg"
+        setCanvasColourButton.style.cursor = '';
+    }, timeout)
 }
 
 // brushes
@@ -511,6 +529,7 @@ function floodFill(cell) {
     let cellRow = cellCoordinates[0];
     let cellCol = cellCoordinates[1];
     fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
+    timeoutCanvasFunctions(1500)
     playFloodFillSound()
     // console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
 }
