@@ -119,6 +119,7 @@ function generateCells() {
         div.style.backgroundColor = canvasColour
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
+        createMatrix(cells)
         return cells;
 }
 
@@ -228,6 +229,7 @@ function resetCanvas() {
     }
     animateResetCanvasButton()
     playCanvasResetSound()
+    selectActiveTool(paintbrushToolElement)
     console.log('Canvas was cleared')
 }
 
@@ -485,6 +487,7 @@ function getCellCoordinates(matrix, cell) {
 }
 
 function fill(matrix, x, y, oldColour, newColour) {
+    if (oldColour === newColour) return
     if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[x].length) return;
     if (matrix[x][y].style.backgroundColor !== oldColour) return;
     matrix[x][y].style.backgroundColor = newColour;
@@ -502,15 +505,14 @@ function fill(matrix, x, y, oldColour, newColour) {
 }
 
 function floodFill(cell) {
-    createMatrix(cells)
     let cellColour = cell.style.backgroundColor;
     if (cellColour === activeBrush) return
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let cellRow = cellCoordinates[0];
     let cellCol = cellCoordinates[1];
-    console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
     fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
     playFloodFillSound()
+    // console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
 }
 
 function enableColourPicker() {
