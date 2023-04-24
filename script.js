@@ -16,6 +16,7 @@ const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1]
 const newCanvasSound = document.querySelector('#audio-new-canvas');
 const gridSliderSound = document.querySelector('#audio-grid-slider');
 const canvasResetSound = document.querySelector('#audio-clear-canvas');
+const paintCanvasSound = document.querySelector('#audio-paint-canvas');
 const colourPickerSound = document.querySelector('#audio-colour-picker');
 const floodFillSound = document.querySelector('#audio-flood-fill');
 
@@ -34,6 +35,11 @@ const playCanvasResetSound = () => {
     canvasResetSound.play(); 
 }
 
+const playPaintCanvasSound = () => {
+    paintCanvasSound.currentTime = 0;
+    paintCanvasSound.play(); 
+}
+
 const playColourPickerSound = () => {
     colourPickerSound.currentTime = 0;
     colourPickerSound.play(); 
@@ -43,8 +49,6 @@ const playFloodFillSound = () => {
     floodFillSound.currentTime = 0;
     floodFillSound.play(); 
 }
-
-generateGrid(gridSlider.value);
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
 increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
@@ -91,7 +95,8 @@ function logGridSize(gridArea, gridSize) {
 
 function generateGrid(gridSize) {
     if (gridSize < 4 || gridSize > 64) return
-    resetGrid();
+    resetGrid()
+    selectActiveTool(paintbrushToolElement)
     gridArea = gridSize*gridSize
     for (let i = gridArea; i > 0; i--) {
         setTimeout(generateCells, Math.floor(250/gridSize)*(i%gridSize));
@@ -229,7 +234,6 @@ function resetCanvas() {
     }
     animateResetCanvasButton()
     playCanvasResetSound()
-    selectActiveTool(paintbrushToolElement)
     console.log('Canvas was cleared')
 }
 
@@ -255,6 +259,7 @@ function setCanvasColour() {
     let gridSize = Math.sqrt(gridArea);
     activeBrush = activeBrushElement.style.backgroundColor
     canvasColour = activeBrush;
+    playPaintCanvasSound()
     timeoutCanvasFunctions(1000);
     for (let i = 0; i < gridArea; i++) {
         setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
@@ -657,3 +662,5 @@ function paintCell(cell) {
         }
     }
 }
+
+generateGrid(gridSlider.value);
