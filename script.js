@@ -1,5 +1,6 @@
 const canvas = document.querySelector('#canvas');
 let cells = document.querySelectorAll('.cell');
+let gridWidth = 0;
 let gridArea = 0;
 let cellsMatrix = [];
 let gridEnabled = true;
@@ -88,9 +89,9 @@ gridSlider.addEventListener('change', () => {
     generateGrid(gridSlider.value);
 })
 
-function logGridSize(gridArea, gridSize) {
+function logGridSize(gridWidth, gridArea) {
     console.clear()
-    console.log(`Grid size: ${gridSize}x${gridSize}\nGrid area: ${gridArea}`)
+    console.log(`Grid size: ${gridWidth}\nGrid area: ${gridArea}`)
 }
 
 function generateGrid(gridSize) {
@@ -105,6 +106,7 @@ function generateGrid(gridSize) {
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
     playNewCanvasSound()
     setTimeout(previewCellColour, 500)
+    gridWidth = Number(gridSize);
     return gridArea;
 }
 
@@ -130,10 +132,9 @@ function generateCells() {
 
 function createMatrix(array) {
     cellsMatrix = [];
-    let gridSize = Math.sqrt(gridArea);
     let cellsArray = Array.from(array);
     for (let i = 0; i < cellsArray.length; i++) {
-        cellsMatrix.push(cellsArray.splice(0,gridSize))
+        cellsMatrix.push(cellsArray.splice(0,gridWidth))
     }
     return cellsMatrix
 }
@@ -228,9 +229,8 @@ function toggleGridModeButton() {
 }
 
 function resetCanvas() {
-    let gridSize = Math.sqrt(gridArea);
     for (let i = 0; i < gridArea; i++) {
-        setTimeout(clearCells, 50*Math.floor(i/gridSize), cells[i])
+        setTimeout(clearCells, 50*Math.floor(i/gridWidth), cells[i])
     }
     animateResetCanvasButton()
     playCanvasResetSound()
@@ -256,13 +256,12 @@ function animateResetCanvasButton () {
 }
 
 function setCanvasColour() {
-    let gridSize = Math.sqrt(gridArea);
     activeBrush = activeBrushElement.style.backgroundColor
     canvasColour = activeBrush;
     playPaintCanvasSound()
     timeoutCanvasFunctions(1000);
     for (let i = 0; i < gridArea; i++) {
-        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridSize), cells[i])
+        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridWidth), cells[i])
     }
 }
 
@@ -604,26 +603,7 @@ function togglePreviewBrush(activeToolElement) {
 
 // brush size
 
-// function test(array, cell) {
-//     let gridSize = Math.sqrt(gridArea);
-//     let cellsArray = Array.from(array);
-//     let co = cellsArray.indexOf(cell)
-//     cell.style.backgroundColor = activeBrush;
-//     cells[co-1].style.backgroundColor = activeBrush;
-//     cells[co+1].style.backgroundColor = activeBrush;
-//     cells[co-gridSize].style.backgroundColor = activeBrush;
-//     cells[co+gridSize].style.backgroundColor = activeBrush;
-//     cells[co-2].style.backgroundColor = activeBrush;
-//     cells[co+2].style.backgroundColor = activeBrush;
-//     cells[co-gridSize*2].style.backgroundColor = activeBrush;
-//     cells[co+gridSize*2].style.backgroundColor = activeBrush;
-//     cells[co-1-gridSize].style.backgroundColor = activeBrush;
-//     cells[co+1+gridSize].style.backgroundColor = activeBrush;
-//     cells[co-1+gridSize].style.backgroundColor = activeBrush;
-//     cells[co+1-gridSize].style.backgroundColor = activeBrush;
-// }
-
-let brushSize = 4
+let brushSize = 1
 
 function increaseBrushSize() {
     if (brushSize === 4 || brushSize === Math.sqrt(gridArea)) return
@@ -680,35 +660,61 @@ function updateCell(cell) {
     }
 }
 
+let neighbourCellColours = [];
+
+function storeCellColours(cell) {
+    neighbourCellColours = []
+    let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
+    let x = cellCoordinates[0];
+    let y = cellCoordinates[1];
+    neighbourCellColours.push(cellsMatrix[x][y].style.backgroundColor);
+    for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
+        for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
+            neighbourCellColours.push(cellsMatrix[i][j].style.backgroundColor);
+        }
+    }
+}
+
+function restoreCellColours(cell) {
+    let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
+    let x = cellCoordinates[0];
+    let y = cellCoordinates[1];
+    cellsMatrix[x][y].style.backgroundColor = neighbourCellColours.shift();
+    for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
+        for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
+            cellsMatrix[i][j].style.backgroundColor = neighbourCellColours.shift();
+        }
+    }
+}
+
 function previewCellColour() {
     cells.forEach(cell => {
-        currentCellColour = cell.style.backgroundColor;
+        storeCellColours(cell)
         cell.addEventListener('mouseenter', () => {
             if (previewBrush === false || isPainting === true) return
-                currentCellColour = cell.style.backgroundColor;
+                storeCellColours(cell)
                 paint(cell, activeBrush)
                 // cell.style.backgroundColor = activeBrush;
         });
         cell.addEventListener('mouseup', () => {
             if (previewBrush === false) return
-            currentCellColour = activeBrush;
+                neighbourCellColours = []
         })
         cell.addEventListener('mouseout', () => {
             if (previewBrush === false || isPainting === true) return
-                paint(cell, currentCellColour)
-                // cell.style.backgroundColor = currentCellColour;
+                // paint(cell, currentCellColour)
+                restoreCellColours(cell)
         });
     });
 }
 
 function paint(cell, colour) {
-    let gridSize = Math.sqrt(gridArea);
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let x = cellCoordinates[0];
     let y = cellCoordinates[1];
     cellsMatrix[x][y].style.backgroundColor = activeBrush;
-    for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridSize - 1); i++) {
-        for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridSize - 1); j++) {
+    for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
+        for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
             cellsMatrix[i][j].style.backgroundColor = colour;
             if (eraserOn === false && isPainting === true) {
                 cellsMatrix[i][j].classList.add('painted');
