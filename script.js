@@ -698,7 +698,8 @@ function previewCellColour() {
         });
         cell.addEventListener('mouseup', () => {
             if (previewBrush === false) return
-                neighbourCellColours = []
+                neighbourCellColours = [];
+                paint(cell, activeBrush);
         })
         cell.addEventListener('mouseout', () => {
             if (previewBrush === false || isPainting === true) return
