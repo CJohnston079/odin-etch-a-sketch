@@ -533,10 +533,10 @@ function floodFill(cell) {
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let cellRow = cellCoordinates[0];
     let cellCol = cellCoordinates[1];
+    // console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
     fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
     timeoutCanvasFunctions(1500)
     playFloodFillSound()
-    // console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
 }
 
 function enableColourPicker() {
@@ -602,25 +602,44 @@ function togglePreviewBrush(activeToolElement) {
     }
 }
 
-// paint - preview on hover
+// brush size
 
-function previewCellColour() {
-    cells.forEach(cell => {
-        currentCellColour = cell.style.backgroundColor;
-        cell.addEventListener('mouseenter', () => {
-            if (previewBrush === false || isPainting === true) return
-                currentCellColour = cell.style.backgroundColor;
-                cell.style.backgroundColor = activeBrush;
-        });
-        cell.addEventListener('mouseup', () => {
-            if (previewBrush === false) return
-            currentCellColour = activeBrush;
-        })
-        cell.addEventListener('mouseout', () => {
-            if (previewBrush === false || isPainting === true) return
-                cell.style.backgroundColor = currentCellColour;
-        });
-    });
+// function test(array, cell) {
+//     let gridSize = Math.sqrt(gridArea);
+//     let cellsArray = Array.from(array);
+//     let co = cellsArray.indexOf(cell)
+//     cell.style.backgroundColor = activeBrush;
+//     cells[co-1].style.backgroundColor = activeBrush;
+//     cells[co+1].style.backgroundColor = activeBrush;
+//     cells[co-gridSize].style.backgroundColor = activeBrush;
+//     cells[co+gridSize].style.backgroundColor = activeBrush;
+//     cells[co-2].style.backgroundColor = activeBrush;
+//     cells[co+2].style.backgroundColor = activeBrush;
+//     cells[co-gridSize*2].style.backgroundColor = activeBrush;
+//     cells[co+gridSize*2].style.backgroundColor = activeBrush;
+//     cells[co-1-gridSize].style.backgroundColor = activeBrush;
+//     cells[co+1+gridSize].style.backgroundColor = activeBrush;
+//     cells[co-1+gridSize].style.backgroundColor = activeBrush;
+//     cells[co+1-gridSize].style.backgroundColor = activeBrush;
+// }
+
+let brushSize = 4
+
+function increaseBrushSize() {
+    if (brushSize === 4 || brushSize === Math.sqrt(gridArea)) return
+    brushSize++
+    return brushSize
+}
+
+function decreaseBrushSize() {
+    if (brushSize = 0) return
+    brushSize--
+    return brushSize
+}
+
+function cycleBrushSize() {
+    brushSize === 4 ? brushSize = 0 : brushSize ++;
+    return brushSize
 }
 
 // painting
@@ -641,24 +660,61 @@ function enablePainting() {
     isPainting = true;
     cells.forEach(cell => {
         cell.addEventListener('mousemove', () => {
-            paintCell(cell);
-        })
-        cell.addEventListener('mouseup', () => {
-            paintCell(cell);
+            updateCell(cell);
         })
     });
 }
 
-function paintCell(cell) {
+function updateCell(cell) {
     if (activeToolElement === colourPickerToolElement ||
         activeToolElement === floodFillToolElement)
         return
     if (isPainting === true) {
-        cell.style.backgroundColor = activeBrush;
-        if (eraserOn === false) {
-            cell.classList.add('painted');
-        } else if (eraserOn === true) {
-            cell.classList.remove('painted'); 
+        paint(cell, activeBrush)
+        // cell.style.backgroundColor = activeBrush;
+        // if (eraserOn === false) {
+        //     cell.classList.add('painted');
+        // } else if (eraserOn === true) {
+        //     cell.classList.remove('painted'); 
+        // }
+    }
+}
+
+function previewCellColour() {
+    cells.forEach(cell => {
+        currentCellColour = cell.style.backgroundColor;
+        cell.addEventListener('mouseenter', () => {
+            if (previewBrush === false || isPainting === true) return
+                currentCellColour = cell.style.backgroundColor;
+                paint(cell, activeBrush)
+                // cell.style.backgroundColor = activeBrush;
+        });
+        cell.addEventListener('mouseup', () => {
+            if (previewBrush === false) return
+            currentCellColour = activeBrush;
+        })
+        cell.addEventListener('mouseout', () => {
+            if (previewBrush === false || isPainting === true) return
+                paint(cell, currentCellColour)
+                // cell.style.backgroundColor = currentCellColour;
+        });
+    });
+}
+
+function paint(cell, colour) {
+    let gridSize = Math.sqrt(gridArea);
+    let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
+    let x = cellCoordinates[0];
+    let y = cellCoordinates[1];
+    cellsMatrix[x][y].style.backgroundColor = activeBrush;
+    for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridSize - 1); i++) {
+        for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridSize - 1); j++) {
+            cellsMatrix[i][j].style.backgroundColor = colour;
+            if (eraserOn === false && isPainting === true) {
+                cellsMatrix[i][j].classList.add('painted');
+            } else if (eraserOn === true) {
+                cellsMatrix[i][j].classList.remove('painted'); 
+            }
         }
     }
 }
