@@ -5,7 +5,7 @@ let gridArea = 0;
 let cellsMatrix = [];
 let gridEnabled = true;
 let gridMode = 'light'; 
-let canvasColour = 'white';
+let canvasColour = 'hsl(0, 0%, 100%)';
 let previewBrush = true;
 let currentCellColour = canvasColour;
 
@@ -234,7 +234,8 @@ function resetCanvas() {
     }
     animateResetCanvasButton()
     playCanvasResetSound()
-    console.log('Canvas was cleared')
+    selectActiveTool(paintbrushToolElement)
+    console.log('Canvas was cleared.')
 }
 
 function clearCells(cell) {
@@ -263,6 +264,7 @@ function setCanvasColour() {
     for (let i = 0; i < gridArea; i++) {
         setTimeout(setDefaultCellColour, 50*Math.floor(i/gridWidth), cells[i])
     }
+    console.log('Background colour changed.')
 }
 
 function setDefaultCellColour(cell) {
@@ -608,17 +610,17 @@ function togglePreviewBrush(activeToolElement) {
 let brushSize = 0
 
 function increaseBrushSize() {
-    if (brushSize === 8 || brushSize === Math.floor(gridWidth/2)) return
+    if (brushSize === 7 || brushSize === Math.floor(gridWidth/2)) return
     brushSize++
-    console.log(`Brush size: ${brushSize}\nBrush diameter = ${brushSize*2+1} cells`)
-    return brushSize
+    console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
+    return brushSize;
 }
 
 function decreaseBrushSize() {
     if (brushSize === 0) return
     brushSize--
-    console.log(`Brush size: ${brushSize}`)
-    return brushSize
+    console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
+    return brushSize;
 }
 
 // painting
