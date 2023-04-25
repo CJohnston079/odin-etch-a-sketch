@@ -668,11 +668,17 @@ function disablePainting() {
 
 let isPainting = false;
 let eraserOn = false;
+let shadingOn = true
 
 function enablePainting() {
     isPainting = true;
     cells.forEach(cell => {
-        cell.addEventListener('mousemove', () => {
+        // cell.addEventListener('mousemove', () => {
+        //     shadingOn = false
+        //     updateCell(cell);
+        // })
+        cell.addEventListener('mouseenter', () => {
+            shadingOn = true
             updateCell(cell);
         })
     });
@@ -746,12 +752,15 @@ function paint(cell, colour) {
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let x = cellCoordinates[0];
     let y = cellCoordinates[1];
-    cellsMatrix[x][y].style.backgroundColor = activeBrush;
     // Math.max returns the largest of two numbers, the reverse is true for Math.min.
     // These are included to ensure the function does not try to paint a cell outside of the canvas.
     for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
         for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
-            cellsMatrix[i][j].style.backgroundColor = colour;
+            if (activeToolElement === lightenToolElement || activeToolElement === darkenToolElement) {
+                shadeCell(cellsMatrix[i][j])
+            } else {
+                cellsMatrix[i][j].style.backgroundColor = colour;
+            }
             if (eraserOn === false && isPainting === true) {
                 cellsMatrix[i][j].classList.add('painted');
             } else if (eraserOn === true) {
