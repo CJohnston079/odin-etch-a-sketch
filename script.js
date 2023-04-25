@@ -464,12 +464,12 @@ const paintbrushIncreaseElement = document.querySelector('#brush-size-increase')
 const paintbrushDecreaseElement = document.querySelector('#brush-size-decrease');
 const floodFillToolElement = document.querySelector('#flood-fill');
 const colourPickerToolElement = document.querySelector('#colour-picker');
-const brightenToolElement = document.querySelector('#lighten');
+const lightenToolElement = document.querySelector('#lighten');
 const darkenToolElement = document.querySelector('#darken');
 const eraserToolElement = document.querySelector('#eraser');
 const downloadToolElement = document.querySelector('#download');
 
-const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, brightenToolElement, darkenToolElement, eraserToolElement, downloadToolElement];
+const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, lightenToolElement, darkenToolElement, eraserToolElement, downloadToolElement];
 
 let activeToolElement = paintbrushToolElement;
 
@@ -493,6 +493,38 @@ paintbrushDecreaseElement.addEventListener('mousedown', decreaseBrushSize)
 floodFillToolElement.addEventListener('mousedown', enableFloodFill);
 colourPickerToolElement.addEventListener('mousedown', enableColourPicker);
 eraserToolElement.addEventListener('mousedown', enableEraser);
+
+// lighten/darken brush functions
+
+function shadeCell(cell) {
+    let rgbValues = getRgbValues(cell.style.backgroundColor);
+    shadeColour(rgbValues)
+    applyShadedColour(cell, rgbValues[0], rgbValues[1], rgbValues[2])
+}
+
+function getRgbValues(string) {
+    let rgbValues = []
+    rgbValues = string.slice(4,-1).split(', ').map(Number);
+    return rgbValues;
+}
+
+function shadeColour(rgbValues) {
+    if (activeToolElement === lightenToolElement) {
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] + 12.75));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] + 12.75));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] + 12.75));
+    }
+    if (activeToolElement === darkenToolElement) {
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] - 12.75));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] - 12.75));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] - 12.75));
+    }
+    return rgbValues;
+}
+
+function applyShadedColour(cell, r, g, b) {
+    cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
 
 function enableFloodFill() {
     cells.forEach(cell => {
@@ -569,16 +601,16 @@ function animatePaletteSwatch() {
     }, 250)
 }
 
+function enablePaintbrush() {
+    activeBrush = activeBrushElement.style.backgroundColor;
+    eraserOn = false
+    return eraserOn
+}
+
 function enableEraser() {
     if (activeToolElement !== eraserToolElement) return
     activeBrush = canvasColour
     eraserOn = true
-    return eraserOn
-}
-
-function enablePaintbrush() {
-    activeBrush = activeBrushElement.style.backgroundColor;
-    eraserOn = false
     return eraserOn
 }
 
@@ -715,6 +747,8 @@ function paint(cell, colour) {
     let x = cellCoordinates[0];
     let y = cellCoordinates[1];
     cellsMatrix[x][y].style.backgroundColor = activeBrush;
+    // Math.max returns the largest of two numbers, the reverse is true for Math.min.
+    // These are included to ensure the function does not try to paint a cell outside of the canvas.
     for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
         for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
             cellsMatrix[i][j].style.backgroundColor = colour;
