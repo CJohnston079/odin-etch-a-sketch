@@ -458,8 +458,8 @@ function setCustomColour(brush) {
 // tools
 
 const paintbrushToolElement = document.querySelector('#paintbrush');
-const paintbrushSizeToolElement = document.querySelector('#brush-size');
-const paintbrushShapeToolElement = document.querySelector('#brush-shape');
+const paintbrushIncreaseElement = document.querySelector('#brush-size-increase');
+const paintbrushDecreaseElement = document.querySelector('#brush-size-decrease');
 const floodFillToolElement = document.querySelector('#flood-fill');
 const colourPickerToolElement = document.querySelector('#colour-picker');
 const brightenToolElement = document.querySelector('#lighten');
@@ -485,10 +485,12 @@ function selectActiveTool(tool) {
     togglePreviewBrush(activeToolElement);
 }
 
-paintbrushToolElement.addEventListener('mousedown', enablePaintbrush)
-floodFillToolElement.addEventListener('mousedown', enableFloodFill)
-colourPickerToolElement.addEventListener('mousedown', enableColourPicker)
-eraserToolElement.addEventListener('mousedown', enableEraser)
+paintbrushToolElement.addEventListener('mousedown', enablePaintbrush);
+paintbrushIncreaseElement.addEventListener('mousedown', increaseBrushSize)
+paintbrushDecreaseElement.addEventListener('mousedown', decreaseBrushSize)
+floodFillToolElement.addEventListener('mousedown', enableFloodFill);
+colourPickerToolElement.addEventListener('mousedown', enableColourPicker);
+eraserToolElement.addEventListener('mousedown', enableEraser);
 
 function enableFloodFill() {
     cells.forEach(cell => {
@@ -603,22 +605,19 @@ function togglePreviewBrush(activeToolElement) {
 
 // brush size
 
-let brushSize = 1
+let brushSize = 0
 
 function increaseBrushSize() {
-    if (brushSize === 4 || brushSize === Math.sqrt(gridArea)) return
+    if (brushSize === 8 || brushSize === Math.floor(gridWidth/2)) return
     brushSize++
+    console.log(`Brush size: ${brushSize}\nBrush diameter = ${brushSize*2+1} cells`)
     return brushSize
 }
 
 function decreaseBrushSize() {
-    if (brushSize = 0) return
+    if (brushSize === 0) return
     brushSize--
-    return brushSize
-}
-
-function cycleBrushSize() {
-    brushSize === 4 ? brushSize = 0 : brushSize ++;
+    console.log(`Brush size: ${brushSize}`)
     return brushSize
 }
 
