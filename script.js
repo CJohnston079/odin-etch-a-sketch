@@ -494,38 +494,6 @@ floodFillToolElement.addEventListener('mousedown', enableFloodFill);
 colourPickerToolElement.addEventListener('mousedown', enableColourPicker);
 eraserToolElement.addEventListener('mousedown', enableEraser);
 
-// lighten/darken brush functions
-
-function shadeCell(cell) {
-    let rgbValues = getRgbValues(cell.style.backgroundColor);
-    shadeColour(rgbValues)
-    applyShadedColour(cell, rgbValues[0], rgbValues[1], rgbValues[2])
-}
-
-function getRgbValues(string) {
-    let rgbValues = []
-    rgbValues = string.slice(4,-1).split(', ').map(Number);
-    return rgbValues;
-}
-
-function shadeColour(rgbValues) {
-    if (activeToolElement === lightenToolElement) {
-        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] + 12.75));
-        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] + 12.75));
-        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] + 12.75));
-    }
-    if (activeToolElement === darkenToolElement) {
-        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] - 12.75));
-        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] - 12.75));
-        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] - 12.75));
-    }
-    return rgbValues;
-}
-
-function applyShadedColour(cell, r, g, b) {
-    cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-}
-
 function enableFloodFill() {
     cells.forEach(cell => {
         cell.addEventListener('mousedown', () => {
@@ -752,8 +720,6 @@ function paint(cell, colour) {
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let x = cellCoordinates[0];
     let y = cellCoordinates[1];
-    // Math.max returns the largest of two numbers, the reverse is true for Math.min.
-    // These are included to ensure the function does not try to paint a cell outside of the canvas.
     for (let i = Math.max(0, x - brushSize); i <= Math.min(x + brushSize, gridWidth - 1); i++) {
         for (let j = Math.max(0, y - brushSize); j <= Math.min(y + brushSize, gridWidth - 1); j++) {
             if (activeToolElement === lightenToolElement || activeToolElement === darkenToolElement) {
@@ -768,6 +734,46 @@ function paint(cell, colour) {
             }
         }
     }
+}
+
+// lighten/darken brush functions
+
+function shadeCell(cell) {
+    let rgbValues = getRgbValues(cell.style.backgroundColor);
+    console.log('RGB values before shading applied:')
+    logRgbValues(rgbValues)
+    shadeColour(rgbValues)
+    console.log('RGB values to apply:')
+    logRgbValues(rgbValues)
+    applyShadedColour(cell, rgbValues[0], rgbValues[1], rgbValues[2])
+}
+
+function getRgbValues(string) {
+    let rgbValues = []
+    rgbValues = string.slice(4,-1).split(', ').map(Number);
+    return rgbValues;
+}
+
+function shadeColour(rgbValues) {
+    if (activeToolElement === lightenToolElement) {
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] + 12.75));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] + 12.75));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] + 12.75));
+    }
+    if (activeToolElement === darkenToolElement) {
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] - 12.75));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] - 12.75));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] - 12.75));
+    }
+    return rgbValues;
+}
+
+function applyShadedColour(cell, r, g, b) {
+    cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
+function logRgbValues(rgbValues) {
+    console.log(`r = ${rgbValues[0] }, g = ${rgbValues[1] }, b = ${rgbValues[2] }`)
 }
 
 generateGrid(gridSlider.value);
