@@ -47,7 +47,6 @@ h2 {
     align-items: center;
 }
 
-
 .toolbar-container {
     margin-left: auto;
     display: flex;
@@ -55,6 +54,10 @@ h2 {
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+}
+
+.help {
+    margin-right: -10rem;
 }
 
 .toolbar {
@@ -206,7 +209,7 @@ h2 {
 
 .help {
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 1rem;
     color: hsl(0, 0%, 25%)
 }
@@ -222,6 +225,7 @@ h2 {
     border: solid hsl(0, 0%, 90%) 1px;
     border-radius: 0.25rem;
     font-family: monospace;
+    font-size: 1rem;
     color: hsl(0, 0%, 25%);
 }
 
