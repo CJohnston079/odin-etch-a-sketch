@@ -13,15 +13,6 @@ li {
     list-style-type: none;
 }
 
-h2 {
-    padding: 0.5rem 0;
-    margin: 0.5rem 0;
-    border-bottom: solid hsl(0, 0%, 90%) 0.1rem;
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
 :root {
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -57,7 +48,7 @@ h2 {
 }
 
 .help {
-    margin-right: -10rem;
+    margin-right: -20rem;
 }
 
 .toolbar {
@@ -233,13 +224,13 @@ h2 {
     justify-content: center;
     align-items: center;
     margin: 0.2rem;
-    min-width: 1.6rem;
-    min-height: 1.6rem;
+    min-width: 2rem;
+    min-height: 2rem;
     background-color: hsl(0, 0%, 90%);
     border: solid hsl(0, 0%, 80%) 1px;
     border-radius: 0.25rem;
     font-family: monospace;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .ctrl {
