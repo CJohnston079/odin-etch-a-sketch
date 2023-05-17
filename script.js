@@ -363,6 +363,12 @@ function keyboardShortcuts(e) {
         case "[":
             decreaseBrushSize()
         break
+        case "=":
+            selectActiveTool(lightenToolElement)
+        break
+        case "-":
+            selectActiveTool(darkenToolElement)
+        break
         case "]":
             increaseBrushSize()
         break
