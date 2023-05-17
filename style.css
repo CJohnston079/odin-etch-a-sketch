@@ -211,7 +211,21 @@ h2 {
     text-align: left;
     font-size: 0.8rem;
     line-height: 1rem;
+    color: hsl(0, 0%, 50%);
+    transition: color 500ms;
+}
+
+.help:hover {
     color: hsl(0, 0%, 25%)
+}
+
+.help span {
+    transition: background-color 500ms, border 500ms;
+}
+
+.help:hover span {
+    background-color: white;
+    border: solid hsl(0, 0%, 90%) 1px;
 }
 
 .key {
@@ -221,12 +235,11 @@ h2 {
     margin: 0.2rem;
     min-width: 2rem;
     min-height: 2rem;
-    background-color: white;
-    border: solid hsl(0, 0%, 90%) 1px;
+    background-color: hsl(0, 0%, 90%);
+    border: solid hsl(0, 0%, 80%) 1px;
     border-radius: 0.25rem;
     font-family: monospace;
     font-size: 1rem;
-    color: hsl(0, 0%, 25%);
 }
 
 .ctrl {

@@ -24,14 +24,14 @@
                         <p id="canvas-size-display">8</p>
                         <img class="slider-operator" src="icons/icon-increment.svg" title="Increase canvas size">
                     </div>
-                    <img class="tool" src="icons/icon-grid-on.svg" title="Toggle grid">
-                    <img class="tool" src="icons/icon-grid-light.svg" title="Grid mode light/dark">
-                    <img class="tool" src="icons/icon-canvas-reset.svg" title="Clear canvas">
-                    <img class="tool" src="icons/icon-canvas-colour.svg" title="Paint canvas background">
+                    <img class="tool" src="icons/icon-grid-on.svg" title="Toggle grid on/off ('')">
+                    <img class="tool" src="icons/icon-grid-light.svg" title="Grid mode light/dark (#)">
+                    <img class="tool" src="icons/icon-canvas-reset.svg" title="Clear canvas (Ctrl + R)">
+                    <img class="tool" src="icons/icon-canvas-colour.svg" title="Undo last action (Ctrl + Z)">
                 </div>
                 <div id="tools" class="toolbar">
-                    <img id="paintbrush" class="tool active-tool" src="icons/icon-brush.svg" title="Paint brush">
-                    <div id="brush-one" class="tool brush active-tool" style="background-color: hsl(0, 0%, 0%);" title="Brush #1&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="paintbrush" class="tool active-tool" src="icons/icon-brush.svg" title="Paint brush (B)">
+                    <div id="brush-one" class="tool brush active-tool" style="background-color: hsl(0, 0%, 0%);" title="Colour swatch one (1)&#013;Right click to show palette" oncontextmenu="return false;">
                         <div id="palette-wrapper">
                             <div id="palette" class="toolbar" title="">
                                 <div class="tool brush palette-swatch-custom" title="Custom Colour">
@@ -118,29 +118,29 @@
                             </div>
                         </div>
                     </div>
-                    <img id="eraser" class="tool" src="icons/icon-eraser.svg" title="Eraser">
-                    <div id="brush-two" class="tool brush" style="background-color: hsl(0, 100%, 50%);" title="Brush #2&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="eraser" class="tool" src="icons/icon-eraser.svg" title="Eraser (E)">
+                    <div id="brush-two" class="tool brush" style="background-color: hsl(0, 100%, 50%);" title="Colour swatch two (2)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="brush-size-increase" class="tool" src="icons/icon-brush-size-increase.svg" title="Increase brush size">
-                    <div id="brush-three" class="tool brush" style="background-color: hsl(39, 100%, 50%);" title="Brush #3&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="brush-size-increase" class="tool" src="icons/icon-brush-size-increase.svg" title="Increase brush size (])">
+                    <div id="brush-three" class="tool brush" style="background-color: hsl(39, 100%, 50%);" title="Colour swatch three (3)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="brush-size-decrease" class="tool" src="icons/icon-brush-size-decrease.svg" title="Decrease brush size">
-                    <div id="brush-four" class="tool brush" style="background-color: hsl(60, 100%, 50%);" title="Brush #4&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="brush-size-decrease" class="tool" src="icons/icon-brush-size-decrease.svg" title="Decrease brush size ([)">
+                    <div id="brush-four" class="tool brush" style="background-color: hsl(60, 100%, 50%);" title="Colour swatch four (4)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="lighten" class="tool" src="icons/icon-lighten.svg" title="Lighten brush">
-                    <div id="brush-five" class="tool brush" style="background-color: hsl(120, 100%, 50%);" title="Brush #5&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="lighten" class="tool" src="icons/icon-lighten.svg" title="Lighten brush (+)">
+                    <div id="brush-five" class="tool brush" style="background-color: hsl(120, 100%, 50%);" title="Colour swatch five (5)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="darken" class="tool" src="icons/icon-darken.svg" title="darken-brush">
-                    <div id="brush-six" class="tool brush" style="background-color: hsl(180, 100%, 50%);" title="Brush #6&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="darken" class="tool" src="icons/icon-darken.svg" title="darken-brush (-)">
+                    <div id="brush-six" class="tool brush" style="background-color: hsl(180, 100%, 50%);" title="Colour swatch six (6)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="flood-fill" class="tool" src="icons/icon-flood-fill.svg" title="Flood fill">
-                    <div id="brush-seven" class="tool brush" style="background-color: hsl(240, 100%, 50%);" title="Brush #7&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="flood-fill" class="tool" src="icons/icon-flood-fill.svg" title="Flood fill (F)">
+                    <div id="brush-seven" class="tool brush" style="background-color: hsl(240, 100%, 50%);" title="Colour swatch seven (7)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="colour-picker" class="tool" src="icons/icon-colour-picker.svg" title="Colour picker">
-                    <div id="brush-eight" class="tool brush" style="background-color: hsl(300, 100%, 50%);" title="Brush #8&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="colour-picker" class="tool" src="icons/icon-colour-picker.svg" title="Colour picker (P)">
+                    <div id="brush-eight" class="tool brush" style="background-color: hsl(300, 100%, 50%);" title="Colour swatch eight (8)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="download" class="tool" src="icons/icon-download.svg" title="Download canvas">
-                    <div id="brush-nine" class="tool brush" style="background-color: hsl(0, 0%, 100%);" title="Brush #9&#013;Right click to show palette" oncontextmenu="return false;">
+                    <img id="download" class="tool" src="icons/icon-download.svg" title="Download canvas (Ctrl + S)">
+                    <div id="brush-nine" class="tool brush" style="background-color: hsl(0, 0%, 100%);" title="Colour swatch nine (9)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
                 </div>
             </section>
@@ -149,7 +149,7 @@
             <section class="help">
                 <h2>Keyboard shortcuts</h2>
                 <ul>
-                    <li><span class ='key'>1</span>-<span class ='key'>9</span> Brushes</li>
+                    <li><span class ='key'>1</span>-<span class ='key'>9</span> Colour swatches</li>
                     <li><span class ='key'>]</span> Increase brush size</li>
                     <li><span class ='key'>[</span> Decrease brush size</li>
                     <li><span class ='key'>+</span> Ligthen tool</li>
