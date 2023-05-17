@@ -148,35 +148,37 @@ const gridModeButton = document.querySelectorAll('.tool')[2]
 const resetCanvasButton = document.querySelectorAll('.tool')[3]
 const setCanvasColourButton = document.querySelectorAll('.tool')[4]
 
-canvasSizeButton.addEventListener('mouseenter', showGridSlider)
+canvasSizeButton.addEventListener('contextmenu', e => {
+    showGridSlider(e)}
+)
+canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
 gridToggleButton.addEventListener('mousedown', toggleGrid)
 gridModeButton.addEventListener('mousedown', toggleGridMode)
 resetCanvasButton.addEventListener('mousedown', resetCanvas)
 setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
 
-function showGridSlider() {
+function showGridSlider(e) {
+    e.preventDefault();
     gridSliderContainer.style.display = 'flex';
-    gridSliderContainer.style.animation = 'grow-from-left 800ms';
+    gridSliderContainer.style.animation = 'grow-from-left 400ms';
     gridSlider.style.display = 'block';
-    gridSlider.style.animation = 'fade 400ms 400ms';
+    gridSlider.style.animation = 'fade 300ms 100ms';
     setTimeout(() => {
-        canvasSizeButton.removeEventListener('mouseenter', showGridSlider)
         canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
         canvas.addEventListener('mousemove', hideGridSlider)
         gridSliderContainer.style.animation = '';
         gridSlider.style.opacity = 1;
         gridSlider.style.animation = '';
-    }, 800)
+    }, 400)
 }
 
 function hideGridSlider() {
-    gridSliderContainer.style.animation = 'shrink-to-left 300ms';
+    gridSliderContainer.style.animation = 'grow-from-left 300ms reverse';
     gridSlider.style.display = 'none';
     gridSlider.style.opacity = 0;
     setTimeout(() => {
         canvasSizeButton.removeEventListener('mouseleave', hideGridSlider)
         canvas.removeEventListener('mousemove', hideGridSlider)
-        canvasSizeButton.addEventListener('mouseenter', showGridSlider)
         gridSliderContainer.style.animation = '';
         gridSliderContainer.style.display = 'none';
     }, 250)
@@ -416,7 +418,7 @@ function positionPalette(brushElement) {
     }
 }
 
-function showPalette(brushElement) {
+function showPalette() {
     palette.style.display = 'grid';
     palette.style.animation = 'slide-in 200ms ease-in';
     paletteVisible = true;
@@ -658,12 +660,6 @@ function updateCell(cell) {
         return
     if (isPainting === true) {
         paint(cell, activeBrush)
-        // cell.style.backgroundColor = activeBrush;
-        // if (eraserOn === false) {
-        //     cell.classList.add('painted');
-        // } else if (eraserOn === true) {
-        //     cell.classList.remove('painted'); 
-        // }
     }
 }
 
@@ -701,7 +697,6 @@ function previewCellColour() {
             if (previewBrush === false || isPainting === true) return
                 storeCellColours(cell)
                 paint(cell, activeBrush)
-                // cell.style.backgroundColor = activeBrush;
         });
         cell.addEventListener('mouseup', () => {
             if (previewBrush === false) return
@@ -710,7 +705,6 @@ function previewCellColour() {
         })
         cell.addEventListener('mouseout', () => {
             if (previewBrush === false || isPainting === true) return
-                // paint(cell, currentCellColour)
                 restoreCellColours(cell)
         });
     });
@@ -756,14 +750,14 @@ function getRgbValues(string) {
 
 function shadeColour(rgbValues) {
     if (activeToolElement === lightenToolElement) {
-        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] + 12.75));
-        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] + 12.75));
-        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] + 12.75));
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] + 15));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] + 15));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] + 15));
     }
     if (activeToolElement === darkenToolElement) {
-        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] - 12.75));
-        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] - 12.75));
-        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] - 12.75));
+        rgbValues[0] = Math.max(0, Math.min(255, rgbValues[0] - 15));
+        rgbValues[1] = Math.max(0, Math.min(255, rgbValues[1] - 15));
+        rgbValues[2] = Math.max(0, Math.min(255, rgbValues[2] - 15));
     }
     return rgbValues;
 }
