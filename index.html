@@ -13,8 +13,8 @@
     </head>
     <body>
         <h1 id="site-title">Pixel Painter</h1>
-        <div class="pixel-painter-container">
-            <div class="toolbar-container">
+        <main class="pixel-painter-container">
+            <section class="toolbar-container">
                 <div id="canvas-options" class="toolbar">
                     <div id="canvas-size-tool" class="tool" title="Change canvas size&#013;Right click to show slider">
                         <div class="canvas-size-slider-container">
@@ -143,12 +143,29 @@
                     <div id="brush-nine" class="tool brush" style="background-color: hsl(0, 0%, 100%);" title="Brush #9&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
                 </div>
-            </div>
-            <div id="canvas">
-            </div>
-            <div class="help">
-            </div>
-        </div>
+            </section>
+            <section id="canvas">
+            </section>
+            <section class="help">
+                <h2>Keyboard shortcuts</h2>
+                <ul>
+                    <li><span class ='key'>1</span>-<span class ='key'>9</span> Brushes</li>
+                    <li><span class ='key'>]</span> Increase brush size</li>
+                    <li><span class ='key'>[</span> Decrease brush size</li>
+                    <li><span class ='key'>+</span> Ligthen tool</li>
+                    <li><span class ='key'>-</span> Darken tool</li>
+                    <li><span class ='key'>b</span> Paintbrush tool</li>
+                    <li><span class ='key'>e</span> Eraser tool</li>
+                    <li><span class ='key'>f</span> Flood fill tool</li>
+                    <li><span class ='key'>p</span> Colour picker tool</li>
+                    <li><span class ='key'>'</span> Toggle gridlines on/off</li>
+                    <li><span class ='key'>#</span> Toggle grid mode light/dark</li>
+                    <li><span class ='key ctrl'>Ctrl</span>+<span class ='key'>z</span> Undo last action</li>
+                    <li><span class ='key ctrl'>Ctrl</span>+<span class ='key'>r</span> Clear canvas</li>
+                    <li><span class ='key ctrl'>Ctrl</span>+<span class ='key'>s</span> Save artwork</li>
+                </ul>
+            </section>
+        </main>
         <audio id="audio-grid-slider" src="./audio/slider-change.mp3"></audio>
         <audio id="audio-new-canvas" src="./audio/shuffle.mp3"></audio>
         <audio id="audio-clear-canvas" src="./audio/scribble.mp3"></audio>
