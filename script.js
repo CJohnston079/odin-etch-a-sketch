@@ -78,9 +78,15 @@ function increaseGridSize() {
 function timeoutChangeGridSize() {
     decreaseGridSizeElement.removeEventListener('mousedown', decreaseGridSize)
     increaseGridSizeElement.removeEventListener('mousedown', increaseGridSize)
+    decreaseGridSizeElement.style.opacity = 0.5;
+    increaseGridSizeElement.style.opacity = 0.5;
+    decreaseGridSizeElement.style.cursor = 'wait';
+    increaseGridSizeElement.style.cursor = 'wait';
     setTimeout(() => {
         decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
         increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
+        decreaseGridSizeElement.style = '';
+        increaseGridSizeElement.style = '';
     }, 1000)
 }
 
@@ -298,6 +304,95 @@ function timeoutCanvasFunctions(timeout) {
         setCanvasColourButton.src = "icons/icon-canvas-colour.svg"
         setCanvasColourButton.style.cursor = '';
     }, timeout)
+}
+
+// keyboard shortcuts
+
+document.addEventListener('keydown', keyboardShortcuts)
+
+function keyboardShortcuts(e) {
+    switch (e.key) {
+        case "1":
+            selectActiveBrush(brushElement1)
+        break
+        case "2":
+            selectActiveBrush(brushElement2)
+        break
+        case "3":
+            selectActiveBrush(brushElement3)
+        break
+        case "4":
+            selectActiveBrush(brushElement4)
+        break
+        case "5":
+            selectActiveBrush(brushElement5)
+        break
+        case "6":
+            selectActiveBrush(brushElement6)
+        break
+        case "7":
+            selectActiveBrush(brushElement7)
+        break
+        case "8":
+            selectActiveBrush(brushElement8)
+        break
+        case "9":
+            selectActiveBrush(brushElement9)
+        break
+        case "b":
+            selectActiveTool(paintbrushToolElement)
+            enablePaintbrush()
+        break
+        case "e":
+            selectActiveTool(eraserToolElement)
+            enableEraser()
+        break
+        case "f":
+            selectActiveTool(floodFillToolElement)
+            enableFloodFill()
+        break
+        case "r":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+            }
+        break
+        case "p":
+            selectActiveTool(colourPickerToolElement)
+            enableColourPicker()
+        break
+        case "[":
+            decreaseBrushSize()
+        break
+        case "]":
+            increaseBrushSize()
+        break
+        case "'":
+            toggleGrid()
+        break
+        case "#":
+            toggleGridMode()
+        break
+        case "r":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                resetCanvas()
+            }
+        break
+        case "z":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                // undo()
+            }
+        break
+        case "s":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                // saveArtwork()
+            }
+        break
+        default:
+          return
+      }
 }
 
 // brushes

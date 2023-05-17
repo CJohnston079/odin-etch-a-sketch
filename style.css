@@ -233,13 +233,13 @@ h2 {
     justify-content: center;
     align-items: center;
     margin: 0.2rem;
-    min-width: 2rem;
-    min-height: 2rem;
+    min-width: 1.6rem;
+    min-height: 1.6rem;
     background-color: hsl(0, 0%, 90%);
     border: solid hsl(0, 0%, 80%) 1px;
     border-radius: 0.25rem;
     font-family: monospace;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .ctrl {
