@@ -5,8 +5,9 @@ let gridArea = 0;
 let cellsMatrix = [];
 let gridEnabled = true;
 let gridMode = 'light'; 
-let canvasColour = 'hsl(0, 0%, 100%)';
+let canvasColour = 'rgb(255, 255, 255)';
 let previewBrush = true;
+let floodMode = 'fill';
 let currentCellColour = canvasColour;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
@@ -129,7 +130,7 @@ function generateCells() {
             gridMode === 'light' ? div.classList.add('grid-light') :
             div.classList.add('grid-dark');
         }
-        div.style.backgroundColor = canvasColour
+        div.style.backgroundColor = canvasColour;
         canvas.appendChild(div);
         cells = document.querySelectorAll('.cell');
         createMatrix(cells)
@@ -151,8 +152,8 @@ const canvasSizeButton = document.querySelector('#canvas-size-tool')
 const gridSliderContainer = document.querySelector('.canvas-size-slider-container')
 const gridToggleButton = document.querySelectorAll('.tool')[1]
 const gridModeButton = document.querySelectorAll('.tool')[2]
-const resetCanvasButton = document.querySelectorAll('.tool')[3]
-const setCanvasColourButton = document.querySelectorAll('.tool')[4]
+const undoButton = document.querySelectorAll('.tool')[3]
+const resetCanvasButton = document.querySelectorAll('.tool')[4]
 
 canvasSizeButton.addEventListener('contextmenu', e => {
     showGridSlider(e)}
@@ -161,7 +162,6 @@ canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
 gridToggleButton.addEventListener('mousedown', toggleGrid)
 gridModeButton.addEventListener('mousedown', toggleGridMode)
 resetCanvasButton.addEventListener('mousedown', resetCanvas)
-setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
 
 function showGridSlider(e) {
     e.preventDefault();
@@ -249,7 +249,6 @@ function resetCanvas() {
 function clearCells(cell) {
     cell.style.backgroundColor = canvasColour;
     cell.style.transition = 'background-colour, 1s';
-    cell.classList.remove('painted');
     setTimeout(() => {
         cell.style.transition = ''; 
     }, 1000)
@@ -264,141 +263,15 @@ function animateResetCanvasButton () {
     }, 500)
 }
 
-function setCanvasColour() {
-    activeBrush = activeBrushElement.style.backgroundColor
-    canvasColour = activeBrush;
-    playPaintCanvasSound()
-    timeoutCanvasFunctions(1000);
-    for (let i = 0; i < gridArea; i++) {
-        setTimeout(setDefaultCellColour, 50*Math.floor(i/gridWidth), cells[i])
-    }
-    console.log('Background colour changed.')
-}
-
-function setDefaultCellColour(cell) {
-    if (cell.classList.contains('painted')) return
-    previewBrush = false
-    currentCellColour = canvasColour;
-    cell.style.backgroundColor = canvasColour;
-    cell.style.transition = 'background-colour, 1s';
-    setTimeout(() => {
-        cell.style.transition = '';
-    }, 1000)
-    setTimeout(() => {
-        previewBrush = true;
-    }, 1500)
-}
-
 function timeoutCanvasFunctions(timeout) {
     resetCanvasButton.removeEventListener('mousedown', resetCanvas)
     resetCanvasButton.src = "icons/icon-canvas-reset-disabled.svg"
     resetCanvasButton.style.cursor = 'not-allowed';
-    setCanvasColourButton.removeEventListener('mousedown', setCanvasColour)
-    setCanvasColourButton.src = "icons/icon-canvas-colour-disabled.svg"
-    setCanvasColourButton.style.cursor = 'not-allowed';
     setTimeout(() => {
         resetCanvasButton.addEventListener('mousedown', resetCanvas)
         resetCanvasButton.src = "icons/icon-canvas-reset.svg"
         resetCanvasButton.style.cursor = '';
-        setCanvasColourButton.addEventListener('mousedown', setCanvasColour)
-        setCanvasColourButton.src = "icons/icon-canvas-colour.svg"
-        setCanvasColourButton.style.cursor = '';
     }, timeout)
-}
-
-// keyboard shortcuts
-
-document.addEventListener('keydown', keyboardShortcuts)
-
-function keyboardShortcuts(e) {
-    switch (e.key) {
-        case "1":
-            selectActiveBrush(brushElement1)
-        break
-        case "2":
-            selectActiveBrush(brushElement2)
-        break
-        case "3":
-            selectActiveBrush(brushElement3)
-        break
-        case "4":
-            selectActiveBrush(brushElement4)
-        break
-        case "5":
-            selectActiveBrush(brushElement5)
-        break
-        case "6":
-            selectActiveBrush(brushElement6)
-        break
-        case "7":
-            selectActiveBrush(brushElement7)
-        break
-        case "8":
-            selectActiveBrush(brushElement8)
-        break
-        case "9":
-            selectActiveBrush(brushElement9)
-        break
-        case "b":
-            selectActiveTool(paintbrushToolElement)
-            enablePaintbrush()
-        break
-        case "e":
-            selectActiveTool(eraserToolElement)
-            enableEraser()
-        break
-        case "f":
-            selectActiveTool(floodFillToolElement)
-            enableFloodFill()
-        break
-        case "r":
-            if (e.ctrlKey === true); {
-                e.preventDefault();
-            }
-        break
-        case "p":
-            selectActiveTool(colourPickerToolElement)
-            enableColourPicker()
-        break
-        case "[":
-            decreaseBrushSize()
-        break
-        case "=":
-            selectActiveTool(lightenToolElement)
-        break
-        case "-":
-            selectActiveTool(darkenToolElement)
-        break
-        case "]":
-            increaseBrushSize()
-        break
-        case "'":
-            toggleGrid()
-        break
-        case "#":
-            toggleGridMode()
-        break
-        case "r":
-            if (e.ctrlKey === true); {
-                e.preventDefault();
-                resetCanvas()
-            }
-        break
-        case "z":
-            if (e.ctrlKey === true); {
-                e.preventDefault();
-                // undo()
-            }
-        break
-        case "s":
-            if (e.ctrlKey === true); {
-                e.preventDefault();
-                // saveArtwork()
-            }
-        break
-        default:
-          return
-      }
 }
 
 // brushes
@@ -594,13 +467,45 @@ paintbrushToolElement.addEventListener('mousedown', enablePaintbrush);
 paintbrushIncreaseElement.addEventListener('mousedown', increaseBrushSize)
 paintbrushDecreaseElement.addEventListener('mousedown', decreaseBrushSize)
 floodFillToolElement.addEventListener('mousedown', enableFloodFill);
+floodFillToolElement.addEventListener('contextmenu', e => {
+    e.preventDefault()
+    toggleFloodMode()
+    toggleFloodIcon()
+    animateFloodIcon();
+});
 colourPickerToolElement.addEventListener('mousedown', enableColourPicker);
 eraserToolElement.addEventListener('mousedown', enableEraser);
+
+function toggleFloodMode() {
+    selectActiveTool(floodFillToolElement)
+    enableFloodFill()
+    if (floodMode === 'fill') {
+        floodMode = 'erase';
+        activeBrush = canvasColour;
+    } else {
+        floodMode = 'fill';
+        activeBrush = activeBrushElement.style.backgroundColor;
+    }
+    console.log(`Flood mode set to ${floodMode}.`)
+}
+
+function toggleFloodIcon() {
+    floodMode === 'fill' ? floodFillToolElement.src = 'icons/icon-flood-fill.svg' :
+    floodFillToolElement.src = 'icons/icon-flood-erase.svg';
+}
+
+function animateFloodIcon() {
+    floodFillToolElement.style.animation = 'swatch-swell 250ms';
+    setTimeout(() => {
+    floodFillToolElement.style = '';
+    }, 250)
+}
 
 function enableFloodFill() {
     cells.forEach(cell => {
         cell.addEventListener('mousedown', () => {
             if (activeToolElement !== floodFillToolElement) return
+            if (floodMode === 'erase') activeBrush = canvasColour;
             floodFill(cell);
         })
     });
@@ -620,7 +525,6 @@ function fill(matrix, x, y, oldColour, newColour) {
     if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[x].length) return;
     if (matrix[x][y].style.backgroundColor !== oldColour) return;
     matrix[x][y].style.backgroundColor = newColour;
-    matrix[x][y].classList.add('painted');
     matrix[x][y].style.transition = 'background-colour, 500ms';
     setTimeout(() => {
         matrix[x][y].style.transition = '';
@@ -680,7 +584,7 @@ function enablePaintbrush() {
 
 function enableEraser() {
     if (activeToolElement !== eraserToolElement) return
-    activeBrush = canvasColour
+    activeBrush = canvasColour;
     eraserOn = true
     return eraserOn
 }
@@ -739,17 +643,11 @@ function disablePainting() {
 
 let isPainting = false;
 let eraserOn = false;
-let shadingOn = true
 
 function enablePainting() {
     isPainting = true;
     cells.forEach(cell => {
-        // cell.addEventListener('mousemove', () => {
-        //     shadingOn = false
-        //     updateCell(cell);
-        // })
         cell.addEventListener('mouseenter', () => {
-            shadingOn = true
             updateCell(cell);
         })
     });
@@ -822,11 +720,6 @@ function paint(cell, colour) {
             } else {
                 cellsMatrix[i][j].style.backgroundColor = colour;
             }
-            if (eraserOn === false && isPainting === true) {
-                cellsMatrix[i][j].classList.add('painted');
-            } else if (eraserOn === true) {
-                cellsMatrix[i][j].classList.remove('painted'); 
-            }
         }
     }
 }
@@ -844,7 +737,7 @@ function shadeCell(cell) {
 }
 
 function getRgbValues(string) {
-    let rgbValues = []
+    let rgbValues = [];
     rgbValues = string.slice(4,-1).split(', ').map(Number);
     return rgbValues;
 }
@@ -872,3 +765,98 @@ function logRgbValues(rgbValues) {
 }
 
 generateGrid(gridSlider.value);
+
+// keyboard shortcuts
+
+document.addEventListener('keydown', keyboardShortcuts)
+
+function keyboardShortcuts(e) {
+    switch (e.key) {
+        case "1":
+            selectActiveBrush(brushElement1)
+        break
+        case "2":
+            selectActiveBrush(brushElement2)
+        break
+        case "3":
+            selectActiveBrush(brushElement3)
+        break
+        case "4":
+            selectActiveBrush(brushElement4)
+        break
+        case "5":
+            selectActiveBrush(brushElement5)
+        break
+        case "6":
+            selectActiveBrush(brushElement6)
+        break
+        case "7":
+            selectActiveBrush(brushElement7)
+        break
+        case "8":
+            selectActiveBrush(brushElement8)
+        break
+        case "9":
+            selectActiveBrush(brushElement9)
+        break
+        case "b":
+            selectActiveTool(paintbrushToolElement)
+            enablePaintbrush()
+        break
+        case "e":
+            selectActiveTool(eraserToolElement)
+            enableEraser()
+        break
+        case "m":
+            toggleFloodMode()
+            toggleFloodIcon()
+            animateFloodIcon();
+            break
+        case "f":
+            selectActiveTool(floodFillToolElement)
+            enableFloodFill()
+        break
+        case "p":
+            selectActiveTool(colourPickerToolElement)
+            enableColourPicker()
+        break
+        case "[":
+            decreaseBrushSize()
+        break
+        case "=":
+            selectActiveTool(lightenToolElement)
+        break
+        case "-":
+            selectActiveTool(darkenToolElement)
+        break
+        case "]":
+            increaseBrushSize()
+        break
+        case "'":
+            toggleGrid()
+        break
+        case "#":
+            toggleGridMode()
+        break
+        case "r":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                resetCanvas()
+            }
+        break
+        case "z":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                // undo()
+            }
+        break
+        case "s":
+            if (e.ctrlKey === true); {
+                e.preventDefault();
+                // saveArtwork()
+            }
+        break
+        default:
+          return
+      }
+}
