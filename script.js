@@ -812,6 +812,48 @@ function logRgbValues(rgbValues) {
 generateGrid(gridSlider.value);
 console.log('Paint brush selected.')
 
+// download artwork
+
+function createArtwork() {
+    let artwork = document.createElement("canvas");
+    let context = artwork.getContext("2d");
+  
+    let cellSize = 50;
+    let cells = canvas.querySelectorAll(".cell");
+  
+    artwork.height = cellSize * Math.ceil(cells.length / 8);
+    artwork.width = cellSize * 8;
+  
+    canvas.appendChild(artwork);
+    artwork.style.position = "absolute";
+    artwork.style.top = "0";
+    artwork.style.left = "0";
+  
+    let j = 0;
+    cells.forEach((cell, i) => {
+      let row = Math.floor(i / 8);
+      let col = i % 8;
+      let backgroundColor = cell.style.backgroundColor || "rgb(255, 255, 255)";
+  
+      context.fillStyle = backgroundColor;
+      context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    });
+  
+    downloadArtwork(artwork.toDataURL(), "pixel-painter-artwork");
+    artwork.remove();
+}
+
+function downloadArtwork (href, name) {
+    let link = document.createElement('a');
+    link.download = name;
+    link.style.opacity = "0";
+    document.body.appendChild(link);
+    link.href = href;
+    link.click();
+    link.remove();
+    console.log('Artwork donwloaded.')
+}
+
 // keyboard shortcuts
 
 document.addEventListener('keydown', keyboardShortcuts)
@@ -900,7 +942,7 @@ function keyboardShortcuts(e) {
         case "s":
             if (e.ctrlKey === true); {
                 e.preventDefault();
-                // saveArtwork()
+                createArtwork()
             }
         break
         default:
