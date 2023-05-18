@@ -818,28 +818,16 @@ console.log('Paint brush selected.')
 function createArtwork() {
     let artwork = document.createElement("canvas");
     let context = artwork.getContext("2d");
-  
     let cellSize = 1200/gridWidth;
-    let cells = canvas.querySelectorAll(".cell");
-  
+    canvas.appendChild(artwork);
     artwork.height = cellSize * Math.ceil(cells.length / gridWidth);
     artwork.width = cellSize * gridWidth;
-  
-    canvas.appendChild(artwork);
-    artwork.style.position = "absolute";
-    artwork.style.top = "0";
-    artwork.style.left = "0";
-  
-    let j = 0;
     cells.forEach((cell, i) => {
-      let row = Math.floor(i/gridWidth);
-      let col = i % gridWidth;
-      let backgroundColor = cell.style.backgroundColor || canvasColour;
-  
-      context.fillStyle = backgroundColor;
-      context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        let row = Math.floor(i/gridWidth);
+        let col = i % gridWidth;
+        context.fillStyle = cell.style.backgroundColor;
+        context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
     });
-  
     downloadArtwork(artwork.toDataURL(), "pixel-painter-artwork");
     artwork.remove();
 }
