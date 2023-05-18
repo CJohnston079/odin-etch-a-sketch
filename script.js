@@ -473,7 +473,7 @@ const darkenToolElement = document.querySelector('#darken');
 const eraserToolElement = document.querySelector('#eraser');
 const downloadToolElement = document.querySelector('#download');
 
-const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, lightenToolElement, darkenToolElement, eraserToolElement, downloadToolElement];
+const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerToolElement, lightenToolElement, darkenToolElement, eraserToolElement];
 
 let activeToolElement = paintbrushToolElement;
 
@@ -604,6 +604,11 @@ function pickColour(cell, brush) {
     playColourPickerSound()
     selectActiveBrush(brush)
     updateBrushColours()
+    canvas.style.cursor = 'wait';
+    setTimeout(() => {
+        selectActiveTool(paintbrushToolElement)
+        canvas.style.cursor = '';
+    }, 500)
     console.log('Colour swatch updated.')
 }
 
