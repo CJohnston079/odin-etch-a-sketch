@@ -807,11 +807,6 @@ function keyboardShortcuts(e) {
             selectActiveTool(eraserToolElement)
             enableEraser()
         break
-        case "m":
-            toggleFloodMode()
-            toggleFloodIcon()
-            animateFloodIcon();
-            break
         case "f":
             if (e.ctrlKey !== true) {
                 selectActiveTool(floodFillToolElement)
