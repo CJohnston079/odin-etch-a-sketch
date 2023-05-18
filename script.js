@@ -813,8 +813,15 @@ function keyboardShortcuts(e) {
             animateFloodIcon();
             break
         case "f":
-            selectActiveTool(floodFillToolElement)
-            enableFloodFill()
+            if (e.ctrlKey !== true) {
+                selectActiveTool(floodFillToolElement)
+                enableFloodFill()
+            } else if (e.ctrlKey === true) {
+                e.preventDefault();
+                toggleFloodMode()
+                toggleFloodIcon()
+                animateFloodIcon();
+            }
         break
         case "p":
             selectActiveTool(colourPickerToolElement)
@@ -839,10 +846,9 @@ function keyboardShortcuts(e) {
             toggleGridMode()
         break
         case "r":
-            if (e.ctrlKey === true); {
-                e.preventDefault();
-                resetCanvas()
-            }
+            if (e.ctrlKey !== true) return
+            e.preventDefault();
+            resetCanvas()
         break
         case "z":
             if (e.ctrlKey === true); {
