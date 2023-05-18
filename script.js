@@ -512,6 +512,7 @@ floodFillToolElement.addEventListener('contextmenu', e => {
 });
 colourPickerToolElement.addEventListener('mousedown', enableColourPicker);
 eraserToolElement.addEventListener('mousedown', enableEraser);
+downloadToolElement.addEventListener('mousedown', createArtwork);
 
 function toggleFloodMode() {
     selectActiveTool(floodFillToolElement)
@@ -818,11 +819,11 @@ function createArtwork() {
     let artwork = document.createElement("canvas");
     let context = artwork.getContext("2d");
   
-    let cellSize = 50;
+    let cellSize = 1200/gridWidth;
     let cells = canvas.querySelectorAll(".cell");
   
-    artwork.height = cellSize * Math.ceil(cells.length / 8);
-    artwork.width = cellSize * 8;
+    artwork.height = cellSize * Math.ceil(cells.length / gridWidth);
+    artwork.width = cellSize * gridWidth;
   
     canvas.appendChild(artwork);
     artwork.style.position = "absolute";
@@ -831,9 +832,9 @@ function createArtwork() {
   
     let j = 0;
     cells.forEach((cell, i) => {
-      let row = Math.floor(i / 8);
-      let col = i % 8;
-      let backgroundColor = cell.style.backgroundColor || "rgb(255, 255, 255)";
+      let row = Math.floor(i/gridWidth);
+      let col = i % gridWidth;
+      let backgroundColor = cell.style.backgroundColor || canvasColour;
   
       context.fillStyle = backgroundColor;
       context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
