@@ -667,6 +667,9 @@ canvas.addEventListener('mouseup', disablePainting);
 canvas.addEventListener('mouseleave', disablePainting);
 
 function disablePainting() {
+    setTimeout(() => {
+        canvas.removeEventListener('mouseleave', storeCurrentCanvas)
+    }, 100)
     isPainting = false;
     return isPainting
 }
@@ -675,6 +678,7 @@ let isPainting = false;
 let eraserOn = false;
 
 function enablePainting() {
+    canvas.addEventListener('mouseleave', storeCurrentCanvas)
     isPainting = true;
     cells.forEach(cell => {
         cell.addEventListener('mouseenter', () => {
