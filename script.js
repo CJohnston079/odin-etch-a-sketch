@@ -9,6 +9,7 @@ let canvasColour = 'rgb(255, 255, 255)';
 let previewBrush = true;
 let floodMode = 'fill';
 let currentCellColour = canvasColour;
+let history = [];
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -112,6 +113,8 @@ function generateGrid(gridSize) {
     logGridSize(gridArea, gridSize)
     canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
     playNewCanvasSound()
+    history = [];
+    setTimeout(storeCurrentCanvas, 500)
     setTimeout(previewCellColour, 500)
     gridWidth = Number(gridSize);
     return gridArea;
@@ -236,7 +239,34 @@ function toggleGridModeButton() {
     gridModeButton.src = 'icons/icon-grid-dark.svg';
 }
 
+// undo
+
+canvas.addEventListener('mouseup', storeCurrentCanvas)
+
+function storeCurrentCanvas() {
+    let currentCanvas = [];
+    cells.forEach(cell => {
+        currentCanvas.push(cell.style.backgroundColor)
+    })
+    history.push(currentCanvas)
+    console.log(history)
+}
+
+function undo() {
+    if (history.length < 2) {
+        console.log('No actions to undo.');
+        return
+    }
+    let previousState = history[(history.length-2)];
+    cells.forEach(cell => {
+        cell.style.backgroundColor = previousState.shift();
+    })
+    history.pop()
+    console.log(history)
+}
+
 function resetCanvas() {
+    storeCurrentCanvas()
     for (let i = 0; i < gridArea; i++) {
         setTimeout(clearCells, 50*Math.floor(i/gridWidth), cells[i])
     }
@@ -728,11 +758,11 @@ function paint(cell, colour) {
 
 function shadeCell(cell) {
     let rgbValues = getRgbValues(cell.style.backgroundColor);
-    console.log('RGB values before shading applied:')
-    logRgbValues(rgbValues)
+    // console.log('RGB values before shading applied:')
+    // logRgbValues(rgbValues)
     shadeColour(rgbValues)
-    console.log('RGB values to apply:')
-    logRgbValues(rgbValues)
+    // console.log('RGB values to apply:')
+    // logRgbValues(rgbValues)
     applyShadedColour(cell, rgbValues[0], rgbValues[1], rgbValues[2])
 }
 
