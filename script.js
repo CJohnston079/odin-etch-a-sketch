@@ -665,14 +665,18 @@ let brushSize = 0
 
 function increaseBrushSize() {
     if (brushSize === 7 || brushSize === Math.floor(gridWidth/2)) return
+    storeCurrentCanvas()
     brushSize++
+    undo()
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
     return brushSize;
 }
 
 function decreaseBrushSize() {
     if (brushSize === 0) return
+    storeCurrentCanvas()
     brushSize--
+    undo()
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
     return brushSize;
 }

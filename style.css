@@ -25,11 +25,8 @@ li {
 }
 
 #site-title {
-    margin: 2rem;
-    font-family: 'Geostar Fill', cursive;
-    font-size: 4rem;
-    text-align: center;
-    color: #333333;
+    position: relative;
+    margin: 2rem 20rem;
 }
 
 .pixel-painter-container {
