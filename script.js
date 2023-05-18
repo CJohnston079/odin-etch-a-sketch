@@ -894,7 +894,7 @@ function keyboardShortcuts(e) {
         case "z":
             if (e.ctrlKey === true); {
                 e.preventDefault();
-                // undo()
+                undo()
             }
         break
         case "s":
