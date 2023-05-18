@@ -164,6 +164,7 @@ canvasSizeButton.addEventListener('contextmenu', e => {
 canvasSizeButton.addEventListener('mouseleave', hideGridSlider)
 gridToggleButton.addEventListener('mousedown', toggleGrid)
 gridModeButton.addEventListener('mousedown', toggleGridMode)
+undoButton.addEventListener('mousedown', undo)
 resetCanvasButton.addEventListener('mousedown', resetCanvas)
 
 function showGridSlider(e) {
@@ -239,8 +240,6 @@ function toggleGridModeButton() {
     gridModeButton.src = 'icons/icon-grid-dark.svg';
 }
 
-// undo
-
 canvas.addEventListener('mouseup', storeCurrentCanvas)
 
 function storeCurrentCanvas() {
@@ -249,7 +248,6 @@ function storeCurrentCanvas() {
         currentCanvas.push(cell.style.backgroundColor)
     })
     history.push(currentCanvas)
-    console.log(history)
 }
 
 function undo() {
@@ -262,7 +260,7 @@ function undo() {
         cell.style.backgroundColor = previousState.shift();
     })
     history.pop()
-    console.log(history)
+    console.log('Previous action undone.');
 }
 
 function resetCanvas() {
@@ -489,6 +487,15 @@ function selectActiveTool(tool) {
     activeToolElement.classList.toggle('active-tool');
     activeToolElement = tool;
     activeToolElement.classList.toggle('active-tool');
+    if (activeToolElement === lightenToolElement) {
+        console.log('Lighten brush selected.')
+    }
+    if (activeToolElement === darkenToolElement) {
+        console.log('Darken brush selected.')
+    }
+    if (activeToolElement === colourPickerToolElement) {
+        console.log('Colour picker tool selected.')
+    }
     updateCanvasCursor(activeToolElement);
     togglePreviewBrush(activeToolElement);
 }
@@ -532,6 +539,7 @@ function animateFloodIcon() {
 }
 
 function enableFloodFill() {
+    console.log('Flood tool selected.')
     cells.forEach(cell => {
         cell.addEventListener('mousedown', () => {
             if (activeToolElement !== floodFillToolElement) return
@@ -573,7 +581,7 @@ function floodFill(cell) {
     let cellCoordinates = getCellCoordinates(cellsMatrix, cell);
     let cellRow = cellCoordinates[0];
     let cellCol = cellCoordinates[1];
-    // console.log(`Flood filling from coordinates: \nRow: ${cellRow}\nCol: ${cellCol}.`)
+    console.log(`Flood filling from coordinates (${cellRow+1}, ${cellCol+1}).`)
     fill(cellsMatrix, cellRow, cellCol, cellColour, activeBrush)
     timeoutCanvasFunctions(1500)
     playFloodFillSound()
@@ -595,6 +603,7 @@ function pickColour(cell, brush) {
     playColourPickerSound()
     selectActiveBrush(brush)
     updateBrushColours()
+    console.log('Colour swatch updated.')
 }
 
 function animatePaletteSwatch() {
@@ -608,12 +617,14 @@ function animatePaletteSwatch() {
 
 function enablePaintbrush() {
     activeBrush = activeBrushElement.style.backgroundColor;
+    console.log('Paint brush selected.')
     eraserOn = false
     return eraserOn
 }
 
 function enableEraser() {
     if (activeToolElement !== eraserToolElement) return
+    console.log('Eraser selected.')
     activeBrush = canvasColour;
     eraserOn = true
     return eraserOn
@@ -799,6 +810,7 @@ function logRgbValues(rgbValues) {
 }
 
 generateGrid(gridSlider.value);
+console.log('Paint brush selected.')
 
 // keyboard shortcuts
 
