@@ -372,6 +372,7 @@ brushElements.forEach(brush => {
 });
 
 function selectActiveBrush(brush) {
+    if (activeBrushElement === brush) return
     activeBrushElement.classList.toggle('active-tool');
         switch(brush) {
         case brushElement1:
