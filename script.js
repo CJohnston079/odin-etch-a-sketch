@@ -499,7 +499,11 @@ const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerT
 
 let activeToolElement = paintbrushToolElement;
 
-paintbrushToolElement.addEventListener('mousedown', playClickSound);
+paintbrushToolElement.addEventListener('mousedown', () => {
+    if (activeToolElement === paintbrushToolElement) return
+    playClickSound()
+});
+
 toolElements.forEach(tool => {
     tool.addEventListener('mousedown', () => {
         selectActiveTool(tool);
@@ -507,6 +511,7 @@ toolElements.forEach(tool => {
 });
 
 function selectActiveTool(tool) {
+    if (activeToolElement === tool) return
     activeToolElement.classList.toggle('active-tool');
     activeToolElement = tool;
     activeToolElement.classList.toggle('active-tool');
@@ -885,43 +890,55 @@ document.addEventListener('keydown', keyboardShortcuts)
 function keyboardShortcuts(e) {
     switch (e.key) {
         case "1":
+            if (activeBrushElement === brushElement1) return
             selectActiveBrush(brushElement1)
         break
         case "2":
+            if (activeBrushElement === brushElement2) return
             selectActiveBrush(brushElement2)
         break
         case "3":
+            if (activeBrushElement === brushElement3) return
             selectActiveBrush(brushElement3)
         break
         case "4":
+            if (activeBrushElement === brushElement4) return
             selectActiveBrush(brushElement4)
         break
         case "5":
+            if (activeBrushElement === brushElement5) return
             selectActiveBrush(brushElement5)
         break
         case "6":
+            if (activeBrushElement === brushElement6) return
             selectActiveBrush(brushElement6)
         break
         case "7":
+            if (activeBrushElement === brushElement7) return
             selectActiveBrush(brushElement7)
         break
         case "8":
+            if (activeBrushElement === brushElement8) return
             selectActiveBrush(brushElement8)
         break
         case "9":
+            if (activeBrushElement === brushElement9) return
             selectActiveBrush(brushElement9)
         break
         case "b":
+            if (activeToolElement === paintbrushToolElement) return
             selectActiveTool(paintbrushToolElement)
             enablePaintbrush()
             playClickSound()
         break
         case "e":
+            if (activeToolElement === eraserToolElement) return
             selectActiveTool(eraserToolElement)
             enableEraser()
         break
         case "f":
             if (e.ctrlKey !== true) {
+                if (activeToolElement === floodFillToolElement) return
                 selectActiveTool(floodFillToolElement)
                 enableFloodFill()
             } else if (e.ctrlKey === true) {
@@ -932,6 +949,7 @@ function keyboardShortcuts(e) {
             }
         break
         case "p":
+            if (activeToolElement === colourPickerToolElement) return
             selectActiveTool(colourPickerToolElement)
             enableColourPicker()
         break
@@ -939,9 +957,11 @@ function keyboardShortcuts(e) {
             decreaseBrushSize()
         break
         case "=":
+            if (activeToolElement === lightenToolElement) return
             selectActiveTool(lightenToolElement)
         break
         case "-":
+            if (activeToolElement === darkenToolElement) return
             selectActiveTool(darkenToolElement)
         break
         case "]":
