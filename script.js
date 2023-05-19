@@ -895,7 +895,20 @@ function downloadArtwork (href, name) {
 
 document.addEventListener('keydown', activateKeyboardShortcut)
 
+document.addEventListener('keydown', () => {
+    cells.forEach(cell => {
+        cell.addEventListener('mouseenter', () => {
+            cell.setAttribute('id', 'active');
+        })
+        cell.addEventListener('mouseleave', () => {
+            cell.removeAttribute('id');
+        })
+    })
+})
+
 function activateKeyboardShortcut(e) {
+    let activeCell = document.querySelector('#active');
+    restoreCellColours(activeCell);
     switch (e.key) {
         case "1":
             if (activeBrushElement === brushElement1) return
