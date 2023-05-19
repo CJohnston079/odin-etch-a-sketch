@@ -518,9 +518,11 @@ function selectActiveTool(tool) {
     if (activeToolElement === colourPickerToolElement) {
         console.log('Colour picker tool selected.')
     }
+    if (activeToolElement !== paintbrushToolElement) {
+        playClickSound()
+    }
     updateCanvasCursor(activeToolElement);
     togglePreviewBrush(activeToolElement);
-    playClickSound()
 }
 
 paintbrushToolElement.addEventListener('mousedown', enablePaintbrush);
