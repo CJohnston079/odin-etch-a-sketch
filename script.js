@@ -499,6 +499,7 @@ const toolElements = [paintbrushToolElement, floodFillToolElement, colourPickerT
 
 let activeToolElement = paintbrushToolElement;
 
+paintbrushToolElement.addEventListener('mousedown', playClickSound);
 toolElements.forEach(tool => {
     tool.addEventListener('mousedown', () => {
         selectActiveTool(tool);
@@ -913,6 +914,7 @@ function keyboardShortcuts(e) {
         case "b":
             selectActiveTool(paintbrushToolElement)
             enablePaintbrush()
+            playClickSound()
         break
         case "e":
             selectActiveTool(eraserToolElement)
