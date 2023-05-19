@@ -418,6 +418,9 @@ function selectActiveBrush(brush) {
     }
     activeBrushElement = brush;
     activeBrushElement.classList.toggle('active-tool');
+    if (activeToolElement === floodFillToolElement) {
+        enableFloodFill()
+    }
     playBrushSound();
 }
 
