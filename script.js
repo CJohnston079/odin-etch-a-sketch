@@ -25,6 +25,7 @@ const colourPickerSound = document.querySelector('#audio-colour-picker');
 const floodFillSound = document.querySelector('#audio-flood-fill');
 const clickSound = document.querySelector('#audio-click');
 const brushSound = document.querySelector('#audio-brush');
+const swapSound = document.querySelector('#audio-swap');
 
 const playGridSliderSound = () => {
     gridSliderSound.currentTime = 0;
@@ -69,6 +70,11 @@ const playClickSound = () => {
 const playBrushSound = () => {
     brushSound.currentTime = 0;
     brushSound.play(); 
+}
+
+const playSwapSound = () => {
+    swapSound.currentTime = 0;
+    swapSound.play(); 
 }
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -134,6 +140,7 @@ function generateGrid(gridSize) {
     history = [];
     setTimeout(storeCurrentCanvas, 500)
     setTimeout(previewCellColour, 500)
+    setTimeout(enableActiveCell, 500)
     gridWidth = Number(gridSize);
     return gridArea;
 }
@@ -557,6 +564,7 @@ function toggleFloodMode() {
         floodMode = 'fill';
         activeBrush = activeBrushElement.style.backgroundColor;
     }
+    playSwapSound()
     console.log(`Flood mode set to ${floodMode}.`)
 }
 
@@ -895,7 +903,7 @@ function downloadArtwork (href, name) {
 
 document.addEventListener('keydown', activateKeyboardShortcut)
 
-function getActiveCell() {
+function enableActiveCell() {
     cells.forEach(cell => {
         cell.addEventListener('mouseenter', () => {
             cell.setAttribute('id', 'active');
@@ -906,19 +914,7 @@ function getActiveCell() {
     })
 }
 
-// document.addEventListener('keydown', () => {
-//     cells.forEach(cell => {
-//         cell.addEventListener('mouseenter', () => {
-//             cell.setAttribute('id', 'active');
-//         })
-//         cell.addEventListener('mouseleave', () => {
-//             cell.removeAttribute('id');
-//         })
-//     })
-// })
-
 function activateKeyboardShortcut(e) {
-    getActiveCell()
     let activeCell = document.querySelector('#active');
     restoreCellColours(activeCell);
     switch (e.key) {
