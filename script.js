@@ -696,19 +696,25 @@ let brushSize = 0
 
 function increaseBrushSize() {
     if (brushSize === 7 || brushSize === Math.floor(gridWidth/2)) return
-    storeCurrentCanvas()
     brushSize++
-    undo()
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
+    paintbrushIncreaseElement.classList.toggle('active-tool')
+    setTimeout(() => {
+        paintbrushIncreaseElement.classList.toggle('active-tool')
+    }, 500)
+    playClickSound()
     return brushSize;
 }
 
 function decreaseBrushSize() {
     if (brushSize === 0) return
-    storeCurrentCanvas()
     brushSize--
-    undo()
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
+    paintbrushIncreaseElement.classList.toggle('active-tool')
+    setTimeout(() => {
+        paintbrushIncreaseElement.classList.toggle('active-tool')
+    }, 500)
+    playClickSound()
     return brushSize;
 }
 
@@ -885,9 +891,9 @@ function downloadArtwork (href, name) {
 
 // keyboard shortcuts
 
-document.addEventListener('keydown', keyboardShortcuts)
+document.addEventListener('keydown', activateKeyboardShortcut)
 
-function keyboardShortcuts(e) {
+function activateKeyboardShortcut(e) {
     switch (e.key) {
         case "1":
             if (activeBrushElement === brushElement1) return
