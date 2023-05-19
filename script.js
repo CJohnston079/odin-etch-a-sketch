@@ -26,6 +26,7 @@ const floodFillSound = document.querySelector('#audio-flood-fill');
 const clickSound = document.querySelector('#audio-click');
 const brushSound = document.querySelector('#audio-brush');
 const swapSound = document.querySelector('#audio-swap');
+const errorSound = document.querySelector('#audio-error');
 
 const playGridSliderSound = () => {
     gridSliderSound.currentTime = 0;
@@ -75,6 +76,11 @@ const playBrushSound = () => {
 const playSwapSound = () => {
     swapSound.currentTime = 0;
     swapSound.play(); 
+}
+
+const playErrorSound = () => {
+    errorSound.currentTime = 0;
+    errorSound.play(); 
 }
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -280,6 +286,7 @@ function storeCurrentCanvas() {
 function undo() {
     if (history.length < 2) {
         console.log('No actions to undo.');
+        playErrorSound();
         return
     }
     let previousState = history[(history.length-2)];
@@ -705,7 +712,11 @@ function togglePreviewBrush(activeToolElement) {
 let brushSize = 0
 
 function increaseBrushSize() {
-    if (brushSize === 7 || brushSize === Math.floor(gridWidth/2)) return
+    if (brushSize === 7 || brushSize === Math.floor(gridWidth/2)) {
+        playErrorSound();
+        console.log('Maximum brush size for this canvas.')
+        return
+    }
     brushSize++
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
     paintbrushIncreaseElement.classList.toggle('active-tool')
@@ -717,7 +728,11 @@ function increaseBrushSize() {
 }
 
 function decreaseBrushSize() {
-    if (brushSize === 0) return
+    if (brushSize === 0) {
+        console.log('Brush cannot be made any smaller!')
+        playErrorSound();
+        return
+    }
     brushSize--
     console.log(`Brush size: ${brushSize+1}\nBrush diameter = ${brushSize*2+1} cells`)
     paintbrushIncreaseElement.classList.toggle('active-tool')
