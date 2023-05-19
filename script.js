@@ -895,7 +895,7 @@ function downloadArtwork (href, name) {
 
 document.addEventListener('keydown', activateKeyboardShortcut)
 
-document.addEventListener('keydown', () => {
+function getActiveCell() {
     cells.forEach(cell => {
         cell.addEventListener('mouseenter', () => {
             cell.setAttribute('id', 'active');
@@ -904,9 +904,21 @@ document.addEventListener('keydown', () => {
             cell.removeAttribute('id');
         })
     })
-})
+}
+
+// document.addEventListener('keydown', () => {
+//     cells.forEach(cell => {
+//         cell.addEventListener('mouseenter', () => {
+//             cell.setAttribute('id', 'active');
+//         })
+//         cell.addEventListener('mouseleave', () => {
+//             cell.removeAttribute('id');
+//         })
+//     })
+// })
 
 function activateKeyboardShortcut(e) {
+    getActiveCell()
     let activeCell = document.querySelector('#active');
     restoreCellColours(activeCell);
     switch (e.key) {
@@ -1014,4 +1026,13 @@ function activateKeyboardShortcut(e) {
         default:
           return
       }
+      if (activeToolElement === floodFillToolElement ||
+          activeToolElement === colourPickerToolElement ||
+          activeToolElement === downloadToolElement)
+        return
+      storeCellColours(activeCell)
+      paint(activeCell, activeBrush)
+      activeCell.addEventListener('mouseout', () => {
+        restoreCellColours(activeCell)
+      })
 }
