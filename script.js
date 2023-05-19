@@ -916,7 +916,9 @@ function enableActiveCell() {
 
 function activateKeyboardShortcut(e) {
     let activeCell = document.querySelector('#active');
-    restoreCellColours(activeCell);
+    if (activeCell !== null) {
+        restoreCellColours(activeCell);
+    }
     switch (e.key) {
         case "1":
             if (activeBrushElement === brushElement1) return
@@ -1020,15 +1022,16 @@ function activateKeyboardShortcut(e) {
             }
         break
         default:
-          return
-      }
-      if (activeToolElement === floodFillToolElement ||
-          activeToolElement === colourPickerToolElement ||
-          activeToolElement === downloadToolElement)
         return
-      storeCellColours(activeCell)
-      paint(activeCell, activeBrush)
-      activeCell.addEventListener('mouseout', () => {
-        restoreCellColours(activeCell)
-      })
+    }
+    if (activeCell === null ||
+        activeToolElement === floodFillToolElement ||
+        activeToolElement === colourPickerToolElement ||
+        activeToolElement === downloadToolElement)
+        return
+    storeCellColours(activeCell)
+    paint(activeCell, activeBrush)
+    activeCell.addEventListener('mouseout', () => {
+    restoreCellColours(activeCell)
+    })
 }
