@@ -27,6 +27,7 @@ const clickSound = document.querySelector('#audio-click');
 const brushSound = document.querySelector('#audio-brush');
 const swapSound = document.querySelector('#audio-swap');
 const errorSound = document.querySelector('#audio-error');
+const saveSound = document.querySelector('#audio-save');
 
 const playGridSliderSound = () => {
     gridSliderSound.currentTime = 0;
@@ -81,6 +82,11 @@ const playSwapSound = () => {
 const playErrorSound = () => {
     errorSound.currentTime = 0;
     errorSound.play(); 
+}
+
+const playSaveSound = () => {
+    saveSound.currentTime = 0;
+    saveSound.play(); 
 }
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -904,6 +910,7 @@ function createArtwork() {
     });
     downloadArtwork(artwork.toDataURL(), "pixel-painter-artwork");
     artwork.remove();
+    playSaveSound();
 }
 
 function downloadArtwork (href, name) {
