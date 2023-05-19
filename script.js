@@ -19,9 +19,12 @@ const increaseGridSizeElement = document.querySelectorAll('.slider-operator')[1]
 const newCanvasSound = document.querySelector('#audio-new-canvas');
 const gridSliderSound = document.querySelector('#audio-grid-slider');
 const canvasResetSound = document.querySelector('#audio-clear-canvas');
-const paintCanvasSound = document.querySelector('#audio-paint-canvas');
+const gridToggleSound = document.querySelector('#audio-grid-toggle');
+const gridModeSound = document.querySelector('#audio-grid-mode');
 const colourPickerSound = document.querySelector('#audio-colour-picker');
 const floodFillSound = document.querySelector('#audio-flood-fill');
+const clickSound = document.querySelector('#audio-click');
+const brushSound = document.querySelector('#audio-brush');
 
 const playGridSliderSound = () => {
     gridSliderSound.currentTime = 0;
@@ -38,9 +41,14 @@ const playCanvasResetSound = () => {
     canvasResetSound.play(); 
 }
 
-const playPaintCanvasSound = () => {
-    paintCanvasSound.currentTime = 0;
-    paintCanvasSound.play(); 
+const playGridToggleSound = () => {
+    gridToggleSound.currentTime = 0;
+    gridToggleSound.play(); 
+}
+
+const playGridModeSound = () => {
+    gridModeSound.currentTime = 0;
+    gridModeSound.play(); 
 }
 
 const playColourPickerSound = () => {
@@ -51,6 +59,16 @@ const playColourPickerSound = () => {
 const playFloodFillSound = () => {
     floodFillSound.currentTime = 0;
     floodFillSound.play(); 
+}
+
+const playClickSound = () => {
+    clickSound.currentTime = 0;
+    clickSound.play(); 
+}
+
+const playBrushSound = () => {
+    brushSound.currentTime = 0;
+    brushSound.play(); 
 }
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -205,12 +223,13 @@ function toggleGrid() {
         }
     })
     gridMode === 'dark' ? toggleCanvasBackground() : {}
-    toggleGridButton()
-    toggleGridModeButton()
+    toggleGridButton();
+    toggleGridModeButton();
     return gridEnabled;
 }
 
 function toggleGridButton() {
+    playGridToggleSound();
     gridEnabled === true ? gridToggleButton.src = 'icons/icon-grid-on.svg' :
     gridToggleButton.src = 'icons/icon-grid-off.svg';
 }
@@ -236,6 +255,7 @@ function toggleCanvasBackground() {
 }
 
 function toggleGridModeButton() {
+    playGridModeSound();
     gridMode === 'light' ? gridModeButton.src = 'icons/icon-grid-light.svg' :
     gridModeButton.src = 'icons/icon-grid-dark.svg';
 }
@@ -261,6 +281,7 @@ function undo() {
     })
     history.pop()
     console.log('Previous action undone.');
+    playClickSound()
 }
 
 function resetCanvas() {
@@ -352,7 +373,7 @@ brushElements.forEach(brush => {
 
 function selectActiveBrush(brush) {
     activeBrushElement.classList.toggle('active-tool');
-    switch(brush) {
+        switch(brush) {
         case brushElement1:
             activeBrush = brush1;
             break;
@@ -382,6 +403,7 @@ function selectActiveBrush(brush) {
     }
     activeBrushElement = brush;
     activeBrushElement.classList.toggle('active-tool');
+    playBrushSound();
 }
 
 // palette
@@ -498,6 +520,7 @@ function selectActiveTool(tool) {
     }
     updateCanvasCursor(activeToolElement);
     togglePreviewBrush(activeToolElement);
+    playClickSound()
 }
 
 paintbrushToolElement.addEventListener('mousedown', enablePaintbrush);
