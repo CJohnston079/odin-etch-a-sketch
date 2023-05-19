@@ -466,6 +466,7 @@ const customColourInput = document.querySelector('#custom-colour-input');
 paletteSwatches.forEach(swatch => {
     swatch.addEventListener('mousedown', () => {
         updateParentSwatch(swatch);
+        playColourPickerSound()
     })
 })
 
