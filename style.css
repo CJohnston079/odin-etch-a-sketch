@@ -16,6 +16,7 @@ li {
 header {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 2rem;
     padding: 1.5rem;
     background-color: hsl(0, 0%, 100%);
@@ -54,6 +55,21 @@ header {
 
 .help {
     margin-right: -20rem;
+}
+
+#settings-button {
+    position: absolute;
+    right: 4rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+#settings-button:hover {
+    animation: rotate-360 10s linear infinite;
+}
+
+#settings-button:active {
+    animation: rotate-360 2s linear infinite, grow 2s linear infinite;
 }
 
 .toolbar {
@@ -258,6 +274,12 @@ header {
 @keyframes zoom-in {
     0% {transform: scale(0)}
     100% {transform: scale(1)}
+}
+
+@keyframes grow {
+    0% {scale: 1}
+    50% {scale: 1.5}
+    100% {scale: 1}
 }
 
 @keyframes fade {
