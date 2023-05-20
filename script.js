@@ -890,7 +890,11 @@ function logRgbValues(rgbValues) {
     console.log(`r = ${rgbValues[0] }, g = ${rgbValues[1] }, b = ${rgbValues[2] }`)
 }
 
-generateGrid(gridSlider.value);
+document.addEventListener('keydown', e => {
+    if (e.key !== '`') return
+    generateGrid(gridSlider.value);
+})
+
 console.log('Paint brush selected.')
 
 // download artwork
