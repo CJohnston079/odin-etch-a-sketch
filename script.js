@@ -10,6 +10,7 @@ let previewBrush = true;
 let floodMode = 'fill';
 let currentCellColour = canvasColour;
 let history = [];
+let showCanvasWarning = true;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -130,7 +131,11 @@ function timeoutChangeGridSize() {
 
 gridSlider.addEventListener('input', updateGridSizeDisplay)
 gridSlider.addEventListener('change', () => {
-    generateGrid(gridSlider.value);
+    if (showCanvasWarning === true) {
+        showConfirmCanvasDialog()
+    } else {
+        generateGrid(gridSlider.value);
+    }
 })
 
 function logGridSize(gridWidth, gridArea) {
@@ -230,6 +235,25 @@ function hideGridSlider() {
         gridSliderContainer.style.display = 'none';
     }, 250)
 }
+
+const canvasOverlay = document.querySelector('#canvas-overlay');
+const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-button');
+const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
+
+const showConfirmCanvasDialog = () => canvasOverlay.style.display = 'flex';
+const hideConfirmCanvasDialog = () => {
+    canvasOverlay.style.animation = 'fade 300ms reverse'
+    setTimeout(() => {
+        canvasOverlay.style.animation = '';
+        canvasOverlay.style.display = 'none';
+    }, 250)
+};
+
+confirmNewCanvasButton.addEventListener('mousedown', () => {
+    generateGrid(gridSlider.value),
+    canvasOverlay.style.display = 'none';
+});
+cancelNewCanvasButton.addEventListener('mousedown', hideConfirmCanvasDialog);
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
