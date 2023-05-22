@@ -8,7 +8,7 @@
         <script src="./script.js" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="./images/pixel-painter-favicon.svg">
     </head>
     <body>
@@ -149,12 +149,18 @@
             </section>
             <section id="canvas">
                 <div id="canvas-overlay">
-                    <h2>Generate new canvas?</h2>
-                    <p>This action cannot be undone.</p>
-                    <button>Confirm</button>
-                    <button>Cancel</button>
-                    <input type="checkbox" id="warning" name="warning" value="True">
-                    <label for="warning">Don't show this message (you can turn this on again in the settings)</label><br>
+                    <dialog open>
+                        <div class="dialog-text">
+                            <h3>Generate new canvas?</h3>
+                            <p>This action cannot be undone.</p>
+                        </div>
+                        <div class="dialog-options">
+                            <input type="checkbox" id="warning-toggle" name="warning" value="True">
+                            <label for="warning">Don't show again</label>
+                            <button class="button">Cancel</button>
+                            <button class="button">Confirm</button>
+                        </div>
+                    </dialog>
                 </div>
             </section>
             <section class="help">
