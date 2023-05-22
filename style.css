@@ -33,11 +33,11 @@ header {
     --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
 }
 
-#site-wrapper {
-    display: none;
-    background-color: hsla(0, 0%, 100%, 0.5);
-    height: 100%;
-    width: 100%;
+#canvas-overlay {
+    display: block;
+    background-color: hsla(0, 0%, 100%, 0.9);
+    height: 40rem;
+    width: 40rem;
     position: absolute;
     backdrop-filter: blur(4px);
     z-index: 2;

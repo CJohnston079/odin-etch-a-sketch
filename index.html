@@ -12,9 +12,6 @@
         <link rel="shortcut icon" href="./images/pixel-painter-favicon.svg">
     </head>
     <body>
-        <div id="site-wrapper">
-
-        </div>
         <header>
             <img id="heading" src="./images/pixel-painter-heading.svg">
             <img id="settings-button" src="./images/pixel-painter-settings.svg">
@@ -151,6 +148,14 @@
                 </div>
             </section>
             <section id="canvas">
+                <div id="canvas-overlay">
+                    <h2>Generate new canvas?</h2>
+                    <p>This action cannot be undone.</p>
+                    <button>Confirm</button>
+                    <button>Cancel</button>
+                    <input type="checkbox" id="warning" name="warning" value="True">
+                    <label for="warning">Don't show this message (you can turn this on again in the settings)</label><br>
+                </div>
             </section>
             <section class="help">
                 <ul>
