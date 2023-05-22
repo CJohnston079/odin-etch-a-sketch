@@ -247,6 +247,14 @@ function hideGridSlider() {
 const canvasOverlay = document.querySelector('#canvas-overlay');
 const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-button');
 const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
+const showCanvasWarningCheckbox = document.querySelector('#warning-toggle');
+
+showCanvasWarningCheckbox.addEventListener('mousedown', toggleCanvasWarning)
+
+function toggleCanvasWarning() {
+    showCanvasWarning === true ? showCanvasWarning = false :
+    showCanvasWarning = true;
+}
 
 function showConfirmCanvasDialog() {
     canvasOverlay.style.display = 'flex';
