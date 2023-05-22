@@ -18,7 +18,6 @@ header {
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
-    padding: 1.5rem;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
 }
@@ -34,8 +33,19 @@ header {
     --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
 }
 
+#site-wrapper {
+    display: none;
+    background-color: hsla(0, 0%, 100%, 0.5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
 #heading {
     width: 40rem;
+    margin: 1.5rem;
 }
 
 .pixel-painter-container {
@@ -62,6 +72,7 @@ header {
     right: 4rem;
     height: 2rem;
     cursor: pointer;
+    z-index: 3;
 }
 
 #settings-button:hover {
