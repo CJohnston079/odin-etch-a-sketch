@@ -101,17 +101,25 @@ function updateGridSizeDisplay() {
 function decreaseGridSize() {
     if (gridSlider.value === '4') return
     gridSlider.stepDown()
-    timeoutChangeGridSize()
     updateGridSizeDisplay()
-    generateGrid(gridSlider.value)
+    if (showCanvasWarning === true) {
+        showConfirmCanvasDialog()
+    } else {
+        timeoutChangeGridSize()
+        generateGrid(gridSlider.value)
+    }
 }
 
 function increaseGridSize() {
     if (gridSlider.value === '32') return
     gridSlider.stepUp()
-    timeoutChangeGridSize()
     updateGridSizeDisplay()
-    generateGrid(gridSlider.value)
+    if (showCanvasWarning === true) {
+        showConfirmCanvasDialog()
+    } else {
+        timeoutChangeGridSize()
+        generateGrid(gridSlider.value)
+    }
 }
 
 function timeoutChangeGridSize() {
@@ -240,8 +248,13 @@ const canvasOverlay = document.querySelector('#canvas-overlay');
 const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-button');
 const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
 
-const showConfirmCanvasDialog = () => canvasOverlay.style.display = 'flex';
-const hideConfirmCanvasDialog = () => {
+function showConfirmCanvasDialog() {
+    canvasOverlay.style.display = 'flex';
+}
+
+function hideConfirmCanvasDialog() {
+    gridSlider.value = gridWidth;
+    gridSizeDisplay.textContent = gridWidth;
     canvasOverlay.style.animation = 'fade 300ms reverse'
     setTimeout(() => {
         canvasOverlay.style.animation = '';
@@ -252,8 +265,12 @@ const hideConfirmCanvasDialog = () => {
 confirmNewCanvasButton.addEventListener('mousedown', () => {
     generateGrid(gridSlider.value),
     canvasOverlay.style.display = 'none';
+    gridSlider.value = gridWidth;
+    gridSizeDisplay.textContent = gridWidth;
+    timeoutChangeGridSize()
 });
 cancelNewCanvasButton.addEventListener('mousedown', hideConfirmCanvasDialog);
+cancelNewCanvasButton.addEventListener('mousedown', playGridModeSound);
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
