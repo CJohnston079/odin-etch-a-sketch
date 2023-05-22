@@ -380,6 +380,7 @@ function updateBrushColours() {
     brush7 = brushElement7.style.backgroundColor;
     brush8 = brushElement8.style.backgroundColor;
     brush9 = brushElement9.style.backgroundColor;
+    activeBrushElement;
 }
 
 let activeBrush = brush1;
@@ -392,7 +393,6 @@ brushElements.forEach(brush => {
 });
 
 function selectActiveBrush(brush) {
-    if (activeBrushElement === brush) return
     activeBrushElement.classList.toggle('active-tool');
         switch(brush) {
         case brushElement1:
@@ -661,6 +661,7 @@ function pickColour(cell, brush) {
     playColourPickerSound()
     selectActiveBrush(brush)
     updateBrushColours()
+    activeBrush = activeBrushElement.style.backgroundColor;
     canvas.style.cursor = 'wait';
     setTimeout(() => {
         selectActiveTool(paintbrushToolElement)
