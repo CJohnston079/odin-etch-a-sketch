@@ -1,5 +1,6 @@
 html {
-    font-size: 1.9vh;
+    font-size: 1rem;
+    font-size: 1.9vmin;
 }
 
 * {
@@ -20,7 +21,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 12vh;
+    height: 12vmin;
     margin-bottom: 2rem;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
@@ -47,8 +48,8 @@ h3 {
     display: none;
     justify-content: center;
     align-items: center;
-    height: 75vh;
-    width: 75vh;
+    height: 75vmin;
+    width: 75vmin;
     background-color: hsla(0, 0%, 100%, 0.5);
     backdrop-filter: blur(4px);
     cursor: auto;
@@ -97,6 +98,10 @@ dialog {
 .button:hover {
     outline: solid var(--dark-grey) 1px;
     background-color: hsl(0, 0%, 100%);
+}
+
+#warning-toggle {
+    cursor: pointer;
 }
 
 #heading {
@@ -276,8 +281,8 @@ dialog {
 
 #canvas {
     margin: 0 2rem;
-    width: 75vh;
-    height: 75vh;
+    width: 75vmin;
+    height: 75vmin;
     background-color: #e5e5e5;
     display: grid;
     flex-shrink: 0;
