@@ -132,8 +132,68 @@ header {
 #settings ul {
     flex: 1;
     min-width: 50vmin;
-    margin: 0;
     padding: 0;
+}
+
+#settings ul:first-of-type li {
+    text-align: right;
+}
+
+#settings ul li {
+    min-height: 2rem;
+    font-weight: 500;
+    color: var(--dark-grey);
+}
+
+.switch-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 2.4rem;
+    height: 1.25rem;
+}
+
+.switch-wrapper input {
+    display: none;
+}
+
+.switch {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    border: solid hsl(0, 0%, 80%) 0.0625rem;
+    border-radius: 0.2rem;
+    background-color: hsl(0, 0%, 90%);
+    transition: 400ms;
+}
+
+.switch:before {
+    position: absolute;
+    content: "";
+    height: 1rem;
+    width: 1rem;
+    inset: 0.0725rem;
+    background-color: white;
+    background-color: hsl(0, 0%, 80%);
+    border-radius: 10%;
+    transition: 400ms;
+}
+
+input:checked + .switch {
+    background-color: hsl(0, 0%, 95%);
+}
+
+input:checked + .switch:before {
+    background-color: white;
+    box-shadow: 0px 0px 4px hsl(0, 0%, 80%);
+}
+
+input:checked + .switch:before {
+    transform: translateX(1.1rem);
+}  
+
+.range-container {
+    display: flex;
+    align-items: center;
 }
 
 #title {

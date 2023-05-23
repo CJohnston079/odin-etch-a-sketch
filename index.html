@@ -15,7 +15,7 @@
         <header>
             <img id="title" src="./images/pixel-painter-heading.svg">
             <div id="settings">
-                <ul style="text-align: right;">
+                <ul>
                     <li>Toggle sound effects</li>
                     <li>Show keyboard shortcuts</li>
                     <li>Show warning before generating new canvas</li>
@@ -23,11 +23,26 @@
                     <li>Maximum number of undo actions</li>
                 </ul>
                 <ul>
-                    <li><input type="checkbox" id="sound-effects-toggle" name="sounds-effects-toggle" checked></li>
-                    <li><input type="checkbox" id="keybind-toggle" name="keybind-toggle" checked></li>
-                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
-                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
-                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
+                    <li>
+                        <label class="switch-wrapper">
+                            <input type="checkbox">
+                            <span class="switch"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="switch-wrapper">
+                            <input type="checkbox">
+                            <span class="switch"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="switch-wrapper">
+                            <input type="checkbox">
+                            <span class="switch"></span>
+                        </label>
+                    </li>
+                    <li><input type="range"></li>
+                    <li><input type="range" min="1"></li>
                 </ul>
             </div>
         </header>
