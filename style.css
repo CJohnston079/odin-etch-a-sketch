@@ -1,3 +1,7 @@
+html {
+    font-size: 1.9vh;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +20,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 12vh;
     margin-bottom: 2rem;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
@@ -271,8 +276,8 @@ dialog {
 
 #canvas {
     margin: 0 2rem;
-    width: 40rem;
-    height: 40rem;
+    width: 75vh;
+    height: 75vh;
     background-color: #e5e5e5;
     display: grid;
     flex-shrink: 0;
