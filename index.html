@@ -13,8 +13,23 @@
     </head>
     <body>
         <header>
-            <img id="heading" src="./images/pixel-painter-heading.svg">
-            <img id="settings-button" src="./images/pixel-painter-settings.svg">
+            <img id="title" src="./images/pixel-painter-heading.svg">
+            <div id="settings">
+                <ul style="text-align: right;">
+                    <li>Toggle sound effects</li>
+                    <li>Show keyboard shortcuts</li>
+                    <li>Show warning before generating new canvas</li>
+                    <li>Maximum canvas size</li>
+                    <li>Maximum number of undo actions</li>
+                </ul>
+                <ul>
+                    <li><input type="checkbox" id="sound-effects-toggle" name="sounds-effects-toggle" checked></li>
+                    <li><input type="checkbox" id="keybind-toggle" name="keybind-toggle" checked></li>
+                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
+                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
+                    <li><input type="checkbox" id="canvas-warning-toggle" name="canvas-warning-toggle" checked></li>
+                </ul>
+            </div>
         </header>
         <main class="pixel-painter-container">
             <section class="toolbar-container">
@@ -156,7 +171,7 @@
                         </div>
                         <div class="dialog-options">
                             <input type="checkbox" id="warning-toggle" name="warning" value="True">
-                            <label for="warning">Don't show again</label>
+                            <label for="warning-toggle">Don't show again</label>
                             <button id="cancel-new-canvas-button" class="button">Cancel</button>
                             <button id="confirm-new-canvas-button" class="button">Confirm</button>
                         </div>
