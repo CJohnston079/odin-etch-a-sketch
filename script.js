@@ -382,10 +382,16 @@ function animateResetCanvasButton () {
 }
 
 function timeoutCanvasFunctions(timeout) {
+    undoButton.removeEventListener('mousedown', undo)
+    undoButton.src = "icons/icon-undo-disabled.svg"
+    undoButton.style.cursor = 'not-allowed';
     resetCanvasButton.removeEventListener('mousedown', resetCanvas)
     resetCanvasButton.src = "icons/icon-canvas-reset-disabled.svg"
     resetCanvasButton.style.cursor = 'not-allowed';
     setTimeout(() => {
+        undoButton.addEventListener('mousedown', undo)
+        undoButton.src = "icons/icon-undo.svg"
+        undoButton.style.cursor = '';
         resetCanvasButton.addEventListener('mousedown', resetCanvas)
         resetCanvasButton.src = "icons/icon-canvas-reset.svg"
         resetCanvasButton.style.cursor = '';
@@ -940,11 +946,7 @@ function logRgbValues(rgbValues) {
     console.log(`r = ${rgbValues[0] }, g = ${rgbValues[1] }, b = ${rgbValues[2] }`)
 }
 
-document.addEventListener('keydown', e => {
-    if (e.key !== '`') return
-    generateGrid(gridSlider.value);
-})
-
+generateGrid(gridSlider.value)
 console.log('Paint brush selected.')
 
 // download artwork
