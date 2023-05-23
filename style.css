@@ -145,14 +145,14 @@ header {
     color: var(--dark-grey);
 }
 
-.switch-wrapper {
+.switch-container {
     position: relative;
     display: inline-block;
     width: 2.4rem;
     height: 1.25rem;
 }
 
-.switch-wrapper input {
+.switch-container input {
     display: none;
 }
 
@@ -189,11 +189,6 @@ input:checked + .switch:before {
 
 input:checked + .switch:before {
     transform: translateX(1.1rem);
-}  
-
-.range-container {
-    display: flex;
-    align-items: center;
 }
 
 #title {
