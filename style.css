@@ -124,9 +124,6 @@ header {
 
 #settings {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    text-align: left;
 }
 
 #settings ul {
@@ -140,7 +137,8 @@ header {
     align-items: center;
     gap: 1rem;
     min-height: 3.0rem;
-    border-top: solid hsl(0, 0%, 95%) 1px;
+    padding: 0 0.5rem;
+    border-top: solid hsl(0, 0%, 90%) 1px;
     font-size: 1.2rem;
     font-weight: 300;
     color: var(--dark-grey);
@@ -151,15 +149,20 @@ header {
 }
 
 .range-value {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     min-height: 1.6rem;
-    min-width: 2.4rem;
+    max-width: 2.4rem;
     border: solid var(--light-grey) 1px;
     border-radius: 0.2rem;
     font-size: 1rem;
     font-weight: 400;
+    cursor: text;
+}
+
+input[type='number']::-webkit-inner-spin-button, 
+input[type='number']::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .switch-container {
