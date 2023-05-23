@@ -47,8 +47,8 @@ h3 {
     display: none;
     justify-content: center;
     align-items: center;
-    height: 40rem;
-    width: 40rem;
+    height: 75vh;
+    width: 75vh;
     background-color: hsla(0, 0%, 100%, 0.5);
     backdrop-filter: blur(4px);
     cursor: auto;
@@ -59,11 +59,11 @@ dialog {
     background-color: hsl(0, 0%, 100%);
     border: solid var(--light-grey) 1px;
     border-radius: 0.5rem;
-    box-shadow: 0px 0px 8px var(--light-grey);
+    box-shadow: 0px 0px 8px hsla(0, 0%, 0%, 0.2);
 }
 
 .dialog-text {
-    padding: 1.5rem 0.5rem 1rem 1rem;
+    padding: 1.5rem 2rem;
 }
 
 .dialog-options {
@@ -74,7 +74,7 @@ dialog {
 }
 
 #canvas-overlay p {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     color: hsl(0, 0%, 40%);
 }
 
