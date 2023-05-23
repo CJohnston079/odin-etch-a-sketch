@@ -1,35 +1,7 @@
-html {
-    font-size: 1rem;
-    font-size: 1.9vmin;
-}
-
 * {
     margin: 0;
     padding: 0;
     font-family: Roboto, sans-serif;
-}
-
-body {
-    background-color: #F2F2F2;
-}
-
-li {
-    list-style-type: none;
-}
-
-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 12vmin;
-    margin-bottom: 2rem;
-    background-color: hsl(0, 0%, 100%);
-    box-shadow: 0 -4px 8px var(--light-grey) inset;
-}
-
-h3 {
-    font-size: 1.5rem;
-    font-weight: 500;
 }
 
 :root {
@@ -41,6 +13,64 @@ h3 {
     --light-grey: #e5e5e5;
     --dark-grey: #262626;
     --swatch-highlight: linear-gradient(315deg, hsla(0, 100%, 0%, 0.2), hsla(0, 100%, 100%, 0.6));
+}
+
+html {
+    font-size: 1rem;
+    font-size: 1.9vmin;
+}
+
+body {
+    background-color: #F2F2F2;
+    overflow: hidden;
+}
+
+li {
+    list-style-type: none;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+dialog {
+    position: static;
+    background-color: hsl(0, 0%, 100%);
+    border: solid var(--light-grey) 1px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 8px hsla(0, 0%, 0%, 0.2);
+}
+
+input {
+    cursor: pointer;
+}
+
+header {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 12vmin;
+    height: 98vmin;
+    margin-bottom: 2rem;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 -4px 8px var(--light-grey) inset;
+    transition: height 500ms;
+}
+
+#canvas {
+    margin: 0 2rem;
+    width: 75vmin;
+    height: 75vmin;
+    background-color: #e5e5e5;
+    display: grid;
+    flex-shrink: 0;
+    padding: 0.5px;
+    box-shadow: 0px 0px 8px #e5e5e5;
+    cursor: cell;
+    /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }
 
 #canvas-overlay {
@@ -55,12 +85,13 @@ h3 {
     cursor: auto;
 }
 
-dialog {
-    position: static;
-    background-color: hsl(0, 0%, 100%);
-    border: solid var(--light-grey) 1px;
-    border-radius: 0.5rem;
-    box-shadow: 0px 0px 8px hsla(0, 0%, 0%, 0.2);
+#canvas-overlay p {
+    margin: 0.5rem 0;
+    color: hsl(0, 0%, 40%);
+}
+
+#canvas-overlay label {
+    font-size: 0.8rem;
 }
 
 .dialog-text {
@@ -72,15 +103,6 @@ dialog {
     background-color: hsla(0, 0%, 95%, 0.5);
     border-top: solid (var(--light-grey) 2px);
     box-shadow: 0px 2px 2px var(--light-grey) inset;
-}
-
-#canvas-overlay p {
-    margin: 0.5rem 0;
-    color: hsl(0, 0%, 40%);
-}
-
-#canvas-overlay label {
-    font-size: 0.8rem;
 }
 
 .button {
@@ -100,13 +122,27 @@ dialog {
     background-color: hsl(0, 0%, 100%);
 }
 
-#warning-toggle {
-    cursor: pointer;
+#settings {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    text-align: left;
 }
 
-#heading {
+#settings ul {
+    flex: 1;
+    min-width: 50vmin;
+    margin: 0;
+    padding: 0;
+}
+
+#title {
     width: 40rem;
     margin: 1.5rem;
+}
+
+.help {
+    margin-right: -20rem;
 }
 
 .pixel-painter-container {
@@ -122,26 +158,6 @@ dialog {
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
-}
-
-.help {
-    margin-right: -20rem;
-}
-
-#settings-button {
-    position: absolute;
-    right: 4rem;
-    height: 2rem;
-    cursor: pointer;
-    z-index: 3;
-}
-
-#settings-button:hover {
-    animation: rotate-360 10s linear infinite;
-}
-
-#settings-button:active {
-    animation: rotate-360 2s linear infinite, grow 2s linear infinite;
 }
 
 .toolbar {
@@ -277,19 +293,6 @@ dialog {
 
 .active-tool {
     outline: solid var(--dark-grey) 1px;
-}
-
-#canvas {
-    margin: 0 2rem;
-    width: 75vmin;
-    height: 75vmin;
-    background-color: #e5e5e5;
-    display: grid;
-    flex-shrink: 0;
-    padding: 0.5px;
-    box-shadow: 0px 0px 8px #e5e5e5;
-    cursor: cell;
-    /* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
 }
 
 .help {
