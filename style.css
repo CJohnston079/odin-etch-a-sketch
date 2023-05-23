@@ -135,14 +135,31 @@ header {
     padding: 0;
 }
 
-#settings ul:first-of-type li {
-    text-align: right;
+#settings ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.0rem;
+    border-top: solid hsl(0, 0%, 95%) 1px;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--dark-grey);
 }
 
-#settings ul li {
-    min-height: 2rem;
-    font-weight: 500;
-    color: var(--dark-grey);
+#settings ul:first-of-type li {
+    justify-content: flex-end;
+}
+
+.range-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 1.6rem;
+    min-width: 2.4rem;
+    border: solid var(--light-grey) 1px;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 .switch-container {
