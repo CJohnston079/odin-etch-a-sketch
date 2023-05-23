@@ -16,11 +16,11 @@
             <img id="title" src="./images/pixel-painter-heading.svg">
             <div id="settings">
                 <ul>
-                    <li>Toggle sound effects</li>
-                    <li>Show keyboard shortcuts</li>
-                    <li>Show warning before generating new canvas</li>
-                    <li>Maximum canvas size</li>
-                    <li>Maximum number of undo actions</li>
+                    <li>Toggle sound effects:</li>
+                    <li>Show keyboard shortcuts:</li>
+                    <li>Show warning before generating new canvas:</li>
+                    <li>Maximum canvas size:</li>
+                    <li>Maximum number of undo actions:</li>
                 </ul>
                 <ul>
                     <li>
@@ -42,10 +42,12 @@
                         </label>
                     </li>
                     <li class="range-container">
-                        <input type="range" min="8" max="64" value="32" class="slider">
+                        <span>32</span>
+                        <input type="range" min="1" max="50" value="20" class="range-slider">
                     </li>
                     <li class="range-container">
-                        <input type="range" min="1" max="50" value="20" class="slider">
+                        <span>20</span>
+                        <input type="range" min="1" max="50" value="20" class="range-slider">
                     </li>
                 </ul>
             </div>
@@ -54,8 +56,8 @@
             <section class="toolbar-container">
                 <div id="canvas-options" class="toolbar">
                     <div id="canvas-size-tool" class="tool" title="Change canvas size&#013;Right click to show slider">
-                        <div class="canvas-size-slider-container">
-                            <input type="range" min="4", max="32" value="8" id="canvas-size-slider">
+                        <div id="canvas-slider-container"">
+                            <input type="range" min="4", max="32" value="8" id="canvas-size-slider" class="range-slider">
                         </div>
                         <img class="slider-operator" src="icons/icon-decrement.svg" title="Decrease canvas size">
                         <p id="canvas-size-display">8</p>

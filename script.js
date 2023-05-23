@@ -202,7 +202,7 @@ function createMatrix(array) {
 // canvas tools
 
 const canvasSizeButton = document.querySelector('#canvas-size-tool')
-const gridSliderContainer = document.querySelector('.canvas-size-slider-container')
+const gridSliderContainer = document.querySelector('#canvas-slider-container')
 const gridToggleButton = document.querySelectorAll('.tool')[1]
 const gridModeButton = document.querySelectorAll('.tool')[2]
 const undoButton = document.querySelectorAll('.tool')[3]
