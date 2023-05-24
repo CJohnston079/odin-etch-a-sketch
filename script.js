@@ -11,6 +11,7 @@ let floodMode = 'fill';
 let currentCellColour = canvasColour;
 let history = [];
 let showCanvasWarning = true;
+let maxGridSize = 32;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -150,6 +151,46 @@ function toggleCanvasWarningSwitch(checkbox) {
     }
 }
 
+const settingMaxGridSizeInput = document.querySelectorAll('.range-value')[0]
+const settingMaxUndoInput = document.querySelectorAll('.range-value')[1]
+const settingMaxGridSizeRange = document.querySelectorAll('.range-slider')[0]
+const settingMaxUndoRange = document.querySelectorAll('.range-slider')[1]
+
+settingMaxGridSizeInput.addEventListener('change', () => {
+    setMaxInput(settingMaxGridSizeInput, settingMaxGridSizeRange, 8, 64),
+    updateMaxGridSize();
+});
+settingMaxGridSizeRange.addEventListener('input', () => {
+    setMaxRange(settingMaxGridSizeInput, settingMaxGridSizeRange),
+    updateMaxGridSize();
+});
+
+function setMaxInput(input, range, min, max) {
+    if (input.value < min) {
+        input.value = min;
+    }
+    if (input.value > max) {
+        input.value = max;
+    }
+    if (input = settingMaxGridSizeInput) {
+        maxGridSize = input.value;
+        range.value = maxGridSize;
+        return maxGridSize
+    }
+}
+
+function setMaxRange(input, range) {
+    if (input = settingMaxGridSizeInput) {
+        maxGridSize = range.value;
+        input.value = maxGridSize;
+        return maxGridSize
+    }
+}
+
+function updateMaxGridSize() {
+    gridSlider.max = maxGridSize;
+}
+
 // grid generation
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
@@ -173,7 +214,7 @@ function decreaseGridSize() {
 }
 
 function increaseGridSize() {
-    if (gridSlider.value === '32') return
+    if (gridSlider.value === maxGridSize) return
     gridSlider.stepUp()
     updateGridSizeDisplay()
     if (showCanvasWarning === true) {
@@ -214,7 +255,7 @@ function logGridSize(gridWidth, gridArea) {
 }
 
 function generateGrid(gridSize) {
-    if (gridSize < 4 || gridSize > 64) return
+    if (gridSize < 4 || gridSize > maxGridSize) return
     resetGrid()
     selectActiveTool(paintbrushToolElement)
     gridArea = gridSize*gridSize
