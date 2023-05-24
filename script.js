@@ -162,7 +162,8 @@ settingMaxGridSizeInput.addEventListener('change', () => {
 });
 settingMaxGridSizeRange.addEventListener('input', () => {
     setMaxRange(settingMaxGridSizeInput, settingMaxGridSizeRange),
-    updateMaxGridSize();
+    updateMaxGridSize(),
+    playGridSliderSound()
 });
 
 function setMaxInput(input, range, min, max) {
@@ -1101,6 +1102,7 @@ function enableActiveCell() {
 }
 
 function activateKeyboardShortcut(e) {
+    if (settings === true) return
     let activeCell = document.querySelector('#active');
     if (activeCell !== null) {
         restoreCellColours(activeCell);
