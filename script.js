@@ -31,72 +31,100 @@ const errorSound = document.querySelector('#audio-error');
 const saveSound = document.querySelector('#audio-save');
 
 const playGridSliderSound = () => {
+    if (soundEffects === false) return
     gridSliderSound.currentTime = 0;
     gridSliderSound.play();
 }
 
 const playNewCanvasSound = () => {
+    if (soundEffects === false) return
     newCanvasSound.currentTime = 0;
     newCanvasSound.play();
 }
 
 const playCanvasResetSound = () => {
+    if (soundEffects === false) return
     canvasResetSound.currentTime = 0;
     canvasResetSound.play(); 
 }
 
 const playGridToggleSound = () => {
+    if (soundEffects === false) return
     gridToggleSound.currentTime = 0;
     gridToggleSound.play(); 
 }
 
 const playGridModeSound = () => {
+    if (soundEffects === false) return
     gridModeSound.currentTime = 0;
     gridModeSound.play(); 
 }
 
 const playColourPickerSound = () => {
+    if (soundEffects === false) return
     colourPickerSound.currentTime = 0;
     colourPickerSound.play(); 
 }
 
 const playFloodFillSound = () => {
+    if (soundEffects === false) return
     floodFillSound.currentTime = 0;
     floodFillSound.play(); 
 }
 
 const playClickSound = () => {
+    if (soundEffects === false) return
     clickSound.currentTime = 0;
     clickSound.play(); 
 }
 
 const playBrushSound = () => {
+    if (soundEffects === false) return
     brushSound.currentTime = 0;
     brushSound.play(); 
 }
 
 const playSwapSound = () => {
+    if (soundEffects === false) return
     swapSound.currentTime = 0;
     swapSound.play(); 
 }
 
 const playErrorSound = () => {
+    if (soundEffects === false) return
     errorSound.currentTime = 0;
     errorSound.play(); 
 }
 
 const playSaveSound = () => {
+    if (soundEffects === false) return
     saveSound.currentTime = 0;
     saveSound.play(); 
 }
 
 // settings
 
+let soundEffects = true;
+let keyboardShortcutsDisplay = document.querySelector('.help')
+
 const settingsToggles = document.querySelectorAll('.switch-container');
 
 settingsToggles.forEach(toggle => {
-    toggle.addEventListener('mousedown', playGridModeSound);
+    toggle.addEventListener('click', playGridModeSound);
 });
+
+settingsToggles[0].addEventListener('mousedown', toggleSoundEffects)
+settingsToggles[1].addEventListener('mousedown', toggleKeyboardShortcutsDisplay)
+
+function toggleSoundEffects() {
+    soundEffects === true ? soundEffects = false :
+    soundEffects = true;
+}
+
+function toggleKeyboardShortcutsDisplay() {
+    keyboardShortcutsDisplay.style.display !== 'none' ? keyboardShortcutsDisplay.style.display = 'none' :
+    keyboardShortcutsDisplay.style.display = 'block';
+}
 
 // grid generation
 
