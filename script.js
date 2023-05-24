@@ -90,6 +90,16 @@ const playSaveSound = () => {
     saveSound.play(); 
 }
 
+// settings
+
+const settingsToggles = document.querySelectorAll('.switch-container');
+
+settingsToggles.forEach(toggle => {
+    toggle.addEventListener('mousedown', playGridModeSound);
+});
+
+// grid generation
+
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
 increaseGridSizeElement.addEventListener('mousedown', increaseGridSize)
 
