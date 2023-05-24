@@ -137,10 +137,8 @@ function toggleKeyboardShortcutsDisplay() {
 function toggleCanvasWarning(checkbox) {
     if (checkbox.checked === false) {
         showCanvasWarning = false
-        console.log(`Generate new canvas warning ${showCanvasWarning}.\nGo to settings to re-enable.`)
     } else if (checkbox.checked === true) {
         showCanvasWarning = true
-        console.log(`Generate new canvas warning ${showCanvasWarning}.`)
     }
 }
 
