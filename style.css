@@ -22,7 +22,7 @@ html {
 
 body {
     background-color: #F2F2F2;
-    overflow: hidden;
+    /* overflow: hidden; */ /* turn on when done */
 }
 
 li {
@@ -53,15 +53,14 @@ header {
     justify-content: center;
     align-items: center;
     height: 12vh;
-    /* height: 98vh; */
-    margin-bottom: 2rem;
+    height: 98vh;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
     transition: height 500ms;
 }
 
 #canvas {
-    margin: 0 2rem;
+    margin: 2rem;
     width: 75vmin;
     height: 75vmin;
     background-color: #e5e5e5;
