@@ -107,14 +107,22 @@ const playSaveSound = () => {
 let soundEffects = true;
 let keyboardShortcutsDisplay = document.querySelector('.help')
 
+const settingSoundEffects = document.querySelectorAll('.switch-container')[0];
+const settingDisplayShortcuts = document.querySelectorAll('.switch-container')[1];
+const settingShowCanvasWarning = document.querySelectorAll('.switch-container')[2];
+const settingShowCanvasWarningCheckbox = settingShowCanvasWarning.firstElementChild
 const settingsToggles = document.querySelectorAll('.switch-container');
 
 settingsToggles.forEach(toggle => {
     toggle.addEventListener('click', playGridModeSound);
 });
 
-settingsToggles[0].addEventListener('mousedown', toggleSoundEffects)
-settingsToggles[1].addEventListener('mousedown', toggleKeyboardShortcutsDisplay)
+settingSoundEffects.addEventListener('mousedown', toggleSoundEffects)
+settingDisplayShortcuts.addEventListener('mousedown', toggleKeyboardShortcutsDisplay)
+settingShowCanvasWarning.addEventListener('input', () => {
+    toggleCanvasWarning(settingShowCanvasWarningCheckbox)
+    toggleCanvasWarningSwitch(showCanvasWarningCheckbox)
+})
 
 function toggleSoundEffects() {
     soundEffects === true ? soundEffects = false :
@@ -124,6 +132,24 @@ function toggleSoundEffects() {
 function toggleKeyboardShortcutsDisplay() {
     keyboardShortcutsDisplay.style.display !== 'none' ? keyboardShortcutsDisplay.style.display = 'none' :
     keyboardShortcutsDisplay.style.display = 'block';
+}
+
+function toggleCanvasWarning(checkbox) {
+    if (checkbox.checked === false) {
+        showCanvasWarning = false
+        console.log(`Generate new canvas warning ${showCanvasWarning}.\nGo to settings to re-enable.`)
+    } else if (checkbox.checked === true) {
+        showCanvasWarning = true
+        console.log(`Generate new canvas warning ${showCanvasWarning}.`)
+    }
+}
+
+function toggleCanvasWarningSwitch(checkbox) {
+    if (checkbox.checked === true) {
+        checkbox.checked = false;
+    } else if (checkbox.checked === false) {
+        checkbox.checked = true;
+    }
 }
 
 // grid generation
@@ -287,12 +313,12 @@ const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-butto
 const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
 const showCanvasWarningCheckbox = document.querySelector('#warning-toggle');
 
-showCanvasWarningCheckbox.addEventListener('mousedown', toggleCanvasWarning)
+//
 
-function toggleCanvasWarning() {
-    showCanvasWarning === true ? showCanvasWarning = false :
-    showCanvasWarning = true;
-}
+showCanvasWarningCheckbox.addEventListener('mousedown', () => {
+    toggleCanvasWarning(showCanvasWarningCheckbox)
+    toggleCanvasWarningSwitch(settingShowCanvasWarningCheckbox)
+})
 
 function showConfirmCanvasDialog() {
     canvasOverlay.style.display = 'flex';
@@ -315,8 +341,10 @@ confirmNewCanvasButton.addEventListener('mousedown', () => {
     gridSizeDisplay.textContent = gridWidth;
     timeoutChangeGridSize()
 });
-cancelNewCanvasButton.addEventListener('mousedown', hideConfirmCanvasDialog);
-cancelNewCanvasButton.addEventListener('mousedown', playGridModeSound);
+cancelNewCanvasButton.addEventListener('mousedown', () => {
+    hideConfirmCanvasDialog(),
+    playGridModeSound();
+});
 
 function toggleGrid() {
     gridEnabled === true ? gridEnabled = false :
