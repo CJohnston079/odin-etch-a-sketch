@@ -12,7 +12,7 @@ let currentCellColour = canvasColour;
 let history = [];
 let showCanvasWarning = true;
 let maxGridSize = 32;
-let maxUndoLevels = 2
+let maxUndoLevels = 20;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -153,8 +153,8 @@ function toggleCanvasWarningSwitch(checkbox) {
 }
 
 const settingMaxGridSizeInput = document.querySelectorAll('.range-value')[0]
-const settingMaxUndoInput = document.querySelectorAll('.range-value')[1]
 const settingMaxGridSizeRange = document.querySelectorAll('.range-slider')[0]
+const settingMaxUndoInput = document.querySelectorAll('.range-value')[1]
 const settingMaxUndoRange = document.querySelectorAll('.range-slider')[1]
 
 settingMaxGridSizeInput.addEventListener('change', () => {
@@ -167,6 +167,14 @@ settingMaxGridSizeRange.addEventListener('input', () => {
     playGridSliderSound()
 });
 
+settingMaxUndoInput.addEventListener('change', () => {
+    setMaxInput(settingMaxUndoInput, settingMaxUndoRange, 1, 50);
+});
+settingMaxUndoRange.addEventListener('input', () => {
+    setMaxRange(settingMaxUndoInput, settingMaxUndoRange),
+    playGridSliderSound()
+});
+
 function setMaxInput(input, range, min, max) {
     if (input.value < min) {
         input.value = min;
@@ -174,18 +182,28 @@ function setMaxInput(input, range, min, max) {
     if (input.value > max) {
         input.value = max;
     }
-    if (input = settingMaxGridSizeInput) {
+    if (input === settingMaxGridSizeInput) {
         maxGridSize = input.value;
         range.value = maxGridSize;
         return maxGridSize
+    } else if (input === settingMaxUndoInput) {
+        maxUndoLevels = input.value;
+        range.value = maxUndoLevels;
+        maxUndoLevels = Number(maxUndoLevels) + 1;
+        return maxUndoLevels;
     }
 }
 
 function setMaxRange(input, range) {
-    if (input = settingMaxGridSizeInput) {
+    if (input === settingMaxGridSizeInput) {
         maxGridSize = range.value;
         input.value = maxGridSize;
         return maxGridSize
+    } else if (input === settingMaxUndoInput) {
+        maxUndoLevels = range.value;
+        input.value = maxUndoLevels;
+        maxUndoLevels = Number(maxUndoLevels) + 1;
+        return maxUndoLevels;
     }
 }
 
