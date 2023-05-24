@@ -12,6 +12,7 @@ let currentCellColour = canvasColour;
 let history = [];
 let showCanvasWarning = true;
 let maxGridSize = 32;
+let maxUndoLevels = 2
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -442,6 +443,9 @@ function storeCurrentCanvas() {
         currentCanvas.push(cell.style.backgroundColor)
     })
     history.push(currentCanvas)
+    if (history.length > maxUndoLevels) {
+        history.shift()
+    }
 }
 
 function undo() {
