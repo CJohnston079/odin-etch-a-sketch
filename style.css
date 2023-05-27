@@ -53,6 +53,7 @@ header {
     justify-content: center;
     align-items: center;
     height: 12vh;
+    height: 98vh;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
     transition: height 500ms;
