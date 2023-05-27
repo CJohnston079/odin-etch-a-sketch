@@ -32,6 +32,7 @@ const brushSound = document.querySelector('#audio-brush');
 const swapSound = document.querySelector('#audio-swap');
 const errorSound = document.querySelector('#audio-error');
 const saveSound = document.querySelector('#audio-save');
+const menuSound = document.querySelector('#audio-menu');
 
 const playGridSliderSound = () => {
     if (soundEffects === false) return
@@ -103,6 +104,12 @@ const playSaveSound = () => {
     if (soundEffects === false) return
     saveSound.currentTime = 0;
     saveSound.play(); 
+}
+
+const playMenuSound = () => {
+    if (soundEffects === false) return
+    menuSound.currentTime = 0;
+    menuSound.play(); 
 }
 
 // settings
@@ -220,6 +227,7 @@ const settingsArray = document.querySelectorAll('.setting');
 settingsButton.addEventListener('mousedown', toggleSettingsMenu)
 
 function toggleSettingsMenu() {
+    playMenuSound();
     if (showSettings === false) {
         settingsMenu.style.display = 'flex';
         setTimeout(() => {
