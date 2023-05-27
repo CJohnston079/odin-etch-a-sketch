@@ -127,21 +127,54 @@ header {
     gap: 0.2rem;
 }
 
-#settings-button {
+.corner-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     height: 6vh;
     width: 6vh;
     inset: 3vh 3vh auto auto;
-    padding: 1vh;
     background-color: white;
     border: solid var(--light-grey) 1px;
     border-radius: 100%;
+    transition: 200ms;
     cursor: pointer;
 }
 
+.corner-button:hover {
+    border: solid var(--dark-grey) 1px;
+}
+
+.corner-button:hover > .settings-icon {
+    background-image: url(./icons/icon-settings-active.svg);
+    animation: rotate-360 10s linear infinite;
+}
+
+.corner-button:hover > .close-icon {
+    background-image: url(./icons/icon-close-active.svg);
+    scale: 1.2;
+}
+
+.corner-icon {
+    height: 4vh;
+    width: 4vh;
+    background-repeat: no-repeat;
+    transition: background-image 200ms;
+}
+
+.settings-icon {
+    background-image: url(./icons/icon-settings-inactive.svg);
+}
+
+.close-icon {
+    background-image: url(./icons/icon-close-inactive.svg);
+    transition: scale 100ms;
+}
+
 #settings {
-    max-height: 0%;
     display: none;
+    max-height: 0%;
     transition: 400ms;
 }
 

@@ -13,11 +13,12 @@
     </head>
     <body>
         <header class="header">
-            <button id="settings-button">
-                <img src="./images/pixel-painter-settings.svg">
+            <button id="settings-button" class="corner-button">
+                <div class="corner-icon close-icon" title="Settings (Esc)">
+                </div>
             </button>
             <img id="title" src="./images/pixel-painter-heading.svg">
-            <div id="settings" class="inactive">
+            <div id="settings">
                 <ul>
                     <li class="setting">Toggle sound effects:</li>
                     <li class="setting">Show keyboard shortcuts:</li>
@@ -178,7 +179,7 @@
                     <img id="flood-fill" class="tool" src="icons/icon-flood-fill.svg" title="Flood fill (F)&#013;Right click to toggle fill/erase mode (Ctrl + F)">
                     <div id="brush-seven" class="tool brush" style="background-color: hsl(240, 100%, 50%);" title="Colour swatch seven (7)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
-                    <img id="colour-picker" class="tool" src="icons/icon-colour-picker.svg" title="Colour picker (P)">
+                    <img id="colour-picker" class="tool" src="icons/icon-colour-picker.svg" title="Colour picker (I)">
                     <div id="brush-eight" class="tool brush" style="background-color: hsl(300, 100%, 50%);" title="Colour swatch eight (8)&#013;Right click to show palette" oncontextmenu="return false;">
                     </div>
                     <img id="download" class="tool" src="icons/icon-download.svg" title="Download artwork (Ctrl + S)">
@@ -214,7 +215,7 @@
                     <li><span class ='key'>+</span> Lighten brush</li>
                     <li><span class ='key'>-</span> Darken brush</li>
                     <li><span class ='key'>f</span> Flood fill tool</li>
-                    <li><span class ='key'>p</span> Colour picker tool</li>
+                    <li><span class ='key'>i</span> Colour picker tool</li>
                     <li><span class ='key'>'</span> Toggle gridlines on/off</li>
                     <li><span class ='key'>#</span> Toggle grid mode light/dark</li>
                     <li><span class ='key ctrl'>Ctrl</span>+<span class ='key'>f</span> Toggle flood fill/flood erase</li>
