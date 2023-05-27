@@ -1171,6 +1171,9 @@ function enableActiveCell() {
 }
 
 function activateKeyboardShortcut(e) {
+    if (e.keyCode === 27) {
+        toggleSettingsMenu()
+    }
     if (showSettings === true) return
     let activeCell = document.querySelector('#active');
     if (activeCell !== null) {
