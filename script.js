@@ -1239,7 +1239,7 @@ function activateKeyboardShortcut(e) {
                 animateFloodIcon();
             }
         break
-        case "p":
+        case "i":
             if (activeToolElement === colourPickerToolElement) return
             selectActiveTool(colourPickerToolElement)
             enableColourPicker()
