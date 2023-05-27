@@ -112,6 +112,21 @@ const playMenuSound = () => {
     menuSound.play(); 
 }
 
+// intro
+
+const introKeyframes = document.querySelectorAll('.intro-keyframe')
+
+function titleIntro() {
+    for (let i = 0; i < introKeyframes.length; i++) {
+        introKeyframes[i].style.animation = '';
+        introKeyframes[i].style.opacity = 0;
+        setTimeout(() => {
+            introKeyframes[i].style.animation = 'fade 2000ms';
+            introKeyframes[i].style.opacity = 1;
+        }, i*300)
+    }
+}
+
 // settings
 
 let soundEffects = true;

@@ -497,6 +497,20 @@ input:checked + .switch:before {
     border: solid var(--dark-grey) 0.5px;
 }
 
+.intro-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-keyframe {
+    position: absolute;
+    width: 40rem;
+    margin: 1.5rem;
+    opacity: 0;
+}
+
 @keyframes zoom-in {
     0% {transform: scale(0)}
     100% {transform: scale(1)}
