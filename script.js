@@ -211,6 +211,22 @@ function updateMaxGridSize() {
     gridSlider.max = maxGridSize;
 }
 
+const header = document.querySelector('.header')
+const settingsMenu = document.querySelector('#settings');
+const settingsButton = document.querySelector('#settings-button');
+
+settingsButton.addEventListener('mousedown', toggleSettingsMenu)
+
+function toggleSettingsMenu() {
+    if (settingsMenu.style.display === 'none') {
+        settingsMenu.style.display = 'flex';
+        header.style.height = '98vh';        
+    } else {
+        settingsMenu.style.display = 'none';
+        header.style.height = '12vh';
+    }
+}
+
 // grid generation
 
 decreaseGridSizeElement.addEventListener('mousedown', decreaseGridSize)
