@@ -221,10 +221,12 @@ function updateMaxGridSize() {
 
 const header = document.querySelector('.header')
 const settingsMenu = document.querySelector('#settings');
-const settingsButton = document.querySelector('#settings-button');
 const settingsArray = document.querySelectorAll('.setting');
+const settingsButton = document.querySelector('#settings-button');
+const settingsIcon = document.querySelector('.corner-icon')
 
 settingsButton.addEventListener('mousedown', toggleSettingsMenu)
+settingsButton.addEventListener('mousedown', toggleSettingsIcon)
 
 function toggleSettingsMenu() {
     playMenuSound();
@@ -255,6 +257,20 @@ function showSettingElements() {
             settingsArray[i].style.animation = 'fade-up 400ms linear';
             settingsArray[i].style.opacity = 1;
         }, Math.floor(i%5)*100)
+    }
+}
+
+function toggleSettingsIcon() {
+    settingsIcon.style.animation = 'grow 200ms linear';
+    setTimeout(() => {
+        settingsIcon.style.animation = '';
+    }, 200)
+    if (showSettings === true) {
+        settingsIcon.classList.remove('settings-icon')
+        settingsIcon.classList.add('close-icon')
+    } else {
+        settingsIcon.classList.add('settings-icon')
+        settingsIcon.classList.remove('close-icon') 
     }
 }
 
@@ -1172,7 +1188,8 @@ function enableActiveCell() {
 
 function activateKeyboardShortcut(e) {
     if (e.keyCode === 27) {
-        toggleSettingsMenu()
+        toggleSettingsMenu(),
+        toggleSettingsIcon();
     }
     if (showSettings === true) return
     let activeCell = document.querySelector('#active');
