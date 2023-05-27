@@ -268,9 +268,11 @@ function toggleSettingsIcon() {
     if (showSettings === true) {
         settingsIcon.classList.remove('settings-icon')
         settingsIcon.classList.add('close-icon')
+        settingsIcon.title = 'Close (Esc)'
     } else {
         settingsIcon.classList.add('settings-icon')
         settingsIcon.classList.remove('close-icon') 
+        settingsIcon.title = 'Settings (Esc)'
     }
 }
 
