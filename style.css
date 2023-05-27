@@ -22,7 +22,7 @@ html {
 
 body {
     background-color: #F2F2F2;
-    /* overflow: hidden; */ /* turn on when done */
+    overflow: hidden;
 }
 
 li {
