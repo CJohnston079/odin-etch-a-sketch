@@ -214,16 +214,35 @@ function updateMaxGridSize() {
 const header = document.querySelector('.header')
 const settingsMenu = document.querySelector('#settings');
 const settingsButton = document.querySelector('#settings-button');
+const settingsArray = document.querySelectorAll('.setting');
 
 settingsButton.addEventListener('mousedown', toggleSettingsMenu)
 
 function toggleSettingsMenu() {
     if (settingsMenu.style.display === 'none') {
         settingsMenu.style.display = 'flex';
-        header.style.height = '98vh';        
+        setTimeout(() => {
+            settingsMenu.style.maxHeight = '30%';
+        }, 100)
+        header.style.height = '98vh';
+        showSettingElements()
     } else {
-        settingsMenu.style.display = 'none';
+        setTimeout(() => {
+            settingsMenu.style.display = 'none';
+        }, 500)
+        settingsMenu.style.maxHeight = '';
         header.style.height = '12vh';
+    }
+}
+
+function showSettingElements() {
+    for (let i = 0; i < settingsArray.length; i++) {
+        settingsArray[i].style.animation = '';
+        settingsArray[i].style.opacity = 0;
+        setTimeout(() => {
+            settingsArray[i].style.animation = 'fade-up 400ms linear';
+            settingsArray[i].style.opacity = 1;
+        }, Math.floor(i%5)*100)
     }
 }
 

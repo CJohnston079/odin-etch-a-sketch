@@ -53,7 +53,6 @@ header {
     justify-content: center;
     align-items: center;
     height: 12vh;
-    /* height: 98vh; */
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
     transition: height 500ms;
@@ -141,7 +140,9 @@ header {
 }
 
 #settings {
+    max-height: 0%;
     display: none;
+    transition: 400ms;
 }
 
 #settings ul {
@@ -160,6 +161,7 @@ header {
     font-size: 1.2rem;
     font-weight: 300;
     color: var(--dark-grey);
+    /* animation: fade-up 500ms; */
 }
 
 #settings ul:first-of-type li {
@@ -476,6 +478,16 @@ input:checked + .switch:before {
 @keyframes fade {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+
+@keyframes fade-up {
+    0% {transform: translateY(2rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0rem);
+        opacity: 100%;
+    }
 }
 
 @keyframes rotate-360 {

@@ -13,42 +13,42 @@
     </head>
     <body>
         <header class="header">
-            <img id="title" src="./images/pixel-painter-heading.svg">
             <button id="settings-button">
                 <img src="./images/pixel-painter-settings.svg">
             </button>
-            <div id="settings">
+            <img id="title" src="./images/pixel-painter-heading.svg">
+            <div id="settings" class="inactive">
                 <ul>
-                    <li>Toggle sound effects:</li>
-                    <li>Show keyboard shortcuts:</li>
-                    <li>Show warning before generating new canvas:</li>
-                    <li>Maximum canvas size:</li>
-                    <li>Maximum undo levels:</li>
+                    <li class="setting">Toggle sound effects:</li>
+                    <li class="setting">Show keyboard shortcuts:</li>
+                    <li class="setting">Show warning before generating new canvas:</li>
+                    <li class="setting">Maximum canvas size:</li>
+                    <li class="setting">Maximum undo levels:</li>
                 </ul>
                 <ul>
-                    <li>
+                    <li class="setting">
                         <label class="switch-container">
                             <input type="checkbox" checked>
                             <span class="switch"></span>
                         </label>
                     </li>
-                    <li>
+                    <li class="setting">
                         <label class="switch-container">
                             <input type="checkbox" checked>
                             <span class="switch"></span>
                         </label>
                     </li>
-                    <li>
+                    <li class="setting">
                         <label class="switch-container">
                             <input type="checkbox" checked>
                             <span class="switch"></span>
                         </label>
                     </li>
-                    <li class="range-container">
+                    <li class="setting range-container">
                         <input class="range-value" type="number" name="max-canvas-size" value="32" min="8" max="64">
                         <input class="range-slider" type="range" min="8" max="64" value="32">
                     </li>
-                    <li class="range-container">
+                    <li class="setting range-container">
                         <input class="range-value" type="number" name="max-undo-actions" value="20" min="1" max="40">
                         <input class="range-slider" type="range" min="1" max="50" value="20">
                     </li>
