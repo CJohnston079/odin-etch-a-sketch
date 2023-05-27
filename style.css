@@ -53,7 +53,7 @@ header {
     justify-content: center;
     align-items: center;
     height: 12vh;
-    height: 98vh;
+    /* height: 98vh; */
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 -4px 8px var(--light-grey) inset;
     transition: height 500ms;
@@ -128,8 +128,20 @@ header {
     gap: 0.2rem;
 }
 
+#settings-button {
+    position: fixed;
+    height: 6vh;
+    width: 6vh;
+    inset: 3vh 3vh auto auto;
+    padding: 1vh;
+    background-color: white;
+    border: solid var(--light-grey) 1px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
 #settings {
-    display: flex;
+    display: none;
 }
 
 #settings ul {
