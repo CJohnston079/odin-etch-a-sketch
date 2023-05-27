@@ -13,6 +13,7 @@ let history = [];
 let showCanvasWarning = true;
 let maxGridSize = 32;
 let maxUndoLevels = 20;
+let showSettings = false;
 
 const gridSlider = document.querySelector('#canvas-size-slider');
 const gridSizeDisplay = document.querySelector('#canvas-size-display');
@@ -163,17 +164,17 @@ settingMaxGridSizeInput.addEventListener('change', () => {
 });
 settingMaxGridSizeRange.addEventListener('input', () => {
     setMaxRange(settingMaxGridSizeInput, settingMaxGridSizeRange),
-    updateMaxGridSize(),
-    playGridSliderSound()
+    updateMaxGridSize();
 });
+settingMaxGridSizeRange.addEventListener('change', playGridSliderSound)
 
 settingMaxUndoInput.addEventListener('change', () => {
     setMaxInput(settingMaxUndoInput, settingMaxUndoRange, 1, 50);
 });
 settingMaxUndoRange.addEventListener('input', () => {
-    setMaxRange(settingMaxUndoInput, settingMaxUndoRange),
-    playGridSliderSound()
+    setMaxRange(settingMaxUndoInput, settingMaxUndoRange);
 });
+settingMaxUndoRange.addEventListener('change', playGridSliderSound)
 
 function setMaxInput(input, range, min, max) {
     if (input.value < min) {
@@ -219,20 +220,23 @@ const settingsArray = document.querySelectorAll('.setting');
 settingsButton.addEventListener('mousedown', toggleSettingsMenu)
 
 function toggleSettingsMenu() {
-    if (settingsMenu.style.display === 'none') {
+    if (showSettings === false) {
         settingsMenu.style.display = 'flex';
         setTimeout(() => {
             settingsMenu.style.maxHeight = '30%';
         }, 100)
         header.style.height = '98vh';
         showSettingElements()
+        showSettings = true;
     } else {
         setTimeout(() => {
             settingsMenu.style.display = 'none';
         }, 500)
         settingsMenu.style.maxHeight = '';
         header.style.height = '12vh';
+        showSettings = false;
     }
+    return showSettings;
 }
 
 function showSettingElements() {
@@ -1159,7 +1163,7 @@ function enableActiveCell() {
 }
 
 function activateKeyboardShortcut(e) {
-    if (settings === true) return
+    if (showSettings === true) return
     let activeCell = document.querySelector('#active');
     if (activeCell !== null) {
         restoreCellColours(activeCell);
