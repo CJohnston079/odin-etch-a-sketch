@@ -435,7 +435,7 @@ function hideGridSlider() {
 const canvasOverlay = document.querySelector('#canvas-overlay');
 const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-button');
 const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
-const showCanvasWarningCheckbox = document.querySelector('#warning-toggle');
+const showCanvasWarningCheckbox = document.querySelector('#warning-toggle-container');
 
 //
 
