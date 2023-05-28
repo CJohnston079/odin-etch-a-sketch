@@ -266,6 +266,42 @@ input:checked + .switch:before {
     transform: translateX(0.5rem);
 }
 
+.intro-message {
+    width: 40rem;
+    padding: 2rem;
+    color: hsl(0, 0%, 25%);
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    animation: fade-delay 8000ms;
+}
+
+.line {
+    width: 40rem;
+    border-top: solid hsl(0, 0%, 90%) 1px;
+    animation: scaleX 4000ms;
+}
+
+.title-container {
+    height: 12vh;
+    margin: 1rem;
+}
+
+.intro-keyframe {
+    position: absolute;
+    width: 40rem;
+    margin: 1.5rem;
+    opacity: 0;
+}
+
+.title-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #title {
     width: 40rem;
     margin: 1.5rem;
@@ -497,18 +533,8 @@ input:checked + .switch:before {
     border: solid var(--dark-grey) 0.5px;
 }
 
-.title-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.intro-keyframe {
-    position: absolute;
-    width: 40rem;
-    margin: 1.5rem;
-    opacity: 0;
+.hidden {
+    display: none;
 }
 
 @keyframes zoom-in {
@@ -525,6 +551,18 @@ input:checked + .switch:before {
 @keyframes fade {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+
+@keyframes fade-delay {
+    0% {opacity: 0;}
+    25% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes scaleX {
+    0% {scale: 0 1;}
+    50% {scale: 0 1;}
+    100% {scale: 1 1;}
 }
 
 @keyframes fade-up {

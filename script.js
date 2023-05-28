@@ -126,13 +126,15 @@ function animateTitle() {
         }, i*200)
         setTimeout(() => {
             if (i === 4) {
-                introKeyframes[i].classList.remove('intro-keyframe');
+                // introKeyframes[i].classList.remove('intro-keyframe');
                 return
             }
             introKeyframes[i].remove()
         }, i*200+2000)
     }
 }
+
+animateTitle()
 
 // settings
 
