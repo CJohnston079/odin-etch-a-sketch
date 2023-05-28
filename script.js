@@ -114,7 +114,8 @@ const playMenuSound = () => {
 
 // intro
 
-const introKeyframes = document.querySelectorAll('.intro-keyframe')
+const introKeyframes = document.querySelectorAll('.intro-keyframe');
+const introMessage = document.querySelector('#intro-message-container');
 
 function animateTitle() {
     for (let i = 0; i < introKeyframes.length; i++) {
@@ -126,7 +127,7 @@ function animateTitle() {
         }, i*200)
         setTimeout(() => {
             if (i === 4) {
-                // introKeyframes[i].classList.remove('intro-keyframe');
+                introKeyframes[i].classList.remove('intro-keyframe');
                 return
             }
             introKeyframes[i].remove()
@@ -135,6 +136,25 @@ function animateTitle() {
 }
 
 animateTitle()
+
+document.addEventListener('mousedown', closeTitleScreen)
+document.addEventListener('keydown', closeTitleScreen)
+
+function closeTitleScreen() {
+    header.style.height = '12vh';
+    settingsMenu.style.maxHeight = '0%';
+    settingsButton.classList.remove('hidden')
+    settingsButton.style.animation = 'fade 1000ms';
+    playMenuSound()
+    setTimeout(() => {
+        introMessage.remove()
+        console.log('Paint brush selected.')
+        generateGrid(gridSlider.value)
+    }, 200)
+    document.removeEventListener('mousedown', closeTitleScreen)
+    document.removeEventListener('keydown', closeTitleScreen)
+
+}
 
 // settings
 
@@ -1162,9 +1182,6 @@ function applyShadedColour(cell, r, g, b) {
 function logRgbValues(rgbValues) {
     console.log(`r = ${rgbValues[0] }, g = ${rgbValues[1] }, b = ${rgbValues[2] }`)
 }
-
-generateGrid(gridSlider.value)
-console.log('Paint brush selected.')
 
 // download artwork
 
