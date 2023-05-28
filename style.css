@@ -497,7 +497,7 @@ input:checked + .switch:before {
     border: solid var(--dark-grey) 0.5px;
 }
 
-.intro-container {
+.title-container {
     position: relative;
     display: flex;
     justify-content: center;

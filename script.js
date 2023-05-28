@@ -116,14 +116,21 @@ const playMenuSound = () => {
 
 const introKeyframes = document.querySelectorAll('.intro-keyframe')
 
-function titleIntro() {
+function animateTitle() {
     for (let i = 0; i < introKeyframes.length; i++) {
         introKeyframes[i].style.animation = '';
         introKeyframes[i].style.opacity = 0;
         setTimeout(() => {
             introKeyframes[i].style.animation = 'fade 2000ms';
             introKeyframes[i].style.opacity = 1;
-        }, i*300)
+        }, i*200)
+        setTimeout(() => {
+            if (i === 4) {
+                introKeyframes[i].classList.remove('intro-keyframe');
+                return
+            }
+            introKeyframes[i].remove()
+        }, i*200+2000)
     }
 }
 
