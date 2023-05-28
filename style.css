@@ -464,7 +464,7 @@ input:checked + .switch:before {
     position: absolute;
     margin-top: -0.8rem;
     margin-left: 1.3rem;
-    height: 2.9rem;
+    height: 3.2rem;
     width: 2rem;
     cursor: auto;
 }
