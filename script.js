@@ -176,7 +176,7 @@ settingDisplayShortcuts.addEventListener('mousedown', toggleKeyboardShortcutsDis
 settingShowCanvasWarning.addEventListener('input', () => {
     toggleCanvasWarning(settingShowCanvasWarningCheckbox)
     toggleCanvasWarningSwitch(showCanvasWarningCheckbox)
-})
+});
 
 function toggleSoundEffects() {
     soundEffects === true ? soundEffects = false :
@@ -189,11 +189,12 @@ function toggleKeyboardShortcutsDisplay() {
 }
 
 function toggleCanvasWarning(checkbox) {
-    if (checkbox.checked === false) {
+    if (showCanvasWarning === true) {
         showCanvasWarning = false
-    } else if (checkbox.checked === true) {
+    } else if (showCanvasWarning === false) {
         showCanvasWarning = true
     }
+    console.log(showCanvasWarning);
 }
 
 function toggleCanvasWarningSwitch(checkbox) {
@@ -481,12 +482,12 @@ const confirmNewCanvasButton = document.querySelector('#confirm-new-canvas-butto
 const cancelNewCanvasButton = document.querySelector('#cancel-new-canvas-button');
 const showCanvasWarningCheckbox = document.querySelector('#warning-toggle-container');
 
-//
+// note
 
 showCanvasWarningCheckbox.addEventListener('mousedown', () => {
     toggleCanvasWarning(showCanvasWarningCheckbox)
     toggleCanvasWarningSwitch(settingShowCanvasWarningCheckbox)
-})
+});
 
 function showConfirmCanvasDialog() {
     canvasOverlay.style.display = 'flex';
