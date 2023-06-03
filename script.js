@@ -194,7 +194,6 @@ function toggleCanvasWarning(checkbox) {
     } else if (showCanvasWarning === false) {
         showCanvasWarning = true
     }
-    console.log(showCanvasWarning);
 }
 
 function toggleCanvasWarningSwitch(checkbox) {
